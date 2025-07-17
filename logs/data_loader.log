@@ -1,0 +1,30 @@
+2025-07-16 17:08:47,085 - [root] - INFO - Starting data loading process...
+2025-07-16 17:08:47,086 - [root] - INFO - Processing: LLCP2020XPT.zip
+2025-07-16 17:08:47,086 - [root] - INFO - LLCP2020XPT.zip not found locally. Downloading...
+2025-07-16 17:08:47,086 - [root] - INFO - Navigating to URL: https://www.cdc.gov/brfss/annual_data/2020/files/LLCP2020XPT.zip
+2025-07-16 17:08:47,444 - [root] - INFO - Starting download: LLCP2020XPT.zip (65915.06 KB)
+2025-07-16 17:08:51,564 - [root] - INFO - Downloaded: LLCP2020XPT.zip -> /workspaces/diabetes-prediction/data/raw/zip/LLCP2020XPT.zip
+2025-07-16 17:08:51,564 - [root] - INFO - Attempting to extract zip file: /workspaces/diabetes-prediction/data/raw/zip/LLCP2020XPT.zip
+2025-07-16 17:08:51,565 - [root] - INFO - Extracting 'LLCP2020.XPT ' to /workspaces/diabetes-prediction/data/raw
+2025-07-16 17:09:02,012 - [root] - INFO - Renamed 'LLCP2020.XPT ' to 'brfss_2020.XPT'
+2025-07-16 17:09:02,044 - [root] - INFO - Extracted brfss_2020.XPT successfully
+2025-07-16 17:09:02,044 - [root] - INFO - Processing: LLCP2021XPT.zip
+2025-07-16 17:09:02,044 - [root] - INFO - LLCP2021XPT.zip not found locally. Downloading...
+2025-07-16 17:09:02,044 - [root] - INFO - Navigating to URL: https://www.cdc.gov/brfss/annual_data/2021/files/LLCP2021XPT.zip
+2025-07-16 17:09:02,319 - [root] - INFO - Starting download: LLCP2021XPT.zip (79684.58 KB)
+2025-07-16 17:09:06,853 - [root] - INFO - Downloaded: LLCP2021XPT.zip -> /workspaces/diabetes-prediction/data/raw/zip/LLCP2021XPT.zip
+2025-07-16 17:09:06,853 - [root] - INFO - Attempting to extract zip file: /workspaces/diabetes-prediction/data/raw/zip/LLCP2021XPT.zip
+2025-07-16 17:09:06,854 - [root] - INFO - Extracting 'LLCP2021.XPT ' to /workspaces/diabetes-prediction/data/raw
+2025-07-16 17:09:20,559 - [root] - INFO - Renamed 'LLCP2021.XPT ' to 'brfss_2021.XPT'
+2025-07-16 17:09:20,607 - [root] - INFO - Extracted brfss_2021.XPT successfully
+2025-07-16 17:09:20,608 - [root] - INFO - Processing: LLCP2022XPT.zip
+2025-07-16 17:09:20,608 - [root] - INFO - LLCP2022XPT.zip not found locally. Downloading...
+2025-07-16 17:09:20,608 - [root] - INFO - Navigating to URL: https://www.cdc.gov/brfss/annual_data/2022/files/LLCP2022XPT.zip
+2025-07-16 17:09:20,932 - [root] - INFO - Starting download: LLCP2022XPT.zip (82630.96 KB)
+2025-07-16 17:09:26,019 - [root] - INFO - Downloaded: LLCP2022XPT.zip -> /workspaces/diabetes-prediction/data/raw/zip/LLCP2022XPT.zip
+2025-07-16 17:09:26,020 - [root] - INFO - Attempting to extract zip file: /workspaces/diabetes-prediction/data/raw/zip/LLCP2022XPT.zip
+2025-07-16 17:09:26,021 - [root] - INFO - Extracting 'LLCP2022.XPT ' to /workspaces/diabetes-prediction/data/raw
+2025-07-16 17:09:40,565 - [root] - INFO - Renamed 'LLCP2022.XPT ' to 'brfss_2022.XPT'
+2025-07-16 17:09:40,612 - [root] - INFO - Extracted brfss_2022.XPT successfully
+2025-07-16 17:09:40,613 - [root] - INFO - Removing zip folder: /workspaces/diabetes-prediction/data/raw/zip
+2025-07-16 17:09:40,639 - [root] - INFO - Data loading completed successfully.
