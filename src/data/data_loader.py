@@ -2,7 +2,6 @@ import sys
 import requests
 import logging
 import os
-import pandas as pd
 import zipfile
 import shutil
 
@@ -36,17 +35,17 @@ class BrfssDataLoader:
         """
         self.chunk_size = chunk_size
         self.des_dir = des_dir
-        # Create folder to store data
+        # Create a folder to store data
         make_dirs(os.path.dirname(des_dir))
 
         # Log configuration
         self._log_file = log_file
         self.logger = logging.getLogger()
-        self.logger.setLevel(logging.INFO)
+        self.logger.setLevel(logging.DEBUG)
         log_formatter = logging.Formatter(log_format)
         # Handler log to file
         if self._log_file:
-            # Create log directory
+            # Create a log directory
             make_dirs(os.path.dirname(self._log_file))
             log_file_handler = logging.FileHandler(self._log_file)
             log_file_handler.setLevel(logging.INFO)
@@ -67,11 +66,11 @@ class BrfssDataLoader:
             self.logger.error(f"Failed to download {file_name} from {url}. Error: {e}")
             raise
 
-        # Get the size of file
+        # Get the size of a file
         total_size = int(response.headers.get("Content-Length", 0))
         self.logger.info(f"Starting download: {file_name} ({total_size / 1024:.2f} KB)")
 
-        # Write file to local and show download progress
+        # Write a file to local and show download progress
         try:
             with open(file_path, "wb") as file, tqdm(
                 desc=file_name,
@@ -135,7 +134,7 @@ class BrfssDataLoader:
                     # Extract the original file first
                     zip_ref.extract(original_file_name, self.des_dir)
                     
-                    # If filename needs to be cleaned up, rename the extracted file
+                    # If the filename needs to be cleaned up, rename the extracted file
                     if original_file_name != final_filename:
                         original_file_path = self.des_dir / original_file_name
                         os.rename(original_file_path, final_file_path)
@@ -169,7 +168,7 @@ class BrfssDataLoader:
             zip_file_name = url.split('/')[-1]
             zip_file_path = self.des_dir / "zip" / zip_file_name.strip()
 
-            # Get custom filename for extracted file
+            # Get a custom filename for an extracted file
             custom_filename = None
             if filenames and idx < len(filenames):
                 custom_filename = filenames[idx]
