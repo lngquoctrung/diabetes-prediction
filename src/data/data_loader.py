@@ -39,15 +39,14 @@ class BrfssDataLoader:
         make_dirs(os.path.dirname(des_dir))
 
         # Log configuration
-        self._log_file = log_file
-        self.logger = logging.getLogger()
+        self.logger = logging.getLogger(__name__)
         self.logger.setLevel(logging.DEBUG)
         log_formatter = logging.Formatter(log_format)
         # Handler log to file
-        if self._log_file:
+        if log_file:
             # Create a log directory
-            make_dirs(os.path.dirname(self._log_file))
-            log_file_handler = logging.FileHandler(self._log_file)
+            make_dirs(os.path.dirname(log_file))
+            log_file_handler = logging.FileHandler(log_file)
             log_file_handler.setLevel(logging.INFO)
             log_file_handler.setFormatter(log_formatter)
             self.logger.addHandler(log_file_handler)
