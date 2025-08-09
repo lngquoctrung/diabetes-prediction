@@ -1,9 +1,12 @@
-.venv
 data
 **/__pycache__
-text.txt
+**/.ipynb_checkpoints
 .idea
-run_jupyter_lab.sh
+.pytest_cache
+
 text
 README.md
-.pytest_cache
+run_jupyter_lab.sh
+text.txt
+
+.venv
