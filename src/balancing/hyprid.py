@@ -1,24 +1,24 @@
-import pandas as pd
-import numpy as np
-import logging
-import os
 import sys
 from pathlib import Path
-from imblearn.combine import SMOTETomek, SMOTEENN
-
 # Add the project path into the python path
 root_dir = str(Path(__file__).parent.parent.parent.absolute())
 if not root_dir in sys.path:
     sys.path.insert(0, root_dir)
 
+import pandas as pd
+import logging
+import os
+
+from imblearn.combine import SMOTETomek, SMOTEENN
 from src.config import LOG_FORMAT
 from src.utils import make_dirs
 
 
 class HybridSamplingBalancer:
-    """Class for hybrid sampling techniques (SMOTE + Under-sampling) to balance imbalanced datasets"""
+    """Class for hybrid sampling techniques (SMOTE and Under-sampling) to balance imbalanced datasets"""
 
-    def __init__(self, log_file: str | None = None, log_format: str | None = LOG_FORMAT):
+    def __init__(self, log_file: str | None = None,
+                 log_format: str | None = LOG_FORMAT):
         """
         Constructor of HybridSamplingBalancer class
 
@@ -33,10 +33,8 @@ class HybridSamplingBalancer:
         self.logger = logging.getLogger(__name__)
         self.logger.setLevel(logging.DEBUG)
         log_formatter = logging.Formatter(log_format)
-
         # Clear existing handlers to avoid duplicate logs
         self.logger.handlers.clear()
-
         # Handler log to file
         if log_file:
             # Create a log directory
@@ -45,7 +43,6 @@ class HybridSamplingBalancer:
             log_file_handler.setLevel(logging.INFO)
             log_file_handler.setFormatter(log_formatter)
             self.logger.addHandler(log_file_handler)
-
         # Handler log to console
         log_console_handler = logging.StreamHandler()
         log_console_handler.setLevel(logging.INFO)
@@ -59,7 +56,7 @@ class HybridSamplingBalancer:
         Apply SMOTETomek hybrid sampling to balance the dataset
 
         SMOTETomek combines SMOTE over-sampling with Tomek links under-sampling:
-        1. First applies SMOTE to over-sample minority classes
+        1. First, applies SMOTE to over-sample minority classes
         2. Then applies Tomek links to remove noisy and borderline samples
 
         Parameters
@@ -138,7 +135,7 @@ class HybridSamplingBalancer:
         Apply SMOTEENN hybrid sampling to balance the dataset
 
         SMOTEENN combines SMOTE over-sampling with Edited Nearest Neighbors under-sampling:
-        1. First applies SMOTE to over-sample minority classes
+        1. First, applies SMOTE to over-sample minority classes
         2. Then applies ENN to remove samples that differ from their neighbors
 
         Parameters

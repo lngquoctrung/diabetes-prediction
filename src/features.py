@@ -1,17 +1,16 @@
 import sys
-import logging
-import os
 from pathlib import Path
-from sklearn.preprocessing import LabelEncoder
-
 # Add the project path into the python path
 root_dir = str(Path(__file__).parent.parent.parent.absolute())
 if not root_dir in sys.path:
     sys.path.insert(0, root_dir)
 
+import logging
+import os
+
+from sklearn.preprocessing import LabelEncoder
 from src.config import LOG_FORMAT
 from src.utils import make_dirs
-
 
 class DiabetesFeatureEngineering:
     """Class for comprehensive feature engineering on diabetes dataset"""
@@ -31,7 +30,8 @@ class DiabetesFeatureEngineering:
         self.logger = logging.getLogger(__name__)
         self.logger.setLevel(logging.DEBUG)
         log_formatter = logging.Formatter(log_format)
-
+        # Clear existing handlers to avoid duplicate logs
+        self.logger.handlers.clear()
         # Handler log to file
         if log_file:
             # Create a log directory
@@ -40,7 +40,6 @@ class DiabetesFeatureEngineering:
             log_file_handler.setLevel(logging.INFO)
             log_file_handler.setFormatter(log_formatter)
             self.logger.addHandler(log_file_handler)
-
         # Handler log to console
         log_console_handler = logging.StreamHandler()
         log_console_handler.setLevel(logging.INFO)
@@ -100,7 +99,7 @@ class DiabetesFeatureEngineering:
         Returns
         -------
             pandas.DataFrame
-                Dataframe without duplicate rows
+                The Dataframe without duplicate rows
         """
         self.logger.info("Starting duplicate removal process...")
 
@@ -130,9 +129,9 @@ class DiabetesFeatureEngineering:
 
         return df_clean
 
-    def handle_outliers(self, df, columns_to_clean=['BMI', 'MentHlth', 'PhysHlth']):
+    def handle_outliers(self, df, columns_to_clean=None):
         """
-        Handle outliers for specified columns within each Diabetes group using IQR method
+        Handle outliers for specified columns within each Diabetes group using the IQR method
 
         Parameters
         ----------
@@ -144,8 +143,10 @@ class DiabetesFeatureEngineering:
         Returns
         -------
             pandas.DataFrame
-                Dataframe with outliers handled
+                The Dataframe with outliers handled
         """
+        if columns_to_clean is None:
+            columns_to_clean = ['BMI', 'MentHlth', 'PhysHlth']
         self.logger.info("Starting outlier handling process...")
         self.logger.info(f"Columns to process: {columns_to_clean}")
 
@@ -187,7 +188,7 @@ class DiabetesFeatureEngineering:
                     df_clean.loc[mask & (df[col] < lower_bound), col] = lower_bound
                     df_clean.loc[mask & (df[col] > upper_bound), col] = upper_bound
             else:
-                # Handle outliers for entire column if no Diabetes_012 column
+                # Handle outliers for the entire column if no Diabetes_012 column
                 Q1 = df[col].quantile(0.25)
                 Q3 = df[col].quantile(0.75)
                 IQR = Q3 - Q1
@@ -250,7 +251,7 @@ class DiabetesFeatureEngineering:
 
     def create_risk_score(self, df):
         """
-        Create risk score feature based on HighBP, HighChol, HeartDiseaseorAttack, and Stroke
+        Create a risk score feature based on HighBP, HighChol, HeartDiseaseorAttack, and Stroke
 
         Parameters
         ----------
@@ -260,7 +261,7 @@ class DiabetesFeatureEngineering:
         Returns
         -------
             pandas.DataFrame
-                Dataframe with RiskScore feature added
+                The Dataframe with RiskScore feature added
         """
         self.logger.info("Creating risk score feature...")
 
@@ -286,7 +287,7 @@ class DiabetesFeatureEngineering:
 
     def create_lifestyle_score(self, df):
         """
-        Create lifestyle score feature based on PhysActivity and other lifestyle factors
+        Create a lifestyle score feature based on PhysActivity and other lifestyle factors
 
         Parameters
         ----------
@@ -296,7 +297,7 @@ class DiabetesFeatureEngineering:
         Returns
         -------
             pandas.DataFrame
-                Dataframe with LifestyleScore feature added
+                The Dataframe with LifestyleScore feature added
         """
         self.logger.info("Creating lifestyle score feature...")
 
@@ -381,49 +382,9 @@ class DiabetesFeatureEngineering:
 
         return df_new
 
-    def create_healthy_lifestyle(self, df):
-        """
-        Create healthy lifestyle feature combining positive and negative lifestyle factors
-
-        Parameters
-        ----------
-            df: pandas.DataFrame
-                Input dataframe
-
-        Returns
-        -------
-            pandas.DataFrame
-                Dataframe with HealthyLifestyle feature added
-        """
-        self.logger.info("Creating healthy lifestyle feature...")
-
-        df_new = df.copy()
-
-        # Positive factors (excluding Fruits and Veggies)
-        positive_factors = ['PhysActivity']
-        available_positive = [col for col in positive_factors if col in df.columns]
-
-        # Negative factors
-        negative_factors = ['HvyAlcoholConsump', 'Smoker']
-        available_negative = [col for col in negative_factors if col in df.columns]
-
-        if available_positive or available_negative:
-            positive_score = df_new[available_positive].sum(axis=1) if available_positive else 0
-            negative_score = df_new[available_negative].sum(axis=1) if available_negative else 0
-
-            df_new['HealthyLifestyle'] = positive_score - negative_score
-
-            self.logger.info(
-                f"Healthy lifestyle feature created using {len(available_positive)} positive and {len(available_negative)} negative factors")
-            self.logger.info(f"Range: [{df_new['HealthyLifestyle'].min()}, {df_new['HealthyLifestyle'].max()}]")
-        else:
-            self.logger.warning("No columns available for healthy lifestyle feature creation.")
-
-        return df_new
-
     def create_bmi_category(self, df):
         """
-        Create BMI category feature based on WHO standards
+        Create a BMI category feature based on WHO standards
 
         Parameters
         ----------
@@ -433,7 +394,7 @@ class DiabetesFeatureEngineering:
         Returns
         -------
             pandas.DataFrame
-                Dataframe with BMICategory feature added
+                The Dataframe with BMICategory feature added
         """
         self.logger.info("Creating BMI category feature...")
 
@@ -469,7 +430,7 @@ class DiabetesFeatureEngineering:
 
     def create_age_group(self, df):
         """
-        Create age group feature
+        Create an age group feature
 
         Parameters
         ----------
@@ -479,7 +440,7 @@ class DiabetesFeatureEngineering:
         Returns
         -------
             pandas.DataFrame
-                Dataframe with AgeGroup feature added
+                The Dataframe with AgeGroup feature added
         """
         self.logger.info("Creating age group feature...")
 
@@ -551,7 +512,7 @@ class DiabetesFeatureEngineering:
 
     def feature_selection(self, df, target_col='Diabetes', corr_threshold=0.1):
         """
-        Select features based on correlation with target variable
+        Select features based on correlation with the target variable
 
         Parameters
         ----------
@@ -560,12 +521,12 @@ class DiabetesFeatureEngineering:
             target_col: str
                 Name of target column
             corr_threshold: float
-                Correlation threshold for feature selection
+                The correlation threshold for feature selection
 
         Returns
         -------
             list
-                List of selected feature names (including target column)
+                The list of selected feature names (including target column)
         """
         self.logger.info("Starting feature selection process...")
         self.logger.info(f"Target column: {target_col}")
@@ -575,16 +536,16 @@ class DiabetesFeatureEngineering:
             self.logger.error(f"Target column '{target_col}' not found in dataframe")
             return df.columns.tolist()
 
-        # Calculate correlations with target
+        # Calculate correlations with a target
         correlations = df.corr()[target_col]
         correlations = correlations.drop(target_col)
 
         # Get absolute correlations
         abs_correlations = abs(correlations)
 
-        # Select features above threshold
+        # Select features above a threshold
         selected_features = abs_correlations[abs_correlations > corr_threshold].index.tolist()
-        selected_features.append(target_col)  # Add target column back
+        selected_features.append(target_col)  # Add the target column back
 
         self.logger.info(f"Selected {len(selected_features) - 1} features (+ target column)")
         self.logger.info("Selected features and their correlations:")
@@ -596,7 +557,7 @@ class DiabetesFeatureEngineering:
         return selected_features
 
     def process_all(self, df, target_col='Diabetes', corr_threshold=0.1,
-                    columns_to_clean=['BMI', 'MentHlth', 'PhysHlth']):
+                    columns_to_clean=None):
         """
         Execute all feature engineering steps
 
@@ -607,15 +568,17 @@ class DiabetesFeatureEngineering:
             target_col: str
                 Name of target column
             corr_threshold: float
-                Correlation threshold for feature selection
+                The correlation threshold for feature selection
             columns_to_clean: list
                 List of columns to handle outliers for
 
         Returns
         -------
             tuple: (pandas.DataFrame, dict, list)
-                Processed dataframe, encoders dictionary, and selected features list
+                Processed dataframe, encoder dictionary, and selected features list
         """
+        if columns_to_clean is None:
+            columns_to_clean = ['BMI', 'MentHlth', 'PhysHlth']
         self.logger.info("=" * 60)
         self.logger.info("STARTING COMPLETE FEATURE ENGINEERING PIPELINE")
         self.logger.info("=" * 60)

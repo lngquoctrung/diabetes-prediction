@@ -1,6 +1,5 @@
 import sys
 from pathlib import Path
-
 root_path = str(Path(__file__).parent.parent.absolute())
 if not root_path in sys.path:
     sys.path.insert(0, root_path)
@@ -8,7 +7,7 @@ if not root_path in sys.path:
 import os
 import shutil
 
-from src.data.data_loader import BrfssDataLoader
+from src.data import BrfssDataLoader
 from src.config import (
     BRFSS_17_FILENAME,
     BRFSS_19_FILENAME,

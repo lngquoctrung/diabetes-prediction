@@ -45,6 +45,7 @@ UNDER_SAMPLING_STRATEGY = {
 
 # ===== Model =====
 RANDOM_STATE = 42
+N_JOBS = -1
 # SGD Classifier
 SGD_LOSS = "log_loss"
 SGD_PENALTY = "l2"
@@ -55,8 +56,10 @@ SGD_LEARNING_RATE = "constant"
 # Logistic regression
 LR_C = 1.0
 LR_PENALTY = "l2"
-LR_SOLVER = "lbfgs"
+LR_CLASS_WEIGHT = None
+LR_SOLVER = "saga"
 LR_MAX_ITER = 100
+LR_VERBOSE = 0
 
 # Random Forest
 RF_N_ESTIMATORS = 100

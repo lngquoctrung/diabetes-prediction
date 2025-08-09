@@ -1,5 +1,9 @@
 .venv
-data/raw
+data
 **/__pycache__
 text.txt
 .idea
+run_jupyter_lab.sh
+text
+README.md
+.pytest_cache

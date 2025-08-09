@@ -9,7 +9,7 @@ import os
 import shutil
 import pandas as pd
 
-from src.data.data_loader import BrfssDataLoader
+from src.data import BrfssDataLoader, BrfssDataFiltering
 from src.config import (
     BRFSS_17_FILENAME,
     BRFSS_19_FILENAME,
@@ -23,12 +23,11 @@ from src.config import (
     PROCESSED_DATA_DIR,
     BRFSS_FILTERING_FILE_PATH,
 )
-from src.data.data_filtering import DataFiltering
 from src.utils import make_dirs
 
 def test_data_filtering():
     log_file = "./logs/test_data_filtering.log"
-    data_filtering = DataFiltering(log_file=log_file)
+    brfss_data_filtering = BrfssDataFiltering(log_file=log_file)
 
     # Create processed data directory
     make_dirs(PROCESSED_DATA_DIR)
@@ -59,7 +58,7 @@ def test_data_filtering():
     for year, file_path in file_paths.items():
 
         # Load and filter data
-        filtered_df = data_filtering.select_features(file_path, dropna=True)
+        filtered_df = brfss_data_filtering.select_features(file_path, dropna=True)
 
         if filtered_df is None:
             continue

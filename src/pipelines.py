@@ -1,10 +1,7 @@
 # Add the project path into the python path
 import sys
 from pathlib import Path
-
-from scipy.signal import dfreqresp
-
-root_dir = str(Path(__file__).parent.parent.parent.absolute())
+root_dir = str(Path(__file__).parent.parent.absolute())
 if not root_dir in sys.path:
     sys.path.insert(0, root_dir)
 
@@ -18,9 +15,7 @@ from src.config import (
     BRFSS_17_FILENAME, BRFSS_19_FILENAME, BRFSS_21_FILENAME,
     BRFSS_FILTERING_FILE_PATH, PROCESSED_DATA_DIR
 )
-
-from src.data.data_loader import BrfssDataLoader
-from src.data.data_filtering import DataFiltering
+from src.data import BrfssDataLoader, BrfssDataFiltering
 from src.utils import make_dirs
 
 class DataPipeline:
@@ -31,6 +26,8 @@ class DataPipeline:
         self.logger = logging.getLogger(__name__)
         self.logger.setLevel(logging.DEBUG)
         log_formatter = logging.Formatter(log_format)
+        # Clear existing handlers to avoid duplicate logs
+        self.logger.handlers.clear()
         # Handler log to file
         if log_file:
             # Create a log directory
@@ -45,8 +42,10 @@ class DataPipeline:
         log_console_handler.setFormatter(log_formatter)
         self.logger.addHandler(log_console_handler)
 
+        self.logger.info("DataPipeline initialized successfully")
+
         # Initialize components
-        self.data_filtering = DataFiltering(log_file=log_file)
+        self.brfss_data_filtering = BrfssDataFiltering(log_file=log_file)
 
     def run_pipeline(self):
         """Run the complete data pipeline"""
@@ -82,7 +81,7 @@ class DataPipeline:
             self.logger.info(f"Loading raw data for {year}")
 
             # Load and filter data
-            filtered_df = self.data_filtering.select_features(file_path, dropna=True)
+            filtered_df = self.brfss_data_filtering.select_features(file_path, dropna=True)
 
             if filtered_df is None:
                 self.logger.error(f"Failed to filter data from {file_path}")

@@ -1,16 +1,15 @@
-import pandas as pd
-import numpy as np
-import logging
-import os
 import sys
 from pathlib import Path
-from imblearn.under_sampling import RandomUnderSampler, TomekLinks
-
 # Add the project path into the python path
 root_dir = str(Path(__file__).parent.parent.parent.absolute())
 if not root_dir in sys.path:
     sys.path.insert(0, root_dir)
 
+import pandas as pd
+import logging
+import os
+
+from imblearn.under_sampling import RandomUnderSampler, TomekLinks
 from src.config import LOG_FORMAT
 from src.utils import make_dirs
 
@@ -18,7 +17,8 @@ from src.utils import make_dirs
 class UnderSamplingBalancer:
     """Class for under-sampling techniques to balance imbalanced datasets"""
 
-    def __init__(self, log_file: str | None = None, log_format: str | None = LOG_FORMAT):
+    def __init__(self, log_file: str | None = None,
+                 log_format: str | None = LOG_FORMAT):
         """
         Constructor of UnderSamplingBalancer class
 
@@ -33,10 +33,8 @@ class UnderSamplingBalancer:
         self.logger = logging.getLogger(__name__)
         self.logger.setLevel(logging.DEBUG)
         log_formatter = logging.Formatter(log_format)
-
         # Clear existing handlers to avoid duplicate logs
         self.logger.handlers.clear()
-
         # Handler log to file
         if log_file:
             # Create a log directory
@@ -45,7 +43,6 @@ class UnderSamplingBalancer:
             log_file_handler.setLevel(logging.INFO)
             log_file_handler.setFormatter(log_formatter)
             self.logger.addHandler(log_file_handler)
-
         # Handler log to console
         log_console_handler = logging.StreamHandler()
         log_console_handler.setLevel(logging.INFO)

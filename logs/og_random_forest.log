@@ -1,0 +1,42 @@
+2025-07-27 04:49:35,323 - [src.models] - INFO - DiabetesRandomForest initialized with parameters:
+2025-07-27 04:49:35,323 - [src.models] - INFO -   n_estimators: 100
+2025-07-27 04:49:35,324 - [src.models] - INFO -   max_depth: 25
+2025-07-27 04:49:35,324 - [src.models] - INFO -   min_samples_split: 2
+2025-07-27 04:49:35,324 - [src.models] - INFO -   min_samples_leaf: 1
+2025-07-27 04:49:35,324 - [src.models] - INFO -   max_features: sqrt
+2025-07-27 04:49:35,325 - [src.models] - INFO -   random_state: 42
+2025-07-27 04:49:35,517 - [src.models] - INFO - Starting Random Forest model training...
+2025-07-27 04:50:33,245 - [src.models] - INFO - Model training completed. Training samples: 630081
+2025-07-27 04:50:33,246 - [src.models] - INFO - Number of trees: 100
+2025-07-27 04:50:37,274 - [src.models] - INFO - Predictions made for 157521 samples
+2025-07-27 04:50:37,458 - [src.models] - INFO - Model Evaluation Results:
+2025-07-27 04:50:37,459 - [src.models] - INFO - Accuracy: 0.8402
+2025-07-27 04:50:37,459 - [src.models] - INFO - Precision: 0.5454
+2025-07-27 04:50:37,460 - [src.models] - INFO - Recall: 0.3886
+2025-07-27 04:50:37,460 - [src.models] - INFO - F1-Score: 0.3985
+2025-07-27 04:50:37,510 - [src.models] - INFO - Classification Report:
+              precision    recall  f1-score   support
+
+         0.0       0.86      0.97      0.91    131574
+         1.0       0.25      0.00      0.00      3393
+         2.0       0.53      0.19      0.28     22554
+
+    accuracy                           0.84    157521
+   macro avg       0.55      0.39      0.40    157521
+weighted avg       0.80      0.84      0.80    157521
+
+2025-07-27 04:50:37,563 - [src.models] - INFO - Confusion Matrix:
+[[128041     13   3520]
+ [  3076      6    311]
+ [ 18246      5   4303]]
+2025-07-27 04:50:53,401 - [src.models] - INFO - Probabilities predicted for 630081 samples
+2025-07-27 04:54:54,726 - [src.models] - INFO - Cross-validation results:
+2025-07-27 04:54:54,727 - [src.models] - INFO - Mean accuracy: 0.8397 (+/- 0.0007)
+2025-07-27 04:54:54,842 - [src.models] - INFO - Predictions made for 157521 samples
+2025-07-27 04:54:54,869 - [src.models] - INFO - Probabilities predicted for 157521 samples
+2025-07-27 04:54:55,144 - [src.models] - INFO - Predictions made for 157521 samples
+2025-07-27 04:54:55,171 - [src.models] - INFO - Probabilities predicted for 157521 samples
+2025-07-27 04:54:55,470 - [src.models] - INFO - Predictions made for 157521 samples
+2025-07-27 04:54:55,528 - [src.models] - INFO - Probabilities predicted for 157521 samples
+2025-07-27 04:54:59,810 - [src.models] - INFO - Predictions made for 157521 samples
+2025-07-27 04:55:03,806 - [src.models] - INFO - Probabilities predicted for 157521 samples

@@ -1,9 +1,0 @@
-2025-07-20 02:47:43,023 - [src.data.data_filtering] - INFO - Selecting features from /home/qctrung/Projects/industrial-internship/diabetes-prediction/data/raw/brfss_2017.XPT
-2025-07-20 02:48:03,004 - [src.data.data_filtering] - INFO - Processing feature values for training
-2025-07-20 02:48:03,604 - [src.data.data_filtering] - INFO - Feature processing completed. Shape: (285117, 20)
-2025-07-20 02:48:03,691 - [src.data.data_filtering] - INFO - Selecting features from /home/qctrung/Projects/industrial-internship/diabetes-prediction/data/raw/brfss_2019.XPT
-2025-07-20 02:48:21,722 - [src.data.data_filtering] - INFO - Processing feature values for training
-2025-07-20 02:48:22,255 - [src.data.data_filtering] - INFO - Feature processing completed. Shape: (260550, 20)
-2025-07-20 02:48:22,384 - [src.data.data_filtering] - INFO - Selecting features from /home/qctrung/Projects/industrial-internship/diabetes-prediction/data/raw/brfss_2021.XPT
-2025-07-20 02:48:41,444 - [src.data.data_filtering] - INFO - Processing feature values for training
-2025-07-20 02:48:42,020 - [src.data.data_filtering] - INFO - Feature processing completed. Shape: (241979, 20)

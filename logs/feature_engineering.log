@@ -1,104 +1,140 @@
-2025-07-20 09:27:01,394 - [src.features] - INFO - DiabetesFeatureEngineering initialized successfully
-2025-07-20 09:28:14,772 - [src.features] - INFO - Starting null values removal process...
-2025-07-20 09:28:14,791 - [src.features] - INFO - No null values found in the dataset
-2025-07-20 09:28:15,347 - [src.features] - INFO - Null values removal completed. Removed 0 rows (0.00%)
-2025-07-20 09:28:15,348 - [src.features] - INFO - Dataset shape: 787646 -> 787646 rows
-2025-07-20 09:28:40,449 - [src.features] - INFO - Starting duplicate removal process...
-2025-07-20 09:28:40,715 - [src.features] - INFO - Found 85086 duplicate rows
-2025-07-20 09:28:41,467 - [src.features] - INFO - Duplicate removal completed. Removed 85086 rows (10.80%)
-2025-07-20 09:28:41,468 - [src.features] - INFO - Dataset shape: 787646 -> 702560 rows
-2025-07-20 09:29:08,848 - [src.features] - INFO - Starting outlier handling process...
-2025-07-20 09:29:08,849 - [src.features] - INFO - Columns to process: ['BMI', 'MentHlth', 'PhysHlth']
-2025-07-20 09:29:09,049 - [src.features] - INFO - Processing outliers for column: BMI
-2025-07-20 09:29:09,073 - [src.features] - INFO -   - Total outliers: 18686 (Lower: 0, Upper: 18686)
-2025-07-20 09:29:09,079 - [src.features] - INFO - Processing outliers for column: MentHlth
-2025-07-20 09:29:09,099 - [src.features] - INFO -   - Total outliers: 90556 (Lower: 0, Upper: 90556)
-2025-07-20 09:29:09,107 - [src.features] - INFO - Processing outliers for column: PhysHlth
-2025-07-20 09:29:09,128 - [src.features] - INFO -   - Total outliers: 105110 (Lower: 0, Upper: 105110)
-2025-07-20 09:29:09,136 - [src.features] - INFO - Outlier handling completed. Total outliers handled: 214352
-2025-07-20 09:34:25,479 - [src.features] - INFO - Creating health score feature...
-2025-07-20 09:34:25,726 - [src.features] - INFO - Health score created successfully. Range: [0.200, 1.667]
-2025-07-20 09:34:40,304 - [src.features] - INFO - Creating health score feature...
-2025-07-20 09:34:40,370 - [src.features] - INFO - Health score created successfully. Range: [0.200, 1.667]
-2025-07-20 09:35:48,305 - [src.features] - INFO - Creating risk score feature...
-2025-07-20 09:35:48,734 - [src.features] - INFO - Risk score created successfully using 4 features. Range: [0.0, 4.0]
-2025-07-20 09:35:52,215 - [src.features] - INFO - Creating risk score feature...
-2025-07-20 09:35:52,817 - [src.features] - INFO - Risk score created successfully using 4 features. Range: [0.0, 4.0]
-2025-07-20 09:36:46,869 - [src.features] - INFO - Creating lifestyle score feature...
-2025-07-20 09:36:47,372 - [src.features] - INFO - Lifestyle score created successfully using 1 positive and 2 negative factors
-2025-07-20 09:36:47,375 - [src.features] - INFO - Range: [-2.0, 1.0]
-2025-07-20 09:36:54,635 - [src.features] - INFO - Creating lifestyle score feature...
-2025-07-20 09:36:55,157 - [src.features] - INFO - Lifestyle score created successfully using 1 positive and 2 negative factors
-2025-07-20 09:36:55,160 - [src.features] - INFO - Range: [-2.0, 1.0]
-2025-07-20 09:37:55,735 - [src.features] - INFO - Creating cardiovascular risk feature...
-2025-07-20 09:37:56,152 - [src.features] - INFO - Cardiovascular risk created successfully using: ['HighBP', 'HighChol', 'BMI_Obesity']
-2025-07-20 09:37:56,156 - [src.features] - INFO - Range: [0.0, 3.0]
-2025-07-20 09:39:11,436 - [src.features] - INFO - Creating healthy lifestyle feature...
-2025-07-20 09:39:11,990 - [src.features] - INFO - Healthy lifestyle feature created using 1 positive and 2 negative factors
-2025-07-20 09:39:11,993 - [src.features] - INFO - Range: [-2.0, 1.0]
-2025-07-20 09:39:49,548 - [src.features] - INFO - Creating BMI category feature...
-2025-07-20 09:39:50,171 - [src.features] - INFO - BMI category distribution:
-2025-07-20 09:39:50,172 - [src.features] - INFO -   - Pre-obesity: 243303 (34.63%)
-2025-07-20 09:39:50,172 - [src.features] - INFO -   - Normal weight: 170557 (24.28%)
-2025-07-20 09:39:50,173 - [src.features] - INFO -   - Obesity class I: 160813 (22.89%)
-2025-07-20 09:39:50,173 - [src.features] - INFO -   - Obesity class II: 70212 (9.99%)
-2025-07-20 09:39:50,174 - [src.features] - INFO -   - Obesity class III: 47598 (6.77%)
-2025-07-20 09:39:50,175 - [src.features] - INFO -   - Underweight: 10077 (1.43%)
-2025-07-20 09:39:58,241 - [src.features] - INFO - Creating BMI category feature...
-2025-07-20 09:39:59,027 - [src.features] - INFO - BMI category distribution:
-2025-07-20 09:39:59,028 - [src.features] - INFO -   - Pre-obesity: 243303 (34.63%)
-2025-07-20 09:39:59,028 - [src.features] - INFO -   - Normal weight: 170557 (24.28%)
-2025-07-20 09:39:59,029 - [src.features] - INFO -   - Obesity class I: 160813 (22.89%)
-2025-07-20 09:39:59,030 - [src.features] - INFO -   - Obesity class II: 70212 (9.99%)
-2025-07-20 09:39:59,030 - [src.features] - INFO -   - Obesity class III: 47598 (6.77%)
-2025-07-20 09:39:59,031 - [src.features] - INFO -   - Underweight: 10077 (1.43%)
-2025-07-20 09:40:18,766 - [src.features] - INFO - Creating age group feature...
-2025-07-20 09:40:19,054 - [src.features] - INFO - Age group distribution:
-2025-07-20 09:40:19,055 - [src.features] - INFO -   - Senior: 345554 (49.18%)
-2025-07-20 09:40:19,055 - [src.features] - INFO -   - Middle: 269660 (38.38%)
-2025-07-20 09:40:19,056 - [src.features] - INFO -   - Young: 87346 (12.43%)
-2025-07-20 09:41:03,113 - [src.features] - INFO - Starting categorical feature encoding...
-2025-07-20 09:41:03,297 - [src.features] - INFO - Found 2 categorical columns to encode: ['BMICategory', 'AgeGroup']
-2025-07-20 09:41:03,297 - [src.features] - INFO - Encoding column: BMICategory
-2025-07-20 09:41:03,365 - [src.features] - INFO -   - Encoding mapping: {'Normal weight': 0, 'Obesity class I': 1, 'Obesity class II': 2, 'Obesity class III': 3, 'Pre-obesity': 4, 'Underweight': 5}
-2025-07-20 09:41:03,365 - [src.features] - INFO - Encoding column: AgeGroup
-2025-07-20 09:41:03,433 - [src.features] - INFO -   - Encoding mapping: {'Middle': 0, 'Senior': 1, 'Young': 2}
-2025-07-20 09:41:03,434 - [src.features] - INFO - Categorical feature encoding completed
-2025-07-20 09:41:46,215 - [src.features] - INFO - Starting feature selection process...
-2025-07-20 09:41:46,216 - [src.features] - INFO - Target column: Diabetes
-2025-07-20 09:41:46,217 - [src.features] - INFO - Correlation threshold: 0.1
-2025-07-20 09:41:47,641 - [src.features] - INFO - Selected 14 features (+ target column)
-2025-07-20 09:41:47,641 - [src.features] - INFO - Selected features and their correlations:
-2025-07-20 09:41:47,642 - [src.features] - INFO -   - HighBP: 0.2641
-2025-07-20 09:41:47,642 - [src.features] - INFO -   - HighChol: 0.2110
-2025-07-20 09:41:47,642 - [src.features] - INFO -   - BMI: 0.2134
-2025-07-20 09:41:47,644 - [src.features] - INFO -   - Stroke: 0.1005
-2025-07-20 09:41:47,644 - [src.features] - INFO -   - HeartDiseaseorAttack: 0.1709
-2025-07-20 09:41:47,645 - [src.features] - INFO -   - PhysActivity: -0.1140
-2025-07-20 09:41:47,645 - [src.features] - INFO -   - GenHlth: 0.2728
-2025-07-20 09:41:47,646 - [src.features] - INFO -   - PhysHlth: 0.1528
-2025-07-20 09:41:47,646 - [src.features] - INFO -   - DiffWalk: 0.2064
-2025-07-20 09:41:47,646 - [src.features] - INFO -   - Age: 0.2029
-2025-07-20 09:41:47,647 - [src.features] - INFO -   - Income: -0.1331
-2025-07-20 09:41:47,647 - [src.features] - INFO -   - HlthScore: 0.2235
-2025-07-20 09:41:47,648 - [src.features] - INFO -   - RiskScore: 0.3159
-2025-07-20 09:41:47,648 - [src.features] - INFO -   - CardioRisk: 0.3253
-2025-07-20 09:42:21,267 - [src.features] - INFO - Starting feature selection process...
-2025-07-20 09:42:21,268 - [src.features] - INFO - Target column: Diabetes
-2025-07-20 09:42:21,269 - [src.features] - INFO - Correlation threshold: 0.1
-2025-07-20 09:42:22,840 - [src.features] - INFO - Selected 14 features (+ target column)
-2025-07-20 09:42:22,841 - [src.features] - INFO - Selected features and their correlations:
-2025-07-20 09:42:22,841 - [src.features] - INFO -   - HighBP: 0.2641
-2025-07-20 09:42:22,841 - [src.features] - INFO -   - HighChol: 0.2110
-2025-07-20 09:42:22,842 - [src.features] - INFO -   - BMI: 0.2134
-2025-07-20 09:42:22,842 - [src.features] - INFO -   - Stroke: 0.1005
-2025-07-20 09:42:22,843 - [src.features] - INFO -   - HeartDiseaseorAttack: 0.1709
-2025-07-20 09:42:22,843 - [src.features] - INFO -   - PhysActivity: -0.1140
-2025-07-20 09:42:22,844 - [src.features] - INFO -   - GenHlth: 0.2728
-2025-07-20 09:42:22,844 - [src.features] - INFO -   - PhysHlth: 0.1528
-2025-07-20 09:42:22,845 - [src.features] - INFO -   - DiffWalk: 0.2064
-2025-07-20 09:42:22,845 - [src.features] - INFO -   - Age: 0.2029
-2025-07-20 09:42:22,846 - [src.features] - INFO -   - Income: -0.1331
-2025-07-20 09:42:22,846 - [src.features] - INFO -   - HlthScore: 0.2235
-2025-07-20 09:42:22,847 - [src.features] - INFO -   - RiskScore: 0.3159
-2025-07-20 09:42:22,847 - [src.features] - INFO -   - CardioRisk: 0.3253
+2025-07-27 05:01:16,064 - [src.features] - INFO - DiabetesFeatureEngineering initialized successfully
+2025-07-27 05:01:16,205 - [src.features] - INFO - Starting null values removal process...
+2025-07-27 05:01:16,226 - [src.features] - INFO - No null values found in the dataset
+2025-07-27 05:01:16,525 - [src.features] - INFO - Null values removal completed. Removed 0 rows (0.00%)
+2025-07-27 05:01:16,526 - [src.features] - INFO - Dataset shape: 787602 -> 787602 rows
+2025-07-27 05:01:16,775 - [src.features] - INFO - Starting duplicate removal process...
+2025-07-27 05:01:17,018 - [src.features] - INFO - Found 85086 duplicate rows
+2025-07-27 05:01:17,571 - [src.features] - INFO - Duplicate removal completed. Removed 85086 rows (10.80%)
+2025-07-27 05:01:17,572 - [src.features] - INFO - Dataset shape: 787602 -> 702516 rows
+2025-07-27 05:01:17,665 - [src.features] - INFO - Starting outlier handling process...
+2025-07-27 05:01:17,665 - [src.features] - INFO - Columns to process: ['BMI', 'MentHlth', 'PhysHlth']
+2025-07-27 05:01:17,698 - [src.features] - INFO - Processing outliers for column: BMI
+2025-07-27 05:01:17,721 - [src.features] - INFO -   - Total outliers: 18685 (Lower: 0, Upper: 18685)
+2025-07-27 05:01:17,728 - [src.features] - INFO - Processing outliers for column: MentHlth
+2025-07-27 05:01:17,750 - [src.features] - INFO -   - Total outliers: 90551 (Lower: 0, Upper: 90551)
+2025-07-27 05:01:17,760 - [src.features] - INFO - Processing outliers for column: PhysHlth
+2025-07-27 05:01:17,781 - [src.features] - INFO -   - Total outliers: 105104 (Lower: 0, Upper: 105104)
+2025-07-27 05:01:17,787 - [src.features] - INFO - Outlier handling completed. Total outliers handled: 214340
+2025-07-27 05:01:26,156 - [src.features] - INFO - Creating health score feature...
+2025-07-27 05:01:26,293 - [src.features] - INFO - Health score created successfully. Range: [0.200, 1.667]
+2025-07-27 05:01:26,351 - [src.features] - INFO - Creating risk score feature...
+2025-07-27 05:01:27,008 - [src.features] - INFO - Risk score created successfully using 4 features. Range: [0.0, 4.0]
+2025-07-27 05:01:27,075 - [src.features] - INFO - Creating lifestyle score feature...
+2025-07-27 05:01:27,551 - [src.features] - INFO - Lifestyle score created successfully using 1 positive and 2 negative factors
+2025-07-27 05:01:27,555 - [src.features] - INFO - Range: [-2.0, 1.0]
+2025-07-27 05:01:27,660 - [src.features] - INFO - Creating cardiovascular risk feature...
+2025-07-27 05:01:27,945 - [src.features] - INFO - Cardiovascular risk created successfully using: ['HighBP', 'HighChol', 'BMI_Obesity']
+2025-07-27 05:01:27,949 - [src.features] - INFO - Range: [0.0, 3.0]
+2025-07-27 05:01:28,033 - [src.features] - INFO - Creating healthy lifestyle feature...
+2025-07-27 05:01:28,515 - [src.features] - INFO - Healthy lifestyle feature created using 1 positive and 2 negative factors
+2025-07-27 05:01:28,519 - [src.features] - INFO - Range: [-2.0, 1.0]
+2025-07-27 05:01:28,607 - [src.features] - INFO - Creating BMI category feature...
+2025-07-27 05:01:29,053 - [src.features] - INFO - BMI category distribution:
+2025-07-27 05:01:29,053 - [src.features] - INFO -   - Pre-obesity: 243286 (34.63%)
+2025-07-27 05:01:29,054 - [src.features] - INFO -   - Normal weight: 170548 (24.28%)
+2025-07-27 05:01:29,054 - [src.features] - INFO -   - Obesity class I: 160806 (22.89%)
+2025-07-27 05:01:29,055 - [src.features] - INFO -   - Obesity class II: 70206 (9.99%)
+2025-07-27 05:01:29,055 - [src.features] - INFO -   - Obesity class III: 47594 (6.77%)
+2025-07-27 05:01:29,056 - [src.features] - INFO -   - Underweight: 10076 (1.43%)
+2025-07-27 05:01:29,164 - [src.features] - INFO - Creating age group feature...
+2025-07-27 05:01:29,368 - [src.features] - INFO - Age group distribution:
+2025-07-27 05:01:29,369 - [src.features] - INFO -   - Senior: 345527 (49.18%)
+2025-07-27 05:01:29,369 - [src.features] - INFO -   - Middle: 269648 (38.38%)
+2025-07-27 05:01:29,370 - [src.features] - INFO -   - Young: 87341 (12.43%)
+2025-07-27 05:01:29,483 - [src.features] - INFO - Starting categorical feature encoding...
+2025-07-27 05:01:29,541 - [src.features] - INFO - Found 2 categorical columns to encode: ['BMICategory', 'AgeGroup']
+2025-07-27 05:01:29,542 - [src.features] - INFO - Encoding column: BMICategory
+2025-07-27 05:01:29,625 - [src.features] - INFO -   - Encoding mapping: {'Normal weight': 0, 'Obesity class I': 1, 'Obesity class II': 2, 'Obesity class III': 3, 'Pre-obesity': 4, 'Underweight': 5}
+2025-07-27 05:01:29,625 - [src.features] - INFO - Encoding column: AgeGroup
+2025-07-27 05:01:29,705 - [src.features] - INFO -   - Encoding mapping: {'Middle': 0, 'Senior': 1, 'Young': 2}
+2025-07-27 05:01:29,706 - [src.features] - INFO - Categorical feature encoding completed
+2025-07-27 05:01:29,828 - [src.features] - INFO - Starting feature selection process...
+2025-07-27 05:01:29,829 - [src.features] - INFO - Target column: Diabetes
+2025-07-27 05:01:29,829 - [src.features] - INFO - Correlation threshold: 0.1
+2025-07-27 05:01:31,477 - [src.features] - INFO - Selected 14 features (+ target column)
+2025-07-27 05:01:31,477 - [src.features] - INFO - Selected features and their correlations:
+2025-07-27 05:01:31,478 - [src.features] - INFO -   - HighBP: 0.2641
+2025-07-27 05:01:31,478 - [src.features] - INFO -   - HighChol: 0.2109
+2025-07-27 05:01:31,478 - [src.features] - INFO -   - BMI: 0.2134
+2025-07-27 05:01:31,479 - [src.features] - INFO -   - Stroke: 0.1005
+2025-07-27 05:01:31,479 - [src.features] - INFO -   - HeartDiseaseorAttack: 0.1709
+2025-07-27 05:01:31,481 - [src.features] - INFO -   - PhysActivity: -0.1140
+2025-07-27 05:01:31,482 - [src.features] - INFO -   - GenHlth: 0.2728
+2025-07-27 05:01:31,482 - [src.features] - INFO -   - PhysHlth: 0.1528
+2025-07-27 05:01:31,483 - [src.features] - INFO -   - DiffWalk: 0.2064
+2025-07-27 05:01:31,484 - [src.features] - INFO -   - Age: 0.2029
+2025-07-27 05:01:31,485 - [src.features] - INFO -   - Income: -0.1331
+2025-07-27 05:01:31,485 - [src.features] - INFO -   - HlthScore: 0.2236
+2025-07-27 05:01:31,486 - [src.features] - INFO -   - RiskScore: 0.3159
+2025-07-27 05:01:31,486 - [src.features] - INFO -   - CardioRisk: 0.3253
+2025-07-27 05:08:55,833 - [src.features] - INFO - DiabetesFeatureEngineering initialized successfully
+2025-07-27 05:08:55,944 - [src.features] - INFO - Starting null values removal process...
+2025-07-27 05:08:55,963 - [src.features] - INFO - No null values found in the dataset
+2025-07-27 05:08:56,023 - [src.features] - INFO - Null values removal completed. Removed 0 rows (0.00%)
+2025-07-27 05:08:56,023 - [src.features] - INFO - Dataset shape: 787602 -> 787602 rows
+2025-07-27 05:08:56,288 - [src.features] - INFO - Starting duplicate removal process...
+2025-07-27 05:08:56,507 - [src.features] - INFO - Found 85086 duplicate rows
+2025-07-27 05:08:56,772 - [src.features] - INFO - Duplicate removal completed. Removed 85086 rows (10.80%)
+2025-07-27 05:08:56,773 - [src.features] - INFO - Dataset shape: 787602 -> 702516 rows
+2025-07-27 05:08:56,860 - [src.features] - INFO - Starting outlier handling process...
+2025-07-27 05:08:56,861 - [src.features] - INFO - Columns to process: ['BMI', 'MentHlth', 'PhysHlth']
+2025-07-27 05:08:56,880 - [src.features] - INFO - Processing outliers for column: BMI
+2025-07-27 05:08:56,903 - [src.features] - INFO -   - Total outliers: 18685 (Lower: 0, Upper: 18685)
+2025-07-27 05:08:56,909 - [src.features] - INFO - Processing outliers for column: MentHlth
+2025-07-27 05:08:56,927 - [src.features] - INFO -   - Total outliers: 90551 (Lower: 0, Upper: 90551)
+2025-07-27 05:08:56,934 - [src.features] - INFO - Processing outliers for column: PhysHlth
+2025-07-27 05:08:56,951 - [src.features] - INFO -   - Total outliers: 105104 (Lower: 0, Upper: 105104)
+2025-07-27 05:08:56,957 - [src.features] - INFO - Outlier handling completed. Total outliers handled: 214340
+2025-07-27 05:09:02,641 - [src.features] - INFO - Creating health score feature...
+2025-07-27 05:09:02,666 - [src.features] - INFO - Health score created successfully. Range: [0.200, 1.667]
+2025-07-27 05:09:02,791 - [src.features] - INFO - Creating risk score feature...
+2025-07-27 05:09:02,989 - [src.features] - INFO - Risk score created successfully using 4 features. Range: [0.0, 4.0]
+2025-07-27 05:09:03,125 - [src.features] - INFO - Creating lifestyle score feature...
+2025-07-27 05:09:03,497 - [src.features] - INFO - Lifestyle score created successfully using 1 positive and 2 negative factors
+2025-07-27 05:09:03,500 - [src.features] - INFO - Range: [-2.0, 1.0]
+2025-07-27 05:09:03,635 - [src.features] - INFO - Creating cardiovascular risk feature...
+2025-07-27 05:09:03,834 - [src.features] - INFO - Cardiovascular risk created successfully using: ['HighBP', 'HighChol', 'BMI_Obesity']
+2025-07-27 05:09:03,837 - [src.features] - INFO - Range: [0.0, 3.0]
+2025-07-27 05:09:03,971 - [src.features] - INFO - Creating healthy lifestyle feature...
+2025-07-27 05:09:04,270 - [src.features] - INFO - Healthy lifestyle feature created using 1 positive and 2 negative factors
+2025-07-27 05:09:04,273 - [src.features] - INFO - Range: [-2.0, 1.0]
+2025-07-27 05:09:04,430 - [src.features] - INFO - Creating BMI category feature...
+2025-07-27 05:09:06,415 - [src.features] - INFO - BMI category distribution:
+2025-07-27 05:09:06,416 - [src.features] - INFO -   - Pre-obesity: 243286 (34.63%)
+2025-07-27 05:09:06,416 - [src.features] - INFO -   - Normal weight: 170548 (24.28%)
+2025-07-27 05:09:06,416 - [src.features] - INFO -   - Obesity class I: 160806 (22.89%)
+2025-07-27 05:09:06,417 - [src.features] - INFO -   - Obesity class II: 70206 (9.99%)
+2025-07-27 05:09:06,417 - [src.features] - INFO -   - Obesity class III: 47594 (6.77%)
+2025-07-27 05:09:06,418 - [src.features] - INFO -   - Underweight: 10076 (1.43%)
+2025-07-27 05:09:06,603 - [src.features] - INFO - Creating age group feature...
+2025-07-27 05:09:06,781 - [src.features] - INFO - Age group distribution:
+2025-07-27 05:09:06,782 - [src.features] - INFO -   - Senior: 345527 (49.18%)
+2025-07-27 05:09:06,782 - [src.features] - INFO -   - Middle: 269648 (38.38%)
+2025-07-27 05:09:06,782 - [src.features] - INFO -   - Young: 87341 (12.43%)
+2025-07-27 05:09:07,129 - [src.features] - INFO - Starting categorical feature encoding...
+2025-07-27 05:09:07,244 - [src.features] - INFO - Found 2 categorical columns to encode: ['BMICategory', 'AgeGroup']
+2025-07-27 05:09:07,245 - [src.features] - INFO - Encoding column: BMICategory
+2025-07-27 05:09:07,313 - [src.features] - INFO -   - Encoding mapping: {'Normal weight': 0, 'Obesity class I': 1, 'Obesity class II': 2, 'Obesity class III': 3, 'Pre-obesity': 4, 'Underweight': 5}
+2025-07-27 05:09:07,314 - [src.features] - INFO - Encoding column: AgeGroup
+2025-07-27 05:09:07,381 - [src.features] - INFO -   - Encoding mapping: {'Middle': 0, 'Senior': 1, 'Young': 2}
+2025-07-27 05:09:07,382 - [src.features] - INFO - Categorical feature encoding completed
+2025-07-27 05:09:07,673 - [src.features] - INFO - Starting feature selection process...
+2025-07-27 05:09:07,673 - [src.features] - INFO - Target column: Diabetes
+2025-07-27 05:09:07,674 - [src.features] - INFO - Correlation threshold: 0.1
+2025-07-27 05:09:09,144 - [src.features] - INFO - Selected 14 features (+ target column)
+2025-07-27 05:09:09,145 - [src.features] - INFO - Selected features and their correlations:
+2025-07-27 05:09:09,145 - [src.features] - INFO -   - HighBP: 0.2641
+2025-07-27 05:09:09,146 - [src.features] - INFO -   - HighChol: 0.2109
+2025-07-27 05:09:09,146 - [src.features] - INFO -   - BMI: 0.2134
+2025-07-27 05:09:09,147 - [src.features] - INFO -   - Stroke: 0.1005
+2025-07-27 05:09:09,148 - [src.features] - INFO -   - HeartDiseaseorAttack: 0.1709
+2025-07-27 05:09:09,149 - [src.features] - INFO -   - PhysActivity: -0.1140
+2025-07-27 05:09:09,149 - [src.features] - INFO -   - GenHlth: 0.2728
+2025-07-27 05:09:09,150 - [src.features] - INFO -   - PhysHlth: 0.1528
+2025-07-27 05:09:09,151 - [src.features] - INFO -   - DiffWalk: 0.2064
+2025-07-27 05:09:09,151 - [src.features] - INFO -   - Age: 0.2029
+2025-07-27 05:09:09,152 - [src.features] - INFO -   - Income: -0.1331
+2025-07-27 05:09:09,152 - [src.features] - INFO -   - HlthScore: 0.2236
+2025-07-27 05:09:09,152 - [src.features] - INFO -   - RiskScore: 0.3159
+2025-07-27 05:09:09,154 - [src.features] - INFO -   - CardioRisk: 0.3253
