@@ -1,0 +1,31 @@
+2025-08-16 21:03:45,138 - [src.models] - INFO - DiabetesNaiveBayes (Gaussian) initialized with parameters:
+2025-08-16 21:03:45,138 - [src.models] - INFO -   nb_type: gaussian
+2025-08-16 21:03:45,139 - [src.models] - INFO -   var_smoothing: 1e-09
+2025-08-16 21:03:45,364 - [src.models] - INFO - Starting Gaussian Naive Bayes model training...
+2025-08-16 21:03:45,594 - [src.models] - INFO - Model training completed. Training samples: 630081
+2025-08-16 21:03:45,595 - [src.models] - INFO - Number of classes: 3
+2025-08-16 21:03:45,596 - [src.models] - INFO - Classes: [0. 1. 2.]
+2025-08-16 21:03:45,705 - [src.models] - INFO - Predictions made for 157521 samples
+2025-08-16 21:03:45,975 - [src.models] - INFO - Model Evaluation Results:
+2025-08-16 21:03:45,976 - [src.models] - INFO - Accuracy: 0.7547
+2025-08-16 21:03:45,977 - [src.models] - INFO - Precision: 0.4246
+2025-08-16 21:03:45,977 - [src.models] - INFO - Recall: 0.4643
+2025-08-16 21:03:45,978 - [src.models] - INFO - F1-Score: 0.4297
+2025-08-16 21:03:46,049 - [src.models] - INFO - Classification Report:
+              precision    recall  f1-score   support
+
+         0.0       0.90      0.80      0.85    131574
+         1.0       0.04      0.01      0.02      3393
+         2.0       0.33      0.58      0.42     22554
+
+    accuracy                           0.75    157521
+   macro avg       0.42      0.46      0.43    157521
+weighted avg       0.80      0.75      0.77    157521
+
+2025-08-16 21:03:46,125 - [src.models] - INFO - Confusion Matrix:
+[[105833    735  25006]
+ [  1939     40   1414]
+ [  9320    225  13009]]
+2025-08-16 21:03:46,615 - [src.models] - INFO - Probabilities predicted for 630081 samples
+2025-08-16 21:03:49,436 - [src.models] - INFO - Cross-validation results:
+2025-08-16 21:03:49,437 - [src.models] - INFO - Mean accuracy: 0.7522 (+/- 0.0030)

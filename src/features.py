@@ -602,7 +602,6 @@ class DiabetesFeatureEngineering:
         df = self.create_risk_score(df)
         df = self.create_lifestyle_score(df)
         df = self.create_cardio_risk(df)
-        df = self.create_healthy_lifestyle(df)
         df = self.create_bmi_category(df)
         df = self.create_age_group(df)
 

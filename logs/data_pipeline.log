@@ -1,0 +1,13 @@
+2025-08-10 04:46:34,648 - [src.pipelines] - INFO - DataPipeline initialized successfully
+2025-08-10 04:46:34,649 - [src.data] - INFO - BrfssDataFiltering initialized successfully
+2025-08-10 04:46:34,649 - [src.pipelines] - INFO - Starting data pipeline processing
+2025-08-10 04:47:01,472 - [src.pipelines] - INFO - Loading raw data for 2017
+2025-08-10 04:47:28,010 - [src.pipelines] - INFO - Loaded 2017 raw data. Shape: (285073, 21)
+2025-08-10 04:47:28,011 - [src.pipelines] - INFO - Loading raw data for 2019
+2025-08-10 04:47:50,686 - [src.pipelines] - INFO - Loaded 2019 raw data. Shape: (260550, 21)
+2025-08-10 04:47:50,686 - [src.pipelines] - INFO - Loading raw data for 2021
+2025-08-10 04:48:11,726 - [src.pipelines] - INFO - Loaded 2021 raw data. Shape: (241979, 21)
+2025-08-10 04:48:11,727 - [src.pipelines] - INFO - Combining all datasets
+2025-08-10 04:48:11,754 - [src.pipelines] - INFO - Saving processed data to /home/qctrung/Projects/industrial-internship/diabetes-prediction/data/processed/brfss_filtering.csv
+2025-08-10 04:48:18,256 - [src.pipelines] - INFO - Data pipeline completed successfully. Final shape: (787602, 21)
+2025-08-10 04:48:18,278 - [src.pipelines] - INFO - Missing values summary:

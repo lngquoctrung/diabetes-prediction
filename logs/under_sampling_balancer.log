@@ -1,0 +1,23 @@
+2025-08-17 01:34:31,099 - [src.balancing] - INFO - UnderSamplingBalancer initialized successfully
+2025-08-17 01:34:31,215 - [src.balancing] - INFO - Starting Random Under Sampling process...
+2025-08-17 01:34:31,224 - [src.balancing] - INFO - Original class distribution:
+2025-08-17 01:34:31,225 - [src.balancing] - INFO -   - Class 0.0: 459553 samples
+2025-08-17 01:34:31,226 - [src.balancing] - INFO -   - Class 1.0: 13512 samples
+2025-08-17 01:34:31,227 - [src.balancing] - INFO -   - Class 2.0: 88947 samples
+2025-08-17 01:34:31,336 - [src.balancing] - INFO - New class distribution after Random Under Sampling:
+2025-08-17 01:34:31,337 - [src.balancing] - INFO -   - Class 0.0: 13512 samples (-446041)
+2025-08-17 01:34:31,338 - [src.balancing] - INFO -   - Class 1.0: 13512 samples (-0)
+2025-08-17 01:34:31,339 - [src.balancing] - INFO -   - Class 2.0: 13512 samples (-75435)
+2025-08-17 01:34:31,340 - [src.balancing] - INFO - Dataset size: 562012 -> 40536 samples (-521476)
+2025-08-17 01:34:31,341 - [src.balancing] - INFO - Random Under Sampling completed successfully
+2025-08-17 01:34:31,631 - [src.balancing] - INFO - Starting Tomek Links process...
+2025-08-17 01:34:31,643 - [src.balancing] - INFO - Original class distribution:
+2025-08-17 01:34:31,644 - [src.balancing] - INFO -   - Class 0.0: 459553 samples
+2025-08-17 01:34:31,645 - [src.balancing] - INFO -   - Class 1.0: 13512 samples
+2025-08-17 01:34:31,646 - [src.balancing] - INFO -   - Class 2.0: 88947 samples
+2025-08-17 01:34:59,073 - [src.balancing] - INFO - New class distribution after Tomek Links:
+2025-08-17 01:34:59,074 - [src.balancing] - INFO -   - Class 0.0: 444228 samples (-15325 Tomek links)
+2025-08-17 01:34:59,074 - [src.balancing] - INFO -   - Class 1.0: 13512 samples (unchanged)
+2025-08-17 01:34:59,075 - [src.balancing] - INFO -   - Class 2.0: 74901 samples (-14046 Tomek links)
+2025-08-17 01:34:59,075 - [src.balancing] - INFO - Dataset size: 562012 -> 532641 samples (-29371 Tomek links)
+2025-08-17 01:34:59,076 - [src.balancing] - INFO - Tomek Links processing completed successfully
