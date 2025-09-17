@@ -1,54 +1,54 @@
-2025-09-17 16:42:10,728 - [src.models] - INFO - DiabetesSGDClassifier initialized with parameters:
-2025-09-17 16:42:10,731 - [src.models] - INFO -   loss: log_loss
-2025-09-17 16:42:10,732 - [src.models] - INFO -   penalty: l2
-2025-09-17 16:42:10,734 - [src.models] - INFO -   alpha: 0.0001
-2025-09-17 16:42:10,736 - [src.models] - INFO -   learning_rate: constant
-2025-09-17 16:42:10,738 - [src.models] - INFO -   eta0: 0.01
-2025-09-17 16:42:10,741 - [src.models] - INFO -   max_iter: 1000
-2025-09-17 16:42:10,745 - [src.models] - INFO -   random_state: 42
-2025-09-17 16:42:10,747 - [src.models] - INFO - DiabetesLogisticRegression initialized with parameters:
-2025-09-17 16:42:10,751 - [src.models] - INFO -   C: 1.0
-2025-09-17 16:42:10,753 - [src.models] - INFO -   penalty: l2
-2025-09-17 16:42:10,759 - [src.models] - INFO -   class_weight: None
-2025-09-17 16:42:10,762 - [src.models] - INFO -   solver: saga
-2025-09-17 16:42:10,763 - [src.models] - INFO -   max_iter: 100
-2025-09-17 16:42:10,765 - [src.models] - INFO -   random_state: 42
-2025-09-17 16:42:10,768 - [src.models] - INFO - DiabetesNaiveBayes (Gaussian) initialized with parameters:
-2025-09-17 16:42:10,771 - [src.models] - INFO -   nb_type: gaussian
-2025-09-17 16:42:10,774 - [src.models] - INFO -   var_smoothing: 1e-09
-2025-09-17 16:42:10,776 - [src.models] - INFO - DiabetesRandomForest initialized with parameters:
-2025-09-17 16:42:10,778 - [src.models] - INFO -   n_estimators: 100
-2025-09-17 16:42:10,780 - [src.models] - INFO -   max_depth: 25
-2025-09-17 16:42:10,782 - [src.models] - INFO -   min_samples_split: 5
-2025-09-17 16:42:10,783 - [src.models] - INFO -   min_samples_leaf: 5
-2025-09-17 16:42:10,785 - [src.models] - INFO -   max_features: sqrt
-2025-09-17 16:42:10,788 - [src.models] - INFO -   class_weight: balanced
-2025-09-17 16:42:10,791 - [src.models] - INFO -   random_state: 42
-2025-09-17 16:42:10,795 - [src.models] - INFO - DiabetesXGBoostClassifier initialized with parameters:
-2025-09-17 16:42:10,797 - [src.models] - INFO -  n_estimators: 100
-2025-09-17 16:42:10,799 - [src.models] - INFO -  max_depth: 6
-2025-09-17 16:42:10,800 - [src.models] - INFO -  learning_rate: 0.1
-2025-09-17 16:42:10,801 - [src.models] - INFO -  subsample: 1.0
-2025-09-17 16:42:10,802 - [src.models] - INFO -  colsample_bytree: 1.0
-2025-09-17 16:42:10,805 - [src.models] - INFO -  random_state: 42
-2025-09-17 16:42:10,808 - [src.models] - INFO - DiabetesLightGBMClassifier initialized with parameters:
-2025-09-17 16:42:10,810 - [src.models] - INFO -  n_estimators: 100
-2025-09-17 16:42:10,813 - [src.models] - INFO -  max_depth: -1
-2025-09-17 16:42:10,814 - [src.models] - INFO -  learning_rate: 0.1
-2025-09-17 16:42:10,816 - [src.models] - INFO -  num_leaves: 31
-2025-09-17 16:42:10,818 - [src.models] - INFO -  subsample: 1.0
-2025-09-17 16:42:10,821 - [src.models] - INFO -  colsample_bytree: 1.0
-2025-09-17 16:42:10,824 - [src.models] - INFO -  random_state: 42
-2025-09-17 16:42:10,826 - [src.models] - INFO - Starting SGD Classifier model training...
-2025-09-17 16:42:14,175 - [src.models] - INFO - Model training completed. Training samples: 659553
-2025-09-17 16:42:14,177 - [src.models] - INFO - Number of iterations: 7
-2025-09-17 16:42:14,203 - [src.models] - INFO - Predictions made for 140504 samples
-2025-09-17 16:42:14,405 - [src.models] - INFO - Model Evaluation Results:
-2025-09-17 16:42:14,408 - [src.models] - INFO - Accuracy: 0.8294
-2025-09-17 16:42:14,410 - [src.models] - INFO - Precision: 0.4652
-2025-09-17 16:42:14,411 - [src.models] - INFO - Recall: 0.4463
-2025-09-17 16:42:14,412 - [src.models] - INFO - F1-Score: 0.4527
-2025-09-17 16:42:14,523 - [src.models] - INFO - Classification Report:
+2025-09-17 22:18:00,998 - [src.models] - INFO - DiabetesSGDClassifier initialized with parameters:
+2025-09-17 22:18:01,001 - [src.models] - INFO -   loss: log_loss
+2025-09-17 22:18:01,005 - [src.models] - INFO -   penalty: l2
+2025-09-17 22:18:01,009 - [src.models] - INFO -   alpha: 0.0001
+2025-09-17 22:18:01,011 - [src.models] - INFO -   learning_rate: constant
+2025-09-17 22:18:01,014 - [src.models] - INFO -   eta0: 0.01
+2025-09-17 22:18:01,015 - [src.models] - INFO -   max_iter: 1000
+2025-09-17 22:18:01,017 - [src.models] - INFO -   random_state: 42
+2025-09-17 22:18:01,020 - [src.models] - INFO - DiabetesLogisticRegression initialized with parameters:
+2025-09-17 22:18:01,022 - [src.models] - INFO -   C: 1.0
+2025-09-17 22:18:01,025 - [src.models] - INFO -   penalty: l2
+2025-09-17 22:18:01,028 - [src.models] - INFO -   class_weight: None
+2025-09-17 22:18:01,031 - [src.models] - INFO -   solver: saga
+2025-09-17 22:18:01,032 - [src.models] - INFO -   max_iter: 100
+2025-09-17 22:18:01,034 - [src.models] - INFO -   random_state: 42
+2025-09-17 22:18:01,036 - [src.models] - INFO - DiabetesNaiveBayes (Gaussian) initialized with parameters:
+2025-09-17 22:18:01,038 - [src.models] - INFO -   nb_type: gaussian
+2025-09-17 22:18:01,042 - [src.models] - INFO -   var_smoothing: 1e-09
+2025-09-17 22:18:01,044 - [src.models] - INFO - DiabetesRandomForest initialized with parameters:
+2025-09-17 22:18:01,046 - [src.models] - INFO -   n_estimators: 100
+2025-09-17 22:18:01,049 - [src.models] - INFO -   max_depth: 25
+2025-09-17 22:18:01,050 - [src.models] - INFO -   min_samples_split: 5
+2025-09-17 22:18:01,052 - [src.models] - INFO -   min_samples_leaf: 5
+2025-09-17 22:18:01,053 - [src.models] - INFO -   max_features: sqrt
+2025-09-17 22:18:01,060 - [src.models] - INFO -   class_weight: balanced
+2025-09-17 22:18:01,064 - [src.models] - INFO -   random_state: 42
+2025-09-17 22:18:01,066 - [src.models] - INFO - DiabetesXGBoostClassifier initialized with parameters:
+2025-09-17 22:18:01,071 - [src.models] - INFO -  n_estimators: 100
+2025-09-17 22:18:01,076 - [src.models] - INFO -  max_depth: 6
+2025-09-17 22:18:01,077 - [src.models] - INFO -  learning_rate: 0.1
+2025-09-17 22:18:01,080 - [src.models] - INFO -  subsample: 1.0
+2025-09-17 22:18:01,081 - [src.models] - INFO -  colsample_bytree: 1.0
+2025-09-17 22:18:01,083 - [src.models] - INFO -  random_state: 42
+2025-09-17 22:18:01,085 - [src.models] - INFO - DiabetesLightGBMClassifier initialized with parameters:
+2025-09-17 22:18:01,087 - [src.models] - INFO -  n_estimators: 100
+2025-09-17 22:18:01,089 - [src.models] - INFO -  max_depth: -1
+2025-09-17 22:18:01,095 - [src.models] - INFO -  learning_rate: 0.1
+2025-09-17 22:18:01,097 - [src.models] - INFO -  num_leaves: 31
+2025-09-17 22:18:01,099 - [src.models] - INFO -  subsample: 1.0
+2025-09-17 22:18:01,104 - [src.models] - INFO -  colsample_bytree: 1.0
+2025-09-17 22:18:01,107 - [src.models] - INFO -  random_state: 42
+2025-09-17 22:18:01,110 - [src.models] - INFO - Starting SGD Classifier model training...
+2025-09-17 22:18:04,563 - [src.models] - INFO - Model training completed. Training samples: 659553
+2025-09-17 22:18:04,565 - [src.models] - INFO - Number of iterations: 7
+2025-09-17 22:18:04,600 - [src.models] - INFO - Predictions made for 140504 samples
+2025-09-17 22:18:04,750 - [src.models] - INFO - Model Evaluation Results:
+2025-09-17 22:18:04,754 - [src.models] - INFO - Accuracy: 0.8294
+2025-09-17 22:18:04,754 - [src.models] - INFO - Precision: 0.4652
+2025-09-17 22:18:04,755 - [src.models] - INFO - Recall: 0.4463
+2025-09-17 22:18:04,758 - [src.models] - INFO - F1-Score: 0.4527
+2025-09-17 22:18:04,836 - [src.models] - INFO - Classification Report:
               precision    recall  f1-score   support
 
          0.0       0.87      0.94      0.90    114889
@@ -59,22 +59,22 @@
    macro avg       0.47      0.45      0.45    140504
 weighted avg       0.80      0.83      0.81    140504
 
-2025-09-17 16:42:14,660 - [src.models] - INFO - Confusion Matrix:
+2025-09-17 22:18:04,916 - [src.models] - INFO - Confusion Matrix:
 [[107585      0   7304]
  [  2545      0    833]
  [ 13286      0   8951]]
-2025-09-17 16:42:14,714 - [src.models] - INFO - Probabilities predicted for 140504 samples
-2025-09-17 16:42:28,079 - [src.models] - INFO - Cross-validation results:
-2025-09-17 16:42:28,087 - [src.models] - INFO - Mean accuracy: 0.7477 (+/- 0.0033)
-2025-09-17 16:42:28,093 - [src.models] - INFO - Starting Logistic Regression model training...
-2025-09-17 16:42:41,944 - [src.models] - INFO - Model training completed. Training samples: 659553
-2025-09-17 16:42:41,979 - [src.models] - INFO - Predictions made for 140504 samples
-2025-09-17 16:42:42,123 - [src.models] - INFO - Model Evaluation Results:
-2025-09-17 16:42:42,125 - [src.models] - INFO - Accuracy: 0.8344
-2025-09-17 16:42:42,126 - [src.models] - INFO - Precision: 0.4736
-2025-09-17 16:42:42,131 - [src.models] - INFO - Recall: 0.4421
-2025-09-17 16:42:42,133 - [src.models] - INFO - F1-Score: 0.4519
-2025-09-17 16:42:42,204 - [src.models] - INFO - Classification Report:
+2025-09-17 22:18:04,944 - [src.models] - INFO - Probabilities predicted for 140504 samples
+2025-09-17 22:18:15,487 - [src.models] - INFO - Cross-validation results:
+2025-09-17 22:18:15,488 - [src.models] - INFO - Mean accuracy: 0.7477 (+/- 0.0033)
+2025-09-17 22:18:15,489 - [src.models] - INFO - Starting Logistic Regression model training...
+2025-09-17 22:18:28,470 - [src.models] - INFO - Model training completed. Training samples: 659553
+2025-09-17 22:18:28,482 - [src.models] - INFO - Predictions made for 140504 samples
+2025-09-17 22:18:28,590 - [src.models] - INFO - Model Evaluation Results:
+2025-09-17 22:18:28,593 - [src.models] - INFO - Accuracy: 0.8344
+2025-09-17 22:18:28,595 - [src.models] - INFO - Precision: 0.4736
+2025-09-17 22:18:28,602 - [src.models] - INFO - Recall: 0.4421
+2025-09-17 22:18:28,608 - [src.models] - INFO - F1-Score: 0.4519
+2025-09-17 22:18:28,718 - [src.models] - INFO - Classification Report:
               precision    recall  f1-score   support
 
          0.0       0.87      0.95      0.91    114889
@@ -85,24 +85,24 @@ weighted avg       0.80      0.83      0.81    140504
    macro avg       0.47      0.44      0.45    140504
 weighted avg       0.80      0.83      0.81    140504
 
-2025-09-17 16:42:42,276 - [src.models] - INFO - Confusion Matrix:
+2025-09-17 22:18:28,788 - [src.models] - INFO - Confusion Matrix:
 [[108803      0   6086]
  [  2617      0    761]
  [ 13805      0   8432]]
-2025-09-17 16:42:42,305 - [src.models] - INFO - Probabilities predicted for 140504 samples
-2025-09-17 16:43:38,241 - [src.models] - INFO - Cross-validation results:
-2025-09-17 16:43:38,251 - [src.models] - INFO - Mean accuracy: 0.7459 (+/- 0.0016)
-2025-09-17 16:43:38,254 - [src.models] - INFO - Starting Gaussian Naive Bayes model training...
-2025-09-17 16:43:38,623 - [src.models] - INFO - Model training completed. Training samples: 659553
-2025-09-17 16:43:38,624 - [src.models] - INFO - Number of classes: 3
-2025-09-17 16:43:38,626 - [src.models] - INFO - Classes: [0. 1. 2.]
-2025-09-17 16:43:38,687 - [src.models] - INFO - Predictions made for 140504 samples
-2025-09-17 16:43:38,770 - [src.models] - INFO - Model Evaluation Results:
-2025-09-17 16:43:38,771 - [src.models] - INFO - Accuracy: 0.7708
-2025-09-17 16:43:38,773 - [src.models] - INFO - Precision: 0.4429
-2025-09-17 16:43:38,775 - [src.models] - INFO - Recall: 0.4653
-2025-09-17 16:43:38,776 - [src.models] - INFO - F1-Score: 0.4472
-2025-09-17 16:43:38,880 - [src.models] - INFO - Classification Report:
+2025-09-17 22:18:28,827 - [src.models] - INFO - Probabilities predicted for 140504 samples
+2025-09-17 22:19:20,206 - [src.models] - INFO - Cross-validation results:
+2025-09-17 22:19:20,208 - [src.models] - INFO - Mean accuracy: 0.7459 (+/- 0.0016)
+2025-09-17 22:19:20,210 - [src.models] - INFO - Starting Gaussian Naive Bayes model training...
+2025-09-17 22:19:20,517 - [src.models] - INFO - Model training completed. Training samples: 659553
+2025-09-17 22:19:20,519 - [src.models] - INFO - Number of classes: 3
+2025-09-17 22:19:20,523 - [src.models] - INFO - Classes: [0. 1. 2.]
+2025-09-17 22:19:20,567 - [src.models] - INFO - Predictions made for 140504 samples
+2025-09-17 22:19:20,637 - [src.models] - INFO - Model Evaluation Results:
+2025-09-17 22:19:20,638 - [src.models] - INFO - Accuracy: 0.7708
+2025-09-17 22:19:20,639 - [src.models] - INFO - Precision: 0.4429
+2025-09-17 22:19:20,641 - [src.models] - INFO - Recall: 0.4653
+2025-09-17 22:19:20,642 - [src.models] - INFO - F1-Score: 0.4472
+2025-09-17 22:19:20,723 - [src.models] - INFO - Classification Report:
               precision    recall  f1-score   support
 
          0.0       0.89      0.84      0.86    114889
@@ -113,23 +113,23 @@ weighted avg       0.80      0.83      0.81    140504
    macro avg       0.44      0.47      0.45    140504
 weighted avg       0.79      0.77      0.78    140504
 
-2025-09-17 16:43:38,973 - [src.models] - INFO - Confusion Matrix:
+2025-09-17 22:19:20,796 - [src.models] - INFO - Confusion Matrix:
 [[96252   991 17646]
  [ 2058    65  1255]
  [10073   179 11985]]
-2025-09-17 16:43:39,042 - [src.models] - INFO - Probabilities predicted for 140504 samples
-2025-09-17 16:43:41,270 - [src.models] - INFO - Cross-validation results:
-2025-09-17 16:43:41,271 - [src.models] - INFO - Mean accuracy: 0.7070 (+/- 0.0013)
-2025-09-17 16:43:41,273 - [src.models] - INFO - Starting Random Forest model training...
-2025-09-17 16:45:07,590 - [src.models] - INFO - Model training completed. Training samples: 659553
-2025-09-17 16:45:07,591 - [src.models] - INFO - Number of trees: 100
-2025-09-17 16:45:10,959 - [src.models] - INFO - Predictions made for 140504 samples
-2025-09-17 16:45:11,018 - [src.models] - INFO - Model Evaluation Results:
-2025-09-17 16:45:11,019 - [src.models] - INFO - Accuracy: 0.7667
-2025-09-17 16:45:11,020 - [src.models] - INFO - Precision: 0.5042
-2025-09-17 16:45:11,021 - [src.models] - INFO - Recall: 0.6019
-2025-09-17 16:45:11,022 - [src.models] - INFO - F1-Score: 0.5240
-2025-09-17 16:45:11,086 - [src.models] - INFO - Classification Report:
+2025-09-17 22:19:20,861 - [src.models] - INFO - Probabilities predicted for 140504 samples
+2025-09-17 22:19:22,732 - [src.models] - INFO - Cross-validation results:
+2025-09-17 22:19:22,733 - [src.models] - INFO - Mean accuracy: 0.7070 (+/- 0.0013)
+2025-09-17 22:19:22,733 - [src.models] - INFO - Starting Random Forest model training...
+2025-09-17 22:20:57,732 - [src.models] - INFO - Model training completed. Training samples: 659553
+2025-09-17 22:20:57,733 - [src.models] - INFO - Number of trees: 100
+2025-09-17 22:21:03,274 - [src.models] - INFO - Predictions made for 140504 samples
+2025-09-17 22:21:03,351 - [src.models] - INFO - Model Evaluation Results:
+2025-09-17 22:21:03,352 - [src.models] - INFO - Accuracy: 0.7667
+2025-09-17 22:21:03,352 - [src.models] - INFO - Precision: 0.5042
+2025-09-17 22:21:03,354 - [src.models] - INFO - Recall: 0.6019
+2025-09-17 22:21:03,355 - [src.models] - INFO - F1-Score: 0.5240
+2025-09-17 22:21:03,447 - [src.models] - INFO - Classification Report:
               precision    recall  f1-score   support
 
          0.0       0.94      0.79      0.86    114889
@@ -140,8 +140,74 @@ weighted avg       0.79      0.77      0.78    140504
    macro avg       0.50      0.60      0.52    140504
 weighted avg       0.85      0.77      0.80    140504
 
-2025-09-17 16:45:11,160 - [src.models] - INFO - Confusion Matrix:
+2025-09-17 22:21:03,581 - [src.models] - INFO - Confusion Matrix:
 [[91274  7743 15872]
  [ 1066  1081  1231]
  [ 4432  2433 15372]]
-2025-09-17 16:45:14,983 - [src.models] - INFO - Probabilities predicted for 140504 samples
+2025-09-17 22:21:08,840 - [src.models] - INFO - Probabilities predicted for 140504 samples
+2025-09-17 22:26:18,150 - [src.models] - INFO - Cross-validation results:
+2025-09-17 22:26:18,151 - [src.models] - INFO - Mean accuracy: 0.7907 (+/- 0.0114)
+2025-09-17 22:26:18,151 - [src.models] - INFO - Starting XGBoost model training...
+2025-09-17 22:26:27,336 - [src.models] - INFO - Model training completed. Training samples: 659553
+2025-09-17 22:26:27,591 - [src.models] - INFO - Predictions made for 140504 samples
+2025-09-17 22:26:27,644 - [src.models] - INFO - Model Evaluation Results:
+2025-09-17 22:26:27,645 - [src.models] - INFO - Accuracy: 0.8813
+2025-09-17 22:26:27,646 - [src.models] - INFO - Precision: 0.7628
+2025-09-17 22:26:27,646 - [src.models] - INFO - Recall: 0.5701
+2025-09-17 22:26:27,647 - [src.models] - INFO - F1-Score: 0.6255
+2025-09-17 22:26:27,696 - [src.models] - INFO - Classification Report:
+              precision    recall  f1-score   support
+
+         0.0       0.90      0.97      0.93    114889
+         1.0       0.64      0.23      0.33      3378
+         2.0       0.75      0.51      0.61     22237
+
+    accuracy                           0.88    140504
+   macro avg       0.76      0.57      0.63    140504
+weighted avg       0.87      0.88      0.87    140504
+
+2025-09-17 22:26:27,764 - [src.models] - INFO - Confusion Matrix:
+[[111674      0   3215]
+ [  1934    763    681]
+ [ 10417    424  11396]]
+2025-09-17 22:26:27,960 - [src.models] - INFO - Probabilities predicted for 140504 samples
+2025-09-17 22:27:04,653 - [src.models] - INFO - Cross-validation results:
+2025-09-17 22:27:04,654 - [src.models] - INFO - Mean accuracy: 0.8128 (+/- 0.0016)
+2025-09-17 22:27:04,655 - [src.models] - INFO - Starting LightGBM model training...
+2025-09-17 22:27:12,891 - [src.models] - INFO - Model training completed. Training samples: 659553
+2025-09-17 22:27:13,975 - [src.models] - INFO - Predictions made for 140504 samples
+2025-09-17 22:27:14,032 - [src.models] - INFO - Model Evaluation Results:
+2025-09-17 22:27:14,033 - [src.models] - INFO - Accuracy: 0.8833
+2025-09-17 22:27:14,034 - [src.models] - INFO - Precision: 0.7674
+2025-09-17 22:27:14,035 - [src.models] - INFO - Recall: 0.5853
+2025-09-17 22:27:14,037 - [src.models] - INFO - F1-Score: 0.6401
+2025-09-17 22:27:14,092 - [src.models] - INFO - Classification Report:
+              precision    recall  f1-score   support
+
+         0.0       0.90      0.97      0.94    114889
+         1.0       0.66      0.25      0.36      3378
+         2.0       0.74      0.54      0.62     22237
+
+    accuracy                           0.88    140504
+   macro avg       0.77      0.59      0.64    140504
+weighted avg       0.87      0.88      0.87    140504
+
+2025-09-17 22:27:14,150 - [src.models] - INFO - Confusion Matrix:
+[[111348      0   3541]
+ [  1842    848    688]
+ [  9886    438  11913]]
+2025-09-17 22:27:15,196 - [src.models] - INFO - Probabilities predicted for 140504 samples
+2025-09-17 22:27:53,796 - [src.models] - INFO - Cross-validation results:
+2025-09-17 22:27:53,797 - [src.models] - INFO - Mean accuracy: 0.8181 (+/- 0.0019)
+2025-09-17 22:27:53,817 - [src.models] - INFO - Predictions made for 140504 samples
+2025-09-17 22:27:53,846 - [src.models] - INFO - Probabilities predicted for 140504 samples
+2025-09-17 22:27:54,111 - [src.models] - INFO - Predictions made for 140504 samples
+2025-09-17 22:27:54,141 - [src.models] - INFO - Probabilities predicted for 140504 samples
+2025-09-17 22:27:54,431 - [src.models] - INFO - Predictions made for 140504 samples
+2025-09-17 22:27:54,475 - [src.models] - INFO - Probabilities predicted for 140504 samples
+2025-09-17 22:27:57,520 - [src.models] - INFO - Predictions made for 140504 samples
+2025-09-17 22:28:00,210 - [src.models] - INFO - Probabilities predicted for 140504 samples
+2025-09-17 22:28:00,509 - [src.models] - INFO - Predictions made for 140504 samples
+2025-09-17 22:28:00,700 - [src.models] - INFO - Probabilities predicted for 140504 samples
+2025-09-17 22:28:01,925 - [src.models] - INFO - Predictions made for 140504 samples
+2025-09-17 22:28:02,980 - [src.models] - INFO - Probabilities predicted for 140504 samples

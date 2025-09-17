@@ -1,0 +1,57 @@
+2025-09-17 23:44:35,288 - [src.features] - INFO - DiabetesFeatureEngineering initialized successfully
+2025-09-17 23:44:35,291 - [src.features] - INFO - ============================================================
+2025-09-17 23:44:35,294 - [src.features] - INFO - STARTING INFERENCE FEATURE ENGINEERING PIPELINE
+2025-09-17 23:44:35,297 - [src.features] - INFO - ============================================================
+2025-09-17 23:44:35,298 - [src.features] - INFO - Initial dataset shape: (250090, 21)
+2025-09-17 23:44:35,301 - [src.features] - INFO - Starting null values removal process...
+2025-09-17 23:44:35,346 - [src.features] - INFO - No null values found in the dataset
+2025-09-17 23:44:35,396 - [src.features] - INFO - Null values removal completed. Removed 0 rows (0.00%)
+2025-09-17 23:44:35,398 - [src.features] - INFO - Dataset shape: 250090 -> 250090 rows
+2025-09-17 23:44:35,399 - [src.features] - INFO - Starting duplicate removal process...
+2025-09-17 23:44:35,599 - [src.features] - INFO - Found 15485 duplicate rows
+2025-09-17 23:44:35,788 - [src.features] - INFO -   - Label 0.0: 15191 duplicate rows
+2025-09-17 23:44:35,835 - [src.features] - INFO -   - Label 2.0: 285 duplicate rows
+2025-09-17 23:44:35,851 - [src.features] - INFO -   - Label 1.0: 9 duplicate rows
+2025-09-17 23:44:36,103 - [src.features] - INFO - Duplicate removal completed. Removed 15485 rows (6.19%)
+2025-09-17 23:44:36,106 - [src.features] - INFO - Dataset shape: 250090 -> 234605 rows
+2025-09-17 23:44:36,109 - [src.features] - INFO - Starting outlier handling process...
+2025-09-17 23:44:36,112 - [src.features] - INFO - Columns to process: ['BMI', 'MentHlth', 'PhysHlth']
+2025-09-17 23:44:36,128 - [src.features] - INFO - Processing outliers for column: BMI
+2025-09-17 23:44:36,258 - [src.features] - INFO -   - Diabetes group 0.0: 7389 outliers (Lower: 54, Upper: 7335)
+2025-09-17 23:44:36,311 - [src.features] - INFO -   - Diabetes group 2.0: 922 outliers (Lower: 5, Upper: 917)
+2025-09-17 23:44:36,343 - [src.features] - INFO -   - Diabetes group 1.0: 163 outliers (Lower: 0, Upper: 163)
+2025-09-17 23:44:36,352 - [src.features] - INFO - Processing outliers for column: MentHlth
+2025-09-17 23:44:36,458 - [src.features] - INFO -   - Diabetes group 0.0: 24677 outliers (Lower: 0, Upper: 24677)
+2025-09-17 23:44:36,513 - [src.features] - INFO -   - Diabetes group 2.0: 5621 outliers (Lower: 0, Upper: 5621)
+2025-09-17 23:44:36,555 - [src.features] - INFO -   - Diabetes group 1.0: 1066 outliers (Lower: 0, Upper: 1066)
+2025-09-17 23:44:36,564 - [src.features] - INFO - Processing outliers for column: PhysHlth
+2025-09-17 23:44:36,663 - [src.features] - INFO -   - Diabetes group 0.0: 28863 outliers (Lower: 0, Upper: 28863)
+2025-09-17 23:44:36,741 - [src.features] - INFO -   - Diabetes group 1.0: 915 outliers (Lower: 0, Upper: 915)
+2025-09-17 23:44:36,753 - [src.features] - INFO - Outlier handling completed. Total outliers handled: 69616
+2025-09-17 23:44:36,756 - [src.features] - INFO - Creating health score feature...
+2025-09-17 23:44:36,777 - [src.features] - INFO - Health score created successfully. Range: [0.200, 2.417]
+2025-09-17 23:44:36,779 - [src.features] - INFO - Creating risk score feature...
+2025-09-17 23:44:36,856 - [src.features] - INFO - Risk score created successfully using 4 features. Range: [0.0, 4.0]
+2025-09-17 23:44:36,858 - [src.features] - INFO - Creating lifestyle score feature...
+2025-09-17 23:44:36,976 - [src.features] - INFO - Lifestyle score created successfully using 1 positive and 2 negative factors
+2025-09-17 23:44:36,979 - [src.features] - INFO - Range: [-2.0, 1.0]
+2025-09-17 23:44:36,981 - [src.features] - INFO - Creating cardiovascular risk feature...
+2025-09-17 23:44:37,021 - [src.features] - INFO - Cardiovascular risk created successfully using: ['HighBP', 'HighChol', 'BMI_Obesity']
+2025-09-17 23:44:37,026 - [src.features] - INFO - Range: [0.0, 3.0]
+2025-09-17 23:44:37,028 - [src.features] - INFO - Creating BMI category feature...
+2025-09-17 23:44:37,153 - [src.features] - INFO - BMI category distribution:
+2025-09-17 23:44:37,154 - [src.features] - INFO -   - Pre-obesity: 81563 (34.77%)
+2025-09-17 23:44:37,158 - [src.features] - INFO -   - Normal weight: 57084 (24.33%)
+2025-09-17 23:44:37,160 - [src.features] - INFO -   - Obesity class I: 53344 (22.74%)
+2025-09-17 23:44:37,163 - [src.features] - INFO -   - Obesity class II: 23206 (9.89%)
+2025-09-17 23:44:37,165 - [src.features] - INFO -   - Obesity class III: 16043 (6.84%)
+2025-09-17 23:44:37,170 - [src.features] - INFO -   - Underweight: 3365 (1.43%)
+2025-09-17 23:44:37,173 - [src.features] - INFO - Creating age group feature...
+2025-09-17 23:44:37,315 - [src.features] - INFO - Age group distribution:
+2025-09-17 23:44:37,315 - [src.features] - INFO -   - Senior: 117838 (50.23%)
+2025-09-17 23:44:37,316 - [src.features] - INFO -   - Middle: 87118 (37.13%)
+2025-09-17 23:44:37,318 - [src.features] - INFO -   - Young: 29649 (12.64%)
+2025-09-17 23:44:37,435 - [src.features] - INFO - Final dataset shape: (234605, 15)
+2025-09-17 23:44:37,438 - [src.features] - INFO - ============================================================
+2025-09-17 23:44:37,442 - [src.features] - INFO - INFERENCE FEATURE ENGINEERING PIPELINE COMPLETED
+2025-09-17 23:44:37,443 - [src.features] - INFO - ============================================================
