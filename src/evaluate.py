@@ -1,4 +1,3 @@
-import matplotlib.pyplot as plt
 import pandas as pd
 import numpy as np
 
@@ -35,22 +34,22 @@ def compare_models(models_dict, X_test, y_true):
     # Calculate metrics for each model
     for name, model in models_dict.items():
         # Predict
-        y_pred = model.predict(X_test)
-        y_pred_proba = model.predict_proba(X_test)
+        y_pred = model.predict(X=X_test)
+        y_pred_proba = model.predict_proba(X=X_test)
 
         # Average metrics
-        accuracy = accuracy_score(y_true, y_pred)
-        precision = precision_score(y_true, y_pred, average='macro', zero_division=True)
-        recall = recall_score(y_true, y_pred, average='macro', zero_division=True)
-        f1 = f1_score(y_true, y_pred, average='macro', zero_division=True)
+        accuracy = accuracy_score(y_true=y_true, y_pred=y_pred)
+        precision = precision_score(y_true=y_true, y_pred=y_pred, average='macro', zero_division=True)
+        recall = recall_score(y_true=y_true, y_pred=y_pred, average='macro', zero_division=True)
+        f1 = f1_score(y_true=y_true, y_pred=y_pred, average='macro', zero_division=True)
 
         # Metrics per class
-        precision_per_class = precision_score(y_true, y_pred, average=None, zero_division=True)
-        recall_per_class = recall_score(y_true, y_pred, average=None, zero_division=True)
-        f1_per_class = f1_score(y_true, y_pred, average=None, zero_division=True)
+        precision_per_class = precision_score(y_true=y_true, y_pred=y_pred, average=None, zero_division=True)
+        recall_per_class = recall_score(y_true=y_true, y_pred=y_pred, average=None, zero_division=True)
+        f1_per_class = f1_score(y_true=y_true, y_pred=y_pred, average=None, zero_division=True)
 
         # Mean ROC AUC across classes
-        y_true_bin = pd.get_dummies(y_true)
+        y_true_bin = pd.get_dummies(data=y_true)
         roc_auc = np.mean([roc_auc_score(y_true_bin.iloc[:, i], y_pred_proba[:, i])
                            for i in range(3)])
 
@@ -69,7 +68,7 @@ def compare_models(models_dict, X_test, y_true):
             results[f'F1-class{i}'].append(f1_per_class[i])
 
     # Convert to DataFrame
-    results_df = pd.DataFrame(results)
+    results_df = pd.DataFrame(data=results)
 
     # Format float columns to 4 decimal places
     float_cols = ['Accuracy', 'Precision', 'Recall', 'F1-Score', 'ROC AUC',

@@ -17,9 +17,9 @@ def plot_class_distribution(y, title="Class Distribution"):
             The title of the plot (default is "Class Distribution")
     """
     y.value_counts().sort_index().plot(kind="bar")
-    plt.xlabel("Class")
-    plt.ylabel("Count")
-    plt.title(title)
+    plt.xlabel(xlabel="Class")
+    plt.ylabel(ylabel="Count")
+    plt.title(label=title)
     plt.show()
 
 # %%
@@ -46,8 +46,8 @@ def plot_roc_auc(y_true, y_pred_proba, model_name="Model"):
 
     # Plot ROC curve for each class
     for i in range(3):
-        fpr, tpr, _ = roc_curve(y_true_bin.iloc[:, i], y_pred_proba[:, i])
-        auc = roc_auc_score(y_true_bin.iloc[:, i], y_pred_proba[:, i])
+        fpr, tpr, _ = roc_curve(y_true=y_true_bin.iloc[:, i], y_score=y_pred_proba[:, i])
+        auc = roc_auc_score(y_true=y_true_bin.iloc[:, i], y_score=y_pred_proba[:, i])
         plt.plot(fpr, tpr, color=colors[i],
                  label=f'{labels[i]} (AUC = {auc:.3f})')
 
@@ -55,11 +55,11 @@ def plot_roc_auc(y_true, y_pred_proba, model_name="Model"):
     plt.plot([0, 1], [0, 1], color='gray', linestyle='--')
 
     # Chart settings
-    plt.xlabel('False Positive Rate')
-    plt.ylabel('True Positive Rate')
-    plt.title(f'ROC Curve - {model_name}')
+    plt.xlabel(xlabel='False Positive Rate')
+    plt.ylabel(ylabel='True Positive Rate')
+    plt.title(label=f'ROC Curve - {model_name}')
     plt.legend(loc='lower right')
-    plt.grid(True)
+    plt.grid(visible=True)
 
     # Show plot
     plt.show()
@@ -80,51 +80,51 @@ def plot_correlation_matrix(df, title="Correlation Matrix", figsize=(16, 12)):
     plt.figure(figsize=figsize)
     corr = df.corr()
     sns.heatmap(corr, annot=True, cmap="coolwarm_r", fmt=".2")
-    plt.xlabel("Features")
-    plt.ylabel("Features")
-    plt.title(title)
+    plt.xlabel(xlabel="Features")
+    plt.ylabel(ylabel="Features")
+    plt.title(label=title)
 
 # %%
-def plot_compare_models(results_df):
+def plot_compare_models(comparison_df, title="Model Performance Comparison"):
     """
     Plot the performance comparison of multiple models.
     Parameters:
-        results_df: pandas.DataFrame
+        comparison_df: pandas.DataFrame
             The DataFrame containing model performance metrics
     """
     # Plot performance comparison
     plt.figure(figsize=(15, 6))
 
     # Bar positions
-    x = np.arange(len(results_df["Model"]))
+    x = np.arange(len(comparison_df["Model"]))
     width = 0.15
 
     # Plot bars
-    plt.bar(x - width*2, results_df['Accuracy'], width, label='Accuracy', color='skyblue')
-    plt.bar(x - width, results_df['Precision'], width, label='Precision', color='lightgreen')
-    plt.bar(x, results_df['Recall'], width, label='Recall', color='salmon')
-    plt.bar(x + width, results_df['F1-Score'], width, label='F1-Score', color='purple')
-    plt.bar(x + width*2, results_df['ROC AUC'], width, label='ROC AUC', color='orange')
+    plt.bar(x=x - width*2, height=comparison_df['Accuracy'], width=width, label='Accuracy', color='skyblue')
+    plt.bar(x=x - width, height=comparison_df['Precision'], width=width, label='Precision', color='lightgreen')
+    plt.bar(x=x, height=comparison_df['Recall'], width=width, label='Recall', color='salmon')
+    plt.bar(x=x + width, height=comparison_df['F1-Score'], width=width, label='F1-Score', color='purple')
+    plt.bar(x=x + width*2, height=comparison_df['ROC AUC'], width=width, label='ROC AUC', color='orange')
 
     # Customize plot
-    plt.xlabel('Model')
-    plt.ylabel('Score')
-    plt.title('Model Performance Comparison')
-    plt.xticks(x, results_df['Model'])
+    plt.xlabel(xlabel='Model')
+    plt.ylabel(ylabel='Score')
+    plt.title(label=title)
+    plt.xticks(ticks=x, labels=comparison_df['Model'])
     plt.legend()
-    plt.grid(True, alpha=0.3)
+    plt.grid(visible=True, alpha=0.3)
 
     # Annotate bar values
-    for i in range(len(results_df["Model"])):
-        plt.text(i - width*2, results_df['Accuracy'][i], f"{results_df['Accuracy'][i]:.3f}",
+    for i in range(len(comparison_df["Model"])):
+        plt.text(x=i - width*2, y=comparison_df['Accuracy'][i],s=f"{comparison_df['Accuracy'][i]:.3f}",
                  ha='center', va='bottom', rotation=0)
-        plt.text(i - width, results_df['Precision'][i], f"{results_df['Precision'][i]:.3f}",
+        plt.text(x=i - width, y=comparison_df['Precision'][i],s=f"{comparison_df['Precision'][i]:.3f}",
                  ha='center', va='bottom', rotation=0)
-        plt.text(i, results_df['Recall'][i], f"{results_df['Recall'][i]:.3f}",
+        plt.text(x=i, y=comparison_df['Recall'][i],s=f"{comparison_df['Recall'][i]:.3f}",
                  ha='center', va='bottom', rotation=0)
-        plt.text(i + width, results_df['F1-Score'][i], f"{results_df['F1-Score'][i]:.3f}",
+        plt.text(x=i + width, y=comparison_df['F1-Score'][i],s=f"{comparison_df['F1-Score'][i]:.3f}",
                  ha='center', va='bottom', rotation=0)
-        plt.text(i + width*2, results_df['ROC AUC'][i], f"{results_df['ROC AUC'][i]:.3f}",
+        plt.text(x=i + width*2, y=comparison_df['ROC AUC'][i], s=f"{comparison_df['ROC AUC'][i]:.3f}",
                  ha='center', va='bottom', rotation=0)
 
     plt.tight_layout()
@@ -192,7 +192,7 @@ def plot_diabetes_distribution_by_indicators(df, indicators, year=None, title="D
         nrows = (n_indicators + 1) // 2
 
     # Create the figure and axes
-    fig, axes = plt.subplots(nrows, ncols, figsize=figsize)
+    fig, axes = plt.subplots(nrows=nrows, ncols=ncols, figsize=figsize)
 
     # Make sure axes is always a 2D array
     if nrows == 1 and ncols == 1:
@@ -332,7 +332,7 @@ def plot_diabetes_distribution_by_indicators(df, indicators, year=None, title="D
     if year:
         title += f" in {year}"
 
-    fig.suptitle(title, fontsize=15)
+    fig.suptitle(t=title, fontsize=15)
     plt.tight_layout(rect=[0, 0.03, 1, 0.95])
     plt.show()
 
@@ -353,7 +353,7 @@ def plot_feature_distributions_comparison(df_list, year_list, feature, figsize=(
         Figure size
     """
     n_years = len(df_list)
-    fig, axes = plt.subplots(1, n_years, figsize=figsize)
+    fig, axes = plt.subplots(nrows=1, ncols=n_years, figsize=figsize)
 
     if n_years == 1:
         axes = [axes]

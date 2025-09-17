@@ -1,0 +1,34 @@
+2025-09-17 16:09:21,953 - [src.balancing] - INFO - HybridSamplingBalancer initialized successfully
+2025-09-17 16:09:21,994 - [src.balancing] - INFO - Starting SMOTETomek hybrid sampling process...
+2025-09-17 16:09:22,014 - [src.balancing] - INFO - Original class distribution:
+2025-09-17 16:09:22,016 - [src.balancing] - INFO -   - Class 0.0: 459553 samples
+2025-09-17 16:09:22,018 - [src.balancing] - INFO -   - Class 1.0: 13512 samples
+2025-09-17 16:09:22,020 - [src.balancing] - INFO -   - Class 2.0: 88947 samples
+2025-09-17 16:11:36,249 - [src.balancing] - INFO - New class distribution after SMOTETomek:
+2025-09-17 16:11:36,250 - [src.balancing] - INFO -   - Class 0.0: 456890 samples (-2663 net)
+2025-09-17 16:11:36,251 - [src.balancing] - INFO -   - Class 1.0: 457368 samples (+443856 net)
+2025-09-17 16:11:36,251 - [src.balancing] - INFO -   - Class 2.0: 455155 samples (+366208 net)
+2025-09-17 16:11:36,253 - [src.balancing] - INFO - Dataset size: 562012 -> 1369413 samples (+807401)
+2025-09-17 16:11:36,256 - [src.balancing] - INFO - SMOTETomek processing completed successfully
+2025-09-17 16:11:36,762 - [src.balancing] - INFO - Starting SMOTEENN hybrid sampling process...
+2025-09-17 16:11:36,781 - [src.balancing] - INFO - Original class distribution:
+2025-09-17 16:11:36,782 - [src.balancing] - INFO -   - Class 0.0: 459553 samples
+2025-09-17 16:11:36,784 - [src.balancing] - INFO -   - Class 1.0: 13512 samples
+2025-09-17 16:11:36,785 - [src.balancing] - INFO -   - Class 2.0: 88947 samples
+2025-09-17 16:13:22,852 - [src.balancing] - INFO - New class distribution after SMOTEENN:
+2025-09-17 16:13:22,854 - [src.balancing] - INFO -   - Class 0.0: 338617 samples (-120936 net)
+2025-09-17 16:13:22,855 - [src.balancing] - INFO -   - Class 1.0: 22134 samples (+8622 net)
+2025-09-17 16:13:22,857 - [src.balancing] - INFO -   - Class 2.0: 66625 samples (-22322 net)
+2025-09-17 16:13:22,858 - [src.balancing] - INFO - Dataset size: 562012 -> 427376 samples (-134636)
+2025-09-17 16:13:22,860 - [src.balancing] - INFO - SMOTEENN processing completed successfully
+2025-09-17 16:13:23,062 - [src.balancing] - INFO - Starting ADASYN + TomekLinks hybrid sampling process...
+2025-09-17 16:13:23,078 - [src.balancing] - INFO - Original class distribution:
+2025-09-17 16:13:23,080 - [src.balancing] - INFO -   - Class 0.0: 459553 samples
+2025-09-17 16:13:23,081 - [src.balancing] - INFO -   - Class 1.0: 13512 samples
+2025-09-17 16:13:23,082 - [src.balancing] - INFO -   - Class 2.0: 88947 samples
+2025-09-17 16:14:58,334 - [src.balancing] - INFO - New class distribution after ADASYN + TomekLinks:
+2025-09-17 16:14:58,337 - [src.balancing] - INFO -   - Class 0.0: 454843 samples (-4710 net)
+2025-09-17 16:14:58,339 - [src.balancing] - INFO -   - Class 1.0: 50523 samples (+37011 net)
+2025-09-17 16:14:58,341 - [src.balancing] - INFO -   - Class 2.0: 142923 samples (+53976 net)
+2025-09-17 16:14:58,342 - [src.balancing] - INFO - Dataset size: 562012 -> 648289 samples (+86277)
+2025-09-17 16:14:58,343 - [src.balancing] - INFO - ADASYN + TomekLinks processing completed successfully

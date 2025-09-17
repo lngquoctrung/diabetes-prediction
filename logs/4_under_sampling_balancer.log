@@ -1,0 +1,34 @@
+2025-09-17 16:07:03,111 - [src.balancing] - INFO - UnderSamplingBalancer initialized successfully
+2025-09-17 16:07:03,119 - [src.balancing] - INFO - Starting Random Under Sampling process...
+2025-09-17 16:07:03,125 - [src.balancing] - INFO - Original class distribution:
+2025-09-17 16:07:03,126 - [src.balancing] - INFO -   - Class 0.0: 459553 samples
+2025-09-17 16:07:03,127 - [src.balancing] - INFO -   - Class 1.0: 13512 samples
+2025-09-17 16:07:03,128 - [src.balancing] - INFO -   - Class 2.0: 88947 samples
+2025-09-17 16:07:03,272 - [src.balancing] - INFO - New class distribution after Random Under Sampling:
+2025-09-17 16:07:03,273 - [src.balancing] - INFO -   - Class 0.0: 100000 samples (-359553)
+2025-09-17 16:07:03,275 - [src.balancing] - INFO -   - Class 1.0: 13512 samples (-0)
+2025-09-17 16:07:03,278 - [src.balancing] - INFO -   - Class 2.0: 88947 samples (-0)
+2025-09-17 16:07:03,280 - [src.balancing] - INFO - Dataset size: 562012 -> 202459 samples (-359553)
+2025-09-17 16:07:03,282 - [src.balancing] - INFO - Random Under Sampling completed successfully
+2025-09-17 16:07:03,365 - [src.balancing] - INFO - Starting Tomek Links process...
+2025-09-17 16:07:03,374 - [src.balancing] - INFO - Original class distribution:
+2025-09-17 16:07:03,376 - [src.balancing] - INFO -   - Class 0.0: 459553 samples
+2025-09-17 16:07:03,377 - [src.balancing] - INFO -   - Class 1.0: 13512 samples
+2025-09-17 16:07:03,378 - [src.balancing] - INFO -   - Class 2.0: 88947 samples
+2025-09-17 16:07:50,388 - [src.balancing] - INFO - New class distribution after Tomek Links:
+2025-09-17 16:07:50,391 - [src.balancing] - INFO -   - Class 0.0: 450210 samples (-9343 Tomek links)
+2025-09-17 16:07:50,392 - [src.balancing] - INFO -   - Class 1.0: 13512 samples (unchanged)
+2025-09-17 16:07:50,394 - [src.balancing] - INFO -   - Class 2.0: 79599 samples (-9348 Tomek links)
+2025-09-17 16:07:50,395 - [src.balancing] - INFO - Dataset size: 562012 -> 543321 samples (-18691 Tomek links)
+2025-09-17 16:07:50,397 - [src.balancing] - INFO - Tomek Links processing completed successfully
+2025-09-17 16:07:50,694 - [src.balancing] - INFO - Starting Edited Nearest Neighbours (ENN) under-sampling process...
+2025-09-17 16:07:50,710 - [src.balancing] - INFO - Original class distribution:
+2025-09-17 16:07:50,712 - [src.balancing] - INFO -  - Class 0.0: 459553 samples
+2025-09-17 16:07:50,713 - [src.balancing] - INFO -  - Class 1.0: 13512 samples
+2025-09-17 16:07:50,715 - [src.balancing] - INFO -  - Class 2.0: 88947 samples
+2025-09-17 16:09:21,559 - [src.balancing] - INFO - New class distribution after ENN:
+2025-09-17 16:09:21,562 - [src.balancing] - INFO -  - Class 0.0: 353329 samples (-106224 removed)
+2025-09-17 16:09:21,563 - [src.balancing] - INFO -  - Class 1.0: 13512 samples (-0 removed)
+2025-09-17 16:09:21,564 - [src.balancing] - INFO -  - Class 2.0: 28181 samples (-60766 removed)
+2025-09-17 16:09:21,566 - [src.balancing] - INFO - Dataset size: 562012 -> 395022 samples (-166990)
+2025-09-17 16:09:21,567 - [src.balancing] - INFO - ENN under-sampling completed successfully

@@ -1,0 +1,33 @@
+2025-09-16 21:10:58,285 - [src.models] - INFO - DiabetesXGBoostClassifier initialized with parameters:
+2025-09-16 21:10:58,285 - [src.models] - INFO -  n_estimators: 100
+2025-09-16 21:10:58,287 - [src.models] - INFO -  max_depth: 6
+2025-09-16 21:10:58,288 - [src.models] - INFO -  learning_rate: 0.1
+2025-09-16 21:10:58,290 - [src.models] - INFO -  subsample: 1.0
+2025-09-16 21:10:58,290 - [src.models] - INFO -  colsample_bytree: 1.0
+2025-09-16 21:10:58,291 - [src.models] - INFO -  random_state: 42
+2025-09-16 21:10:58,309 - [src.models] - INFO - Starting XGBoost model training...
+2025-09-16 21:11:10,664 - [src.models] - INFO - Model training completed. Training samples: 630081
+2025-09-16 21:11:10,969 - [src.models] - INFO - Predictions made for 157521 samples
+2025-09-16 21:11:11,073 - [src.models] - INFO - Model Evaluation Results:
+2025-09-16 21:11:11,074 - [src.models] - INFO - Accuracy: 0.7547
+2025-09-16 21:11:11,075 - [src.models] - INFO - Precision: 0.4380
+2025-09-16 21:11:11,075 - [src.models] - INFO - Recall: 0.4953
+2025-09-16 21:11:11,076 - [src.models] - INFO - F1-Score: 0.4458
+2025-09-16 21:11:11,138 - [src.models] - INFO - Classification Report:
+              precision    recall  f1-score   support
+
+         0.0       0.92      0.79      0.85    131574
+         1.0       0.04      0.02      0.03      3393
+         2.0       0.35      0.68      0.46     22554
+
+    accuracy                           0.75    157521
+   macro avg       0.44      0.50      0.45    157521
+weighted avg       0.82      0.75      0.78    157521
+
+2025-09-16 21:11:11,203 - [src.models] - INFO - Confusion Matrix:
+[[103474   1223  26877]
+ [  1667     65   1661]
+ [  6905    306  15343]]
+2025-09-16 21:11:11,487 - [src.models] - INFO - Probabilities predicted for 157521 samples
+2025-09-16 21:11:59,460 - [src.models] - INFO - Cross-validation results:
+2025-09-16 21:11:59,462 - [src.models] - INFO - Mean accuracy: 0.8434 (+/- 0.0010)

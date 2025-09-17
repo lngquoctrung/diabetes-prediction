@@ -13,6 +13,8 @@ from sklearn.linear_model import LogisticRegression
 from sklearn.naive_bayes import GaussianNB, MultinomialNB, BernoulliNB
 from sklearn.linear_model import SGDClassifier
 from sklearn.ensemble import RandomForestClassifier
+from xgboost import XGBClassifier
+from lightgbm import LGBMClassifier
 from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score, classification_report, confusion_matrix
 from src.config import LOG_FORMAT, RANDOM_STATE
 from src.utils import make_dirs
@@ -70,29 +72,29 @@ class DiabetesLogisticRegression:
         self.model_path = None
 
         # Log configuration
-        self.logger = logging.getLogger(__name__)
-        self.logger.setLevel(logging.DEBUG)
-        log_formatter = logging.Formatter(log_format)
+        self.logger = logging.getLogger(name=__name__)
+        self.logger.setLevel(level=logging.DEBUG)
+        log_formatter = logging.Formatter(fmt=log_format)
         # Clear existing handlers to avoid duplicate logs
         self.logger.handlers.clear()
         # Handler log to file
         if log_file:
             # Create a log directory
-            make_dirs(os.path.dirname(log_file))
-            log_file_handler = logging.FileHandler(log_file)
-            log_file_handler.setLevel(logging.INFO)
-            log_file_handler.setFormatter(log_formatter)
-            self.logger.addHandler(log_file_handler)
+            make_dirs(path=os.path.dirname(log_file))
+            log_file_handler = logging.FileHandler(filename=log_file)
+            log_file_handler.setLevel(level=logging.INFO)
+            log_file_handler.setFormatter(fmt=log_formatter)
+            self.logger.addHandler(hdlr=log_file_handler)
         # Handler log to console
         log_console_handler = logging.StreamHandler()
-        log_console_handler.setLevel(logging.INFO)
-        log_console_handler.setFormatter(log_formatter)
-        self.logger.addHandler(log_console_handler)
+        log_console_handler.setLevel(level=logging.INFO)
+        log_console_handler.setFormatter(fmt=log_formatter)
+        self.logger.addHandler(hdlr=log_console_handler)
 
         # Log model initialization
-        self.logger.info(f"DiabetesLogisticRegression initialized with parameters:")
+        self.logger.info(msg=f"DiabetesLogisticRegression initialized with parameters:")
         for key, value in self.model_params.items():
-            self.logger.info(f"  {key}: {value}")
+            self.logger.info(msg=f"  {key}: {value}")
 
     def train(self, X, y):
         """
@@ -103,11 +105,11 @@ class DiabetesLogisticRegression:
             y: Training labels
         """
         try:
-            self.logger.info("Starting Logistic Regression model training...")
-            self.logistic_regression.fit(X, y)
-            self.logger.info(f"Model training completed. Training samples: {len(X)}")
+            self.logger.info(msg="Starting Logistic Regression model training...")
+            self.logistic_regression.fit(X=X, y=y)
+            self.logger.info(msg=f"Model training completed. Training samples: {len(X)}")
         except Exception as e:
-            self.logger.error(f"Error during training: {str(e)}")
+            self.logger.error(msg=f"Error during training: {str(e)}")
             raise
 
     def predict(self, X):
@@ -121,11 +123,11 @@ class DiabetesLogisticRegression:
             Predicted labels
         """
         try:
-            predictions = self.logistic_regression.predict(X)
-            self.logger.info(f"Predictions made for {len(X)} samples")
+            predictions = self.logistic_regression.predict(X=X)
+            self.logger.info(msg=f"Predictions made for {len(X)} samples")
             return predictions
         except Exception as e:
-            self.logger.error(f"Error during prediction: {str(e)}")
+            self.logger.error(msg=f"Error during prediction: {str(e)}")
             raise
 
     def predict_proba(self, X):
@@ -139,11 +141,11 @@ class DiabetesLogisticRegression:
             Predicted probabilities
         """
         try:
-            probabilities = self.logistic_regression.predict_proba(X)
-            self.logger.info(f"Probabilities predicted for {len(X)} samples")
+            probabilities = self.logistic_regression.predict_proba(X=X)
+            self.logger.info(msg=f"Probabilities predicted for {len(X)} samples")
             return probabilities
         except Exception as e:
-            self.logger.error(f"Error during probability prediction: {str(e)}")
+            self.logger.error(msg=f"Error during probability prediction: {str(e)}")
             raise
 
     def evaluate(self, y_true, y_pred):
@@ -159,10 +161,10 @@ class DiabetesLogisticRegression:
         """
         try:
             # Calculate metrics
-            accuracy = accuracy_score(y_true, y_pred)
-            precision = precision_score(y_true, y_pred, average='macro', zero_division=0)
-            recall = recall_score(y_true, y_pred, average='macro', zero_division=0)
-            f1 = f1_score(y_true, y_pred, average='macro', zero_division=0)
+            accuracy = accuracy_score(y_true=y_true, y_pred=y_pred)
+            precision = precision_score(y_true=y_true, y_pred=y_pred, average='macro', zero_division=0)
+            recall = recall_score(y_true=y_true, y_pred=y_pred, average='macro', zero_division=0)
+            f1 = f1_score(y_true=y_true, y_pred=y_pred, average='macro', zero_division=0)
 
             # Create a metrics dictionary
             metrics = {
@@ -173,24 +175,24 @@ class DiabetesLogisticRegression:
             }
 
             # Log metrics
-            self.logger.info("Model Evaluation Results:")
-            self.logger.info(f"Accuracy: {accuracy:.4f}")
-            self.logger.info(f"Precision: {precision:.4f}")
-            self.logger.info(f"Recall: {recall:.4f}")
-            self.logger.info(f"F1-Score: {f1:.4f}")
+            self.logger.info(msg="Model Evaluation Results:")
+            self.logger.info(msg=f"Accuracy: {accuracy:.4f}")
+            self.logger.info(msg=f"Precision: {precision:.4f}")
+            self.logger.info(msg=f"Recall: {recall:.4f}")
+            self.logger.info(msg=f"F1-Score: {f1:.4f}")
 
             # Detailed classification report
-            report = classification_report(y_true, y_pred, zero_division=0)
-            self.logger.info(f"Classification Report:\n{report}")
+            report = classification_report(y_true=y_true,y_pred= y_pred, zero_division=0)
+            self.logger.info(msg=f"Classification Report:\n{report}")
 
             # Confusion Matrix
-            cm = confusion_matrix(y_true, y_pred)
-            self.logger.info(f"Confusion Matrix:\n{cm}")
+            cm = confusion_matrix(y_true=y_true, y_pred=y_pred)
+            self.logger.info(msg=f"Confusion Matrix:\n{cm}")
 
             return metrics
 
         except Exception as e:
-            self.logger.error(f"Error during evaluation: {str(e)}")
+            self.logger.error(msg=f"Error during evaluation: {str(e)}")
             raise
 
     def save_model(self, model_path: str):
@@ -202,17 +204,17 @@ class DiabetesLogisticRegression:
         """
         try:
             # Create a directory if it doesn't exist
-            make_dirs(os.path.dirname(model_path))
+            make_dirs(path=os.path.dirname(model_path))
 
             # Save the model
-            with open(model_path, 'wb') as f:
+            with open(file=model_path, mode='wb') as f:
                 pickle.dump(self.logistic_regression, f)
 
             self.model_path = model_path
-            self.logger.info(f"Model saved successfully to: {model_path}")
+            self.logger.info(msg=f"Model saved successfully to: {model_path}")
 
         except Exception as e:
-            self.logger.error(f"Error saving model: {str(e)}")
+            self.logger.error(msg=f"Error saving model: {str(e)}")
             raise
 
     def load_model(self, model_path: str):
@@ -223,18 +225,18 @@ class DiabetesLogisticRegression:
             model_path: Path to the saved model
         """
         try:
-            if not os.path.exists(model_path):
+            if not os.path.exists(path=model_path):
                 raise FileNotFoundError(f"Model file not found: {model_path}")
 
             # Load the model
-            with open(model_path, 'rb') as f:
+            with open(file=model_path, mode='rb') as f:
                 self.logistic_regression = pickle.load(f)
 
             self.model_path = model_path
-            self.logger.info(f"Model loaded successfully from: {model_path}")
+            self.logger.info(msg=f"Model loaded successfully from: {model_path}")
 
         except Exception as e:
-            self.logger.error(f"Error loading model: {str(e)}")
+            self.logger.error(msg=f"Error loading model: {str(e)}")
             raise
 
     def get_model_info(self):
@@ -269,17 +271,17 @@ class DiabetesLogisticRegression:
         try:
             from sklearn.model_selection import cross_val_score
 
-            scores = cross_val_score(self.logistic_regression, X, y, cv=cv, scoring='accuracy')
+            scores = cross_val_score(estimator=self.logistic_regression, X=X, y=y, cv=cv, scoring='accuracy')
             mean_score = np.mean(scores)
             std_score = np.std(scores)
 
-            self.logger.info(f"Cross-validation results:")
-            self.logger.info(f"Mean accuracy: {mean_score:.4f} (+/- {std_score * 2:.4f})")
+            self.logger.info(msg=f"Cross-validation results:")
+            self.logger.info(msg=f"Mean accuracy: {mean_score:.4f} (+/- {std_score * 2:.4f})")
 
             return scores
 
         except Exception as e:
-            self.logger.error(f"Error during cross-validation: {str(e)}")
+            self.logger.error(msg=f"Error during cross-validation: {str(e)}")
             raise
 
 class DiabetesNaiveBayes:
@@ -330,29 +332,29 @@ class DiabetesNaiveBayes:
         self.model_path = None
 
         # Log configuration
-        self.logger = logging.getLogger(__name__)
-        self.logger.setLevel(logging.DEBUG)
-        log_formatter = logging.Formatter(log_format)
+        self.logger = logging.getLogger(name=__name__)
+        self.logger.setLevel(level=logging.DEBUG)
+        log_formatter = logging.Formatter(fmt=log_format)
         # Clear existing handlers to avoid duplicate logs
         self.logger.handlers.clear()
         # Handler log to file
         if log_file:
             # Create a log directory
-            make_dirs(os.path.dirname(log_file))
-            log_file_handler = logging.FileHandler(log_file)
-            log_file_handler.setLevel(logging.INFO)
-            log_file_handler.setFormatter(log_formatter)
-            self.logger.addHandler(log_file_handler)
+            make_dirs(path=os.path.dirname(log_file))
+            log_file_handler = logging.FileHandler(filename=log_file)
+            log_file_handler.setLevel(level=logging.INFO)
+            log_file_handler.setFormatter(fmt=log_formatter)
+            self.logger.addHandler(hdlr=log_file_handler)
         # Handler log to console
         log_console_handler = logging.StreamHandler()
-        log_console_handler.setLevel(logging.INFO)
-        log_console_handler.setFormatter(log_formatter)
-        self.logger.addHandler(log_console_handler)
+        log_console_handler.setLevel(level=logging.INFO)
+        log_console_handler.setFormatter(fmt=log_formatter)
+        self.logger.addHandler(hdlr=log_console_handler)
 
         # Log model initialization
-        self.logger.info(f"DiabetesNaiveBayes ({nb_type.title()}) initialized with parameters:")
+        self.logger.info(msg=f"DiabetesNaiveBayes ({nb_type.title()}) initialized with parameters:")
         for key, value in self.model_params.items():
-            self.logger.info(f"  {key}: {value}")
+            self.logger.info(msg=f"  {key}: {value}")
 
     def train(self, X, y):
         """
@@ -363,17 +365,17 @@ class DiabetesNaiveBayes:
             y: Training labels
         """
         try:
-            self.logger.info(f"Starting {self.nb_type.title()} Naive Bayes model training...")
-            self.naive_bayes.fit(X, y)
-            self.logger.info(f"Model training completed. Training samples: {len(X)}")
+            self.logger.info(msg=f"Starting {self.nb_type.title()} Naive Bayes model training...")
+            self.naive_bayes.fit(X=X, y=y)
+            self.logger.info(msg=f"Model training completed. Training samples: {len(X)}")
 
             # Log class information if available
             if hasattr(self.naive_bayes, 'classes_'):
-                self.logger.info(f"Number of classes: {len(self.naive_bayes.classes_)}")
-                self.logger.info(f"Classes: {self.naive_bayes.classes_}")
+                self.logger.info(msg=f"Number of classes: {len(self.naive_bayes.classes_)}")
+                self.logger.info(msg=f"Classes: {self.naive_bayes.classes_}")
 
         except Exception as e:
-            self.logger.error(f"Error during training: {str(e)}")
+            self.logger.error(msg=f"Error during training: {str(e)}")
             raise
 
     def predict(self, X):
@@ -387,11 +389,11 @@ class DiabetesNaiveBayes:
             Predicted labels
         """
         try:
-            predictions = self.naive_bayes.predict(X)
-            self.logger.info(f"Predictions made for {len(X)} samples")
+            predictions = self.naive_bayes.predict(X=X)
+            self.logger.info(msg=f"Predictions made for {len(X)} samples")
             return predictions
         except Exception as e:
-            self.logger.error(f"Error during prediction: {str(e)}")
+            self.logger.error(msg=f"Error during prediction: {str(e)}")
             raise
 
     def predict_proba(self, X):
@@ -405,11 +407,11 @@ class DiabetesNaiveBayes:
             Predicted probabilities
         """
         try:
-            probabilities = self.naive_bayes.predict_proba(X)
-            self.logger.info(f"Probabilities predicted for {len(X)} samples")
+            probabilities = self.naive_bayes.predict_proba(X=X)
+            self.logger.info(msg=f"Probabilities predicted for {len(X)} samples")
             return probabilities
         except Exception as e:
-            self.logger.error(f"Error during probability prediction: {str(e)}")
+            self.logger.error(msg=f"Error during probability prediction: {str(e)}")
             raise
 
     def evaluate(self, y_true, y_pred):
@@ -425,10 +427,10 @@ class DiabetesNaiveBayes:
         """
         try:
             # Calculate metrics
-            accuracy = accuracy_score(y_true, y_pred)
-            precision = precision_score(y_true, y_pred, average='macro', zero_division=0)
-            recall = recall_score(y_true, y_pred, average='macro', zero_division=0)
-            f1 = f1_score(y_true, y_pred, average='macro', zero_division=0)
+            accuracy = accuracy_score(y_true=y_true, y_pred=y_pred)
+            precision = precision_score(y_true=y_true, y_pred=y_pred, average='macro', zero_division=0)
+            recall = recall_score(y_true=y_true, y_pred=y_pred, average='macro', zero_division=0)
+            f1 = f1_score(y_true=y_true, y_pred=y_pred, average='macro', zero_division=0)
 
             # Create a metrics dictionary
             metrics = {
@@ -439,24 +441,24 @@ class DiabetesNaiveBayes:
             }
 
             # Log metrics
-            self.logger.info("Model Evaluation Results:")
-            self.logger.info(f"Accuracy: {accuracy:.4f}")
-            self.logger.info(f"Precision: {precision:.4f}")
-            self.logger.info(f"Recall: {recall:.4f}")
-            self.logger.info(f"F1-Score: {f1:.4f}")
+            self.logger.info(msg="Model Evaluation Results:")
+            self.logger.info(msg=f"Accuracy: {accuracy:.4f}")
+            self.logger.info(msg=f"Precision: {precision:.4f}")
+            self.logger.info(msg=f"Recall: {recall:.4f}")
+            self.logger.info(msg=f"F1-Score: {f1:.4f}")
 
             # Detailed classification report
-            report = classification_report(y_true, y_pred, zero_division=0)
-            self.logger.info(f"Classification Report:\n{report}")
+            report = classification_report(y_true=y_true, y_pred=y_pred, zero_division=0)
+            self.logger.info(msg=f"Classification Report:\n{report}")
 
             # Confusion Matrix
-            cm = confusion_matrix(y_true, y_pred)
-            self.logger.info(f"Confusion Matrix:\n{cm}")
+            cm = confusion_matrix(y_true=y_true, y_pred=y_pred)
+            self.logger.info(msg=f"Confusion Matrix:\n{cm}")
 
             return metrics
 
         except Exception as e:
-            self.logger.error(f"Error during evaluation: {str(e)}")
+            self.logger.error(msg=f"Error during evaluation: {str(e)}")
             raise
 
     def save_model(self, model_path: str):
@@ -468,17 +470,17 @@ class DiabetesNaiveBayes:
         """
         try:
             # Create a directory if it doesn't exist
-            make_dirs(os.path.dirname(model_path))
+            make_dirs(path=os.path.dirname(model_path))
 
             # Save the model
             with open(model_path, 'wb') as f:
                 pickle.dump(self.naive_bayes, f)
 
             self.model_path = model_path
-            self.logger.info(f"Model saved successfully to: {model_path}")
+            self.logger.info(msg=f"Model saved successfully to: {model_path}")
 
         except Exception as e:
-            self.logger.error(f"Error saving model: {str(e)}")
+            self.logger.error(msg=f"Error saving model: {str(e)}")
             raise
 
     def load_model(self, model_path: str):
@@ -489,18 +491,18 @@ class DiabetesNaiveBayes:
             model_path: Path to the saved model
         """
         try:
-            if not os.path.exists(model_path):
+            if not os.path.exists(path=model_path):
                 raise FileNotFoundError(f"Model file not found: {model_path}")
 
             # Load the model
-            with open(model_path, 'rb') as f:
+            with open(file=model_path, mode='rb') as f:
                 self.naive_bayes = pickle.load(f)
 
             self.model_path = model_path
-            self.logger.info(f"Model loaded successfully from: {model_path}")
+            self.logger.info(msg=f"Model loaded successfully from: {model_path}")
 
         except Exception as e:
-            self.logger.error(f"Error loading model: {str(e)}")
+            self.logger.error(msg=f"Error loading model: {str(e)}")
             raise
 
     def get_model_info(self):
@@ -543,70 +545,17 @@ class DiabetesNaiveBayes:
         try:
             from sklearn.model_selection import cross_val_score
 
-            scores = cross_val_score(self.naive_bayes, X, y, cv=cv, scoring='accuracy')
+            scores = cross_val_score(estimator=self.naive_bayes, X=X, y=y, cv=cv, scoring='accuracy')
             mean_score = np.mean(scores)
             std_score = np.std(scores)
 
-            self.logger.info(f"Cross-validation results:")
-            self.logger.info(f"Mean accuracy: {mean_score:.4f} (+/- {std_score * 2:.4f})")
+            self.logger.info(msg=f"Cross-validation results:")
+            self.logger.info(msg=f"Mean accuracy: {mean_score:.4f} (+/- {std_score * 2:.4f})")
 
             return scores
 
         except Exception as e:
-            self.logger.error(f"Error during cross-validation: {str(e)}")
-            raise
-
-    def grid_search(self, X, y, param_grid=None, cv=5):
-        """
-        Perform grid search for hyperparameter tuning
-
-        Args:
-            X: Features
-            y: Labels
-            param_grid: Dictionary of parameters to search
-            cv: Number of cross-validation folds
-
-        Returns:
-            Best parameters and the best score
-        """
-        try:
-            from sklearn.model_selection import GridSearchCV
-
-            if param_grid is None:
-                if self.nb_type == 'gaussian':
-                    param_grid = {
-                        'var_smoothing': [1e-10, 1e-09, 1e-08, 1e-07, 1e-06]
-                    }
-                elif self.nb_type in ['multinomial', 'bernoulli']:
-                    param_grid = {
-                        'alpha': [0.1, 0.5, 1.0, 2.0, 5.0, 10.0]
-                    }
-                    if self.nb_type == 'bernoulli':
-                        param_grid['binarize'] = [0.0, 0.5, 1.0]
-
-            self.logger.info("Starting grid search for hyperparameter tuning...")
-
-            grid_search = GridSearchCV(
-                self.naive_bayes,
-                param_grid,
-                cv=cv,
-                scoring='accuracy',
-                n_jobs=-1
-            )
-
-            grid_search.fit(X, y)
-
-            # Update model with best parameters
-            self.naive_bayes = grid_search.best_estimator_
-
-            self.logger.info(f"Grid search completed")
-            self.logger.info(f"Best parameters: {grid_search.best_params_}")
-            self.logger.info(f"Best cross-validation score: {grid_search.best_score_:.4f}")
-
-            return grid_search.best_params_, grid_search.best_score_
-
-        except Exception as e:
-            self.logger.error(f"Error during grid search: {str(e)}")
+            self.logger.error(msg=f"Error during cross-validation: {str(e)}")
             raise
 
 class DiabetesRandomForest:
@@ -616,6 +565,7 @@ class DiabetesRandomForest:
                  min_samples_split=2,
                  min_samples_leaf=1,
                  max_features='sqrt',
+                 class_weight='balanced',
                  random_state=RANDOM_STATE,
                  log_file: str = None,
                  log_format: str | None = LOG_FORMAT):
@@ -628,6 +578,7 @@ class DiabetesRandomForest:
             min_samples_split: Minimum samples required to split an internal node
             min_samples_leaf: Minimum samples required to be at a leaf node
             max_features: Number of features to consider when looking for the best split
+            class_weight: The weight of samples in the training set for balancing the model (default: 'balanced')
             random_state: Random state for reproducibility
             log_file: Path to log file
             log_format: Log format string
@@ -640,7 +591,8 @@ class DiabetesRandomForest:
             min_samples_split=min_samples_split,
             min_samples_leaf=min_samples_leaf,
             max_features=max_features,
-            random_state=random_state
+            class_weight=class_weight,
+            random_state=random_state,
         )
 
         # Store parameters for reference
@@ -650,35 +602,36 @@ class DiabetesRandomForest:
             'min_samples_split': min_samples_split,
             'min_samples_leaf': min_samples_leaf,
             'max_features': max_features,
+            'class_weight': class_weight,
             'random_state': random_state
         }
 
         self.model_path = None
 
         # Log configuration
-        self.logger = logging.getLogger(__name__)
-        self.logger.setLevel(logging.DEBUG)
-        log_formatter = logging.Formatter(log_format)
+        self.logger = logging.getLogger(name=__name__)
+        self.logger.setLevel(level=logging.DEBUG)
+        log_formatter = logging.Formatter(fmt=log_format)
         # Clear existing handlers to avoid duplicate logs
         self.logger.handlers.clear()
         # Handler log to file
         if log_file:
             # Create a log directory
-            make_dirs(os.path.dirname(log_file))
-            log_file_handler = logging.FileHandler(log_file)
-            log_file_handler.setLevel(logging.INFO)
-            log_file_handler.setFormatter(log_formatter)
-            self.logger.addHandler(log_file_handler)
+            make_dirs(path=os.path.dirname(log_file))
+            log_file_handler = logging.FileHandler(filename=log_file)
+            log_file_handler.setLevel(level=logging.INFO)
+            log_file_handler.setFormatter(fmt=log_formatter)
+            self.logger.addHandler(hdlr=log_file_handler)
         # Handler log to console
         log_console_handler = logging.StreamHandler()
-        log_console_handler.setLevel(logging.INFO)
-        log_console_handler.setFormatter(log_formatter)
-        self.logger.addHandler(log_console_handler)
+        log_console_handler.setLevel(level=logging.INFO)
+        log_console_handler.setFormatter(fmt=log_formatter)
+        self.logger.addHandler(hdlr=log_console_handler)
 
         # Log model initialization
-        self.logger.info(f"DiabetesRandomForest initialized with parameters:")
+        self.logger.info(msg=f"DiabetesRandomForest initialized with parameters:")
         for key, value in self.model_params.items():
-            self.logger.info(f"  {key}: {value}")
+            self.logger.info(msg=f"  {key}: {value}")
 
     def train(self, X, y):
         """
@@ -689,12 +642,12 @@ class DiabetesRandomForest:
             y: Training labels
         """
         try:
-            self.logger.info("Starting Random Forest model training...")
-            self.random_forest.fit(X, y)
-            self.logger.info(f"Model training completed. Training samples: {len(X)}")
-            self.logger.info(f"Number of trees: {self.random_forest.n_estimators}")
+            self.logger.info(msg="Starting Random Forest model training...")
+            self.random_forest.fit(X=X, y=y)
+            self.logger.info(msg=f"Model training completed. Training samples: {len(X)}")
+            self.logger.info(msg=f"Number of trees: {self.random_forest.n_estimators}")
         except Exception as e:
-            self.logger.error(f"Error during training: {str(e)}")
+            self.logger.error(msg=f"Error during training: {str(e)}")
             raise
 
     def predict(self, X):
@@ -708,11 +661,11 @@ class DiabetesRandomForest:
             Predicted labels
         """
         try:
-            predictions = self.random_forest.predict(X)
-            self.logger.info(f"Predictions made for {len(X)} samples")
+            predictions = self.random_forest.predict(X=X)
+            self.logger.info(msg=f"Predictions made for {len(X)} samples")
             return predictions
         except Exception as e:
-            self.logger.error(f"Error during prediction: {str(e)}")
+            self.logger.error(msg=f"Error during prediction: {str(e)}")
             raise
 
     def predict_proba(self, X):
@@ -726,11 +679,11 @@ class DiabetesRandomForest:
             Predicted probabilities
         """
         try:
-            probabilities = self.random_forest.predict_proba(X)
-            self.logger.info(f"Probabilities predicted for {len(X)} samples")
+            probabilities = self.random_forest.predict_proba(X=X)
+            self.logger.info(msg=f"Probabilities predicted for {len(X)} samples")
             return probabilities
         except Exception as e:
-            self.logger.error(f"Error during probability prediction: {str(e)}")
+            self.logger.error(msg=f"Error during probability prediction: {str(e)}")
             raise
 
     def evaluate(self, y_true, y_pred):
@@ -746,10 +699,10 @@ class DiabetesRandomForest:
         """
         try:
             # Calculate metrics
-            accuracy = accuracy_score(y_true, y_pred)
-            precision = precision_score(y_true, y_pred, average='macro', zero_division=0)
-            recall = recall_score(y_true, y_pred, average='macro', zero_division=0)
-            f1 = f1_score(y_true, y_pred, average='macro', zero_division=0)
+            accuracy = accuracy_score(y_true=y_true, y_pred=y_pred)
+            precision = precision_score(y_true=y_true, y_pred=y_pred, average='macro', zero_division=0)
+            recall = recall_score(y_true=y_true, y_pred=y_pred, average='macro', zero_division=0)
+            f1 = f1_score(y_true=y_true, y_pred=y_pred, average='macro', zero_division=0)
 
             # Create a metrics dictionary
             metrics = {
@@ -760,24 +713,24 @@ class DiabetesRandomForest:
             }
 
             # Log metrics
-            self.logger.info("Model Evaluation Results:")
-            self.logger.info(f"Accuracy: {accuracy:.4f}")
-            self.logger.info(f"Precision: {precision:.4f}")
-            self.logger.info(f"Recall: {recall:.4f}")
-            self.logger.info(f"F1-Score: {f1:.4f}")
+            self.logger.info(msg="Model Evaluation Results:")
+            self.logger.info(msg=f"Accuracy: {accuracy:.4f}")
+            self.logger.info(msg=f"Precision: {precision:.4f}")
+            self.logger.info(msg=f"Recall: {recall:.4f}")
+            self.logger.info(msg=f"F1-Score: {f1:.4f}")
 
             # Detailed classification report
-            report = classification_report(y_true, y_pred, zero_division=0)
-            self.logger.info(f"Classification Report:\n{report}")
+            report = classification_report(y_true=y_true, y_pred=y_pred, zero_division=0)
+            self.logger.info(msg=f"Classification Report:\n{report}")
 
             # Confusion Matrix
-            cm = confusion_matrix(y_true, y_pred)
-            self.logger.info(f"Confusion Matrix:\n{cm}")
+            cm = confusion_matrix(y_true=y_true, y_pred=y_pred)
+            self.logger.info(msg=f"Confusion Matrix:\n{cm}")
 
             return metrics
 
         except Exception as e:
-            self.logger.error(f"Error during evaluation: {str(e)}")
+            self.logger.error(msg=f"Error during evaluation: {str(e)}")
             raise
 
     def save_model(self, model_path: str):
@@ -789,17 +742,17 @@ class DiabetesRandomForest:
         """
         try:
             # Create a directory if it doesn't exist
-            make_dirs(os.path.dirname(model_path))
+            make_dirs(path=os.path.dirname(model_path))
 
             # Save the model
-            with open(model_path, 'wb') as f:
+            with open(file=model_path, mode='wb') as f:
                 pickle.dump(self.random_forest, f)
 
             self.model_path = model_path
-            self.logger.info(f"Model saved successfully to: {model_path}")
+            self.logger.info(msg=f"Model saved successfully to: {model_path}")
 
         except Exception as e:
-            self.logger.error(f"Error saving model: {str(e)}")
+            self.logger.error(msg=f"Error saving model: {str(e)}")
             raise
 
     def load_model(self, model_path: str):
@@ -810,18 +763,18 @@ class DiabetesRandomForest:
             model_path: Path to the saved model
         """
         try:
-            if not os.path.exists(model_path):
+            if not os.path.exists(path=model_path):
                 raise FileNotFoundError(f"Model file not found: {model_path}")
 
             # Load the model
-            with open(model_path, 'rb') as f:
+            with open(file=model_path, mode='rb') as f:
                 self.random_forest = pickle.load(f)
 
             self.model_path = model_path
-            self.logger.info(f"Model loaded successfully from: {model_path}")
+            self.logger.info(msg=f"Model loaded successfully from: {model_path}")
 
         except Exception as e:
-            self.logger.error(f"Error loading model: {str(e)}")
+            self.logger.error(msg=f"Error loading model: {str(e)}")
             raise
 
     def get_model_info(self):
@@ -858,13 +811,13 @@ class DiabetesRandomForest:
         try:
             if hasattr(self.random_forest, 'feature_importances_'):
                 feature_importance = self.random_forest.feature_importances_
-                self.logger.info("Feature importance extracted successfully")
+                self.logger.info(msg="Feature importance extracted successfully")
                 return feature_importance
             else:
-                self.logger.warning("Model has not been trained yet")
+                self.logger.warning(msg="Model has not been trained yet")
                 return None
         except Exception as e:
-            self.logger.error(f"Error getting feature importance: {str(e)}")
+            self.logger.error(msg=f"Error getting feature importance: {str(e)}")
             raise
 
     def get_feature_importance_ranking(self, feature_names=None):
@@ -879,7 +832,7 @@ class DiabetesRandomForest:
         """
         try:
             if not hasattr(self.random_forest, 'feature_importances_'):
-                self.logger.warning("Model has not been trained yet")
+                self.logger.warning(msg="Model has not been trained yet")
                 return None
 
             importances = self.random_forest.feature_importances_
@@ -893,12 +846,12 @@ class DiabetesRandomForest:
 
             self.logger.info("Feature importance ranking:")
             for i, (name, importance) in enumerate(feature_importance_pairs[:10]):  # Top 10
-                self.logger.info(f"  {i + 1}. {name}: {importance:.4f}")
+                self.logger.info(msg=f"  {i + 1}. {name}: {importance:.4f}")
 
             return feature_importance_pairs
 
         except Exception as e:
-            self.logger.error(f"Error getting feature importance ranking: {str(e)}")
+            self.logger.error(msg=f"Error getting feature importance ranking: {str(e)}")
             raise
 
     def cross_validate(self, X, y, cv=5):
@@ -916,17 +869,17 @@ class DiabetesRandomForest:
         try:
             from sklearn.model_selection import cross_val_score
 
-            scores = cross_val_score(self.random_forest, X, y, cv=cv, scoring='accuracy')
+            scores = cross_val_score(estimator=self.random_forest, X=X, y=y, cv=cv, scoring='accuracy')
             mean_score = np.mean(scores)
             std_score = np.std(scores)
 
-            self.logger.info(f"Cross-validation results:")
-            self.logger.info(f"Mean accuracy: {mean_score:.4f} (+/- {std_score * 2:.4f})")
+            self.logger.info(msg=f"Cross-validation results:")
+            self.logger.info(msg=f"Mean accuracy: {mean_score:.4f} (+/- {std_score * 2:.4f})")
 
             return scores
 
         except Exception as e:
-            self.logger.error(f"Error during cross-validation: {str(e)}")
+            self.logger.error(msg=f"Error during cross-validation: {str(e)}")
             raise
 
 class DiabetesSGDClassifier:
@@ -983,27 +936,27 @@ class DiabetesSGDClassifier:
         self.model_path = None
 
         # Log configuration
-        self.logger = logging.getLogger(__name__)
-        self.logger.setLevel(logging.DEBUG)
-        log_formatter = logging.Formatter(log_format)
+        self.logger = logging.getLogger(name=__name__)
+        self.logger.setLevel(level=logging.DEBUG)
+        log_formatter = logging.Formatter(fmt=log_format)
         # Clear existing handlers to avoid duplicate logs
         self.logger.handlers.clear()
         # Handler log to file
         if log_file:
             # Create a log directory
-            make_dirs(os.path.dirname(log_file))
-            log_file_handler = logging.FileHandler(log_file)
-            log_file_handler.setLevel(logging.INFO)
-            log_file_handler.setFormatter(log_formatter)
-            self.logger.addHandler(log_file_handler)
+            make_dirs(path=os.path.dirname(log_file))
+            log_file_handler = logging.FileHandler(filename=log_file)
+            log_file_handler.setLevel(level=logging.INFO)
+            log_file_handler.setFormatter(fmt=log_formatter)
+            self.logger.addHandler(hdlr=log_file_handler)
         # Handler log to console
         log_console_handler = logging.StreamHandler()
-        log_console_handler.setLevel(logging.INFO)
-        log_console_handler.setFormatter(log_formatter)
-        self.logger.addHandler(log_console_handler)
+        log_console_handler.setLevel(level=logging.INFO)
+        log_console_handler.setFormatter(fmt=log_formatter)
+        self.logger.addHandler(hdlr=log_console_handler)
 
         # Log model initialization
-        self.logger.info(f"DiabetesSGDClassifier initialized with parameters:")
+        self.logger.info(msg=f"DiabetesSGDClassifier initialized with parameters:")
         for key, value in self.model_params.items():
             self.logger.info(f"  {key}: {value}")
 
@@ -1016,13 +969,13 @@ class DiabetesSGDClassifier:
             y: Training labels
         """
         try:
-            self.logger.info("Starting SGD Classifier model training...")
-            self.sgd_classifier.fit(X, y)
-            self.logger.info(f"Model training completed. Training samples: {len(X)}")
+            self.logger.info(msg="Starting SGD Classifier model training...")
+            self.sgd_classifier.fit(X=X, y=y)
+            self.logger.info(msg=f"Model training completed. Training samples: {len(X)}")
             if hasattr(self.sgd_classifier, 'n_iter_'):
-                self.logger.info(f"Number of iterations: {self.sgd_classifier.n_iter_}")
+                self.logger.info(msg=f"Number of iterations: {self.sgd_classifier.n_iter_}")
         except Exception as e:
-            self.logger.error(f"Error during training: {str(e)}")
+            self.logger.error(msg=f"Error during training: {str(e)}")
             raise
 
     def predict(self, X):
@@ -1036,11 +989,11 @@ class DiabetesSGDClassifier:
             Predicted labels
         """
         try:
-            predictions = self.sgd_classifier.predict(X)
-            self.logger.info(f"Predictions made for {len(X)} samples")
+            predictions = self.sgd_classifier.predict(X=X)
+            self.logger.info(msg=f"Predictions made for {len(X)} samples")
             return predictions
         except Exception as e:
-            self.logger.error(f"Error during prediction: {str(e)}")
+            self.logger.error(msg=f"Error during prediction: {str(e)}")
             raise
 
     def predict_proba(self, X):
@@ -1056,14 +1009,15 @@ class DiabetesSGDClassifier:
         try:
             if self.sgd_classifier.loss not in ['log_loss', 'modified_huber']:
                 self.logger.warning(
-                    "Probability prediction not available for this loss function. Use 'log' or 'modified_huber'")
+                    msg="Probability prediction not available for this loss function. Use 'log' or 'modified_huber'"
+                )
                 return None
 
-            probabilities = self.sgd_classifier.predict_proba(X)
-            self.logger.info(f"Probabilities predicted for {len(X)} samples")
+            probabilities = self.sgd_classifier.predict_proba(X=X)
+            self.logger.info(msg=f"Probabilities predicted for {len(X)} samples")
             return probabilities
         except Exception as e:
-            self.logger.error(f"Error during probability prediction: {str(e)}")
+            self.logger.error(msg=f"Error during probability prediction: {str(e)}")
             raise
 
     def evaluate(self, y_true, y_pred):
@@ -1079,10 +1033,10 @@ class DiabetesSGDClassifier:
         """
         try:
             # Calculate metrics
-            accuracy = accuracy_score(y_true, y_pred)
-            precision = precision_score(y_true, y_pred, average='macro', zero_division=0)
-            recall = recall_score(y_true, y_pred, average='macro', zero_division=0)
-            f1 = f1_score(y_true, y_pred, average='macro', zero_division=0)
+            accuracy = accuracy_score(y_true=y_true, y_pred=y_pred)
+            precision = precision_score(y_true=y_true, y_pred=y_pred, average='macro', zero_division=0)
+            recall = recall_score(y_true=y_true, y_pred=y_pred, average='macro', zero_division=0)
+            f1 = f1_score(y_true=y_true, y_pred=y_pred, average='macro', zero_division=0)
 
             # Create a metrics dictionary
             metrics = {
@@ -1093,24 +1047,24 @@ class DiabetesSGDClassifier:
             }
 
             # Log metrics
-            self.logger.info("Model Evaluation Results:")
-            self.logger.info(f"Accuracy: {accuracy:.4f}")
-            self.logger.info(f"Precision: {precision:.4f}")
-            self.logger.info(f"Recall: {recall:.4f}")
-            self.logger.info(f"F1-Score: {f1:.4f}")
+            self.logger.info(msg="Model Evaluation Results:")
+            self.logger.info(msg=f"Accuracy: {accuracy:.4f}")
+            self.logger.info(msg=f"Precision: {precision:.4f}")
+            self.logger.info(msg=f"Recall: {recall:.4f}")
+            self.logger.info(msg=f"F1-Score: {f1:.4f}")
 
             # Detailed classification report
-            report = classification_report(y_true, y_pred, zero_division=0)
-            self.logger.info(f"Classification Report:\n{report}")
+            report = classification_report(y_true=y_true, y_pred=y_pred, zero_division=0)
+            self.logger.info(msg=f"Classification Report:\n{report}")
 
             # Confusion Matrix
-            cm = confusion_matrix(y_true, y_pred)
-            self.logger.info(f"Confusion Matrix:\n{cm}")
+            cm = confusion_matrix(y_true=y_true, y_pred=y_pred)
+            self.logger.info(msg=f"Confusion Matrix:\n{cm}")
 
             return metrics
 
         except Exception as e:
-            self.logger.error(f"Error during evaluation: {str(e)}")
+            self.logger.error(msg=f"Error during evaluation: {str(e)}")
             raise
 
     def save_model(self, model_path: str):
@@ -1122,17 +1076,17 @@ class DiabetesSGDClassifier:
         """
         try:
             # Create a directory if it doesn't exist
-            make_dirs(os.path.dirname(model_path))
+            make_dirs(path=os.path.dirname(model_path))
 
             # Save the model
-            with open(model_path, 'wb') as f:
+            with open(file=model_path, mode='wb') as f:
                 pickle.dump(self.sgd_classifier, f)
 
             self.model_path = model_path
-            self.logger.info(f"Model saved successfully to: {model_path}")
+            self.logger.info(msg=f"Model saved successfully to: {model_path}")
 
         except Exception as e:
-            self.logger.error(f"Error saving model: {str(e)}")
+            self.logger.error(msg=f"Error saving model: {str(e)}")
             raise
 
     def load_model(self, model_path: str):
@@ -1143,18 +1097,18 @@ class DiabetesSGDClassifier:
             model_path: Path to the saved model
         """
         try:
-            if not os.path.exists(model_path):
+            if not os.path.exists(path=model_path):
                 raise FileNotFoundError(f"Model file not found: {model_path}")
 
             # Load the model
-            with open(model_path, 'rb') as f:
+            with open(file=model_path, mode='rb') as f:
                 self.sgd_classifier = pickle.load(f)
 
             self.model_path = model_path
-            self.logger.info(f"Model loaded successfully from: {model_path}")
+            self.logger.info(msg=f"Model loaded successfully from: {model_path}")
 
         except Exception as e:
-            self.logger.error(f"Error loading model: {str(e)}")
+            self.logger.error(msg=f"Error loading model: {str(e)}")
             raise
 
     def get_model_info(self):
@@ -1201,15 +1155,486 @@ class DiabetesSGDClassifier:
         try:
             from sklearn.model_selection import cross_val_score
 
-            scores = cross_val_score(self.sgd_classifier, X, y, cv=cv, scoring='accuracy')
+            scores = cross_val_score(estimator=self.sgd_classifier, X=X, y=y, cv=cv, scoring='accuracy')
             mean_score = np.mean(scores)
             std_score = np.std(scores)
 
-            self.logger.info(f"Cross-validation results:")
-            self.logger.info(f"Mean accuracy: {mean_score:.4f} (+/- {std_score * 2:.4f})")
+            self.logger.info(msg=f"Cross-validation results:")
+            self.logger.info(msg=f"Mean accuracy: {mean_score:.4f} (+/- {std_score * 2:.4f})")
 
             return scores
 
+        except Exception as e:
+            self.logger.error(msg=f"Error during cross-validation: {str(e)}")
+            raise
+
+class DiabetesXGBoostClassifier:
+    """
+    Initialize an XGBoost Classifier model with essential parameters
+
+    Args:
+        n_estimators: Number of boosting rounds (default: 100)
+        max_depth: Maximum tree depth for base learners (default: 6)
+        learning_rate: Boosting learning rate (default: 0.1)
+        subsample: Subsample ratio of the training instances (default: 1.0)
+        colsample_bytree: Subsample ratio of columns when constructing each tree (default: 1.0)
+        random_state: Random state for reproducibility
+        log_file: Path to log file
+        log_format: Log format string
+    """
+    def __init__(self,
+                 n_estimators=100,
+                 max_depth=6,
+                 learning_rate=0.1,
+                 subsample=1.0,
+                 colsample_bytree=1.0,
+                 random_state=RANDOM_STATE,
+                 log_file: str = None,
+                 log_format: str | None = LOG_FORMAT):
+
+        self.xgb_classifier = XGBClassifier(
+            n_estimators=n_estimators,
+            max_depth=max_depth,
+            learning_rate=learning_rate,
+            subsample=subsample,
+            colsample_bytree=colsample_bytree,
+            random_state=random_state,
+            eval_metric='mlogloss'
+        )
+        self.model_params = {
+            'n_estimators': n_estimators,
+            'max_depth': max_depth,
+            'learning_rate': learning_rate,
+            'subsample': subsample,
+            'colsample_bytree': colsample_bytree,
+            'random_state': random_state
+        }
+        self.model_path = None
+
+        # Log configuration
+        self.logger = logging.getLogger(name=__name__)
+        self.logger.setLevel(logging.DEBUG)
+        log_formatter = logging.Formatter(fmt=log_format)
+
+        # Clear any existing handlers
+        self.logger.handlers.clear()
+
+        # Log to file if log_file specified
+        if log_file:
+            make_dirs(path=os.path.dirname(log_file))
+            file_handler = logging.FileHandler(filename=log_file)
+            file_handler.setLevel(logging.INFO)
+            file_handler.setFormatter(log_formatter)
+            self.logger.addHandler(file_handler)
+
+        # Log to console
+        console_handler = logging.StreamHandler()
+        console_handler.setLevel(logging.INFO)
+        console_handler.setFormatter(log_formatter)
+        self.logger.addHandler(console_handler)
+
+        # Log initial parameters
+        self.logger.info("DiabetesXGBoostClassifier initialized with parameters:")
+        for key, value in self.model_params.items():
+            self.logger.info(f" {key}: {value}")
+
+    def train(self, X, y):
+        """
+        Train the XGBoost model
+
+        Args:
+            X: Training features
+            y: Training labels
+        """
+        try:
+            self.logger.info("Starting XGBoost model training...")
+            self.xgb_classifier.fit(X=X, y=y)
+            self.logger.info(f"Model training completed. Training samples: {len(X)}")
+        except Exception as e:
+            self.logger.error(f"Error during training: {str(e)}")
+            raise
+
+    def predict(self, X):
+        """
+        Make predictions using the trained model
+
+        Args:
+            X: Features to predict
+
+        Returns:
+            Predicted labels
+        """
+        try:
+            predictions = self.xgb_classifier.predict(X=X)
+            self.logger.info(f"Predictions made for {len(X)} samples")
+            return predictions
+        except Exception as e:
+            self.logger.error(f"Error during prediction: {str(e)}")
+            raise
+
+    def predict_proba(self, X):
+        """
+        Predict class probabilities
+
+        Args:
+            X: Features to predict
+
+        Returns:
+            Predicted probabilities
+        """
+        try:
+            probabilities = self.xgb_classifier.predict_proba(X=X)
+            self.logger.info(f"Probabilities predicted for {len(X)} samples")
+            return probabilities
+        except Exception as e:
+            self.logger.error(f"Error during probability prediction: {str(e)}")
+            raise
+
+    def evaluate(self, y_true, y_pred):
+        """
+        Evaluate model performance
+
+        Args:
+            y_true: True labels
+            y_pred: Predicted labels
+
+        Returns:
+            Dictionary containing evaluation metrics
+        """
+        from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score, classification_report, confusion_matrix
+        try:
+            accuracy = accuracy_score(y_true, y_pred)
+            precision = precision_score(y_true, y_pred, average='macro', zero_division=0)
+            recall = recall_score(y_true, y_pred, average='macro', zero_division=0)
+            f1 = f1_score(y_true, y_pred, average='macro', zero_division=0)
+
+            metrics = {
+                'accuracy': accuracy,
+                'precision': precision,
+                'recall': recall,
+                'f1_score': f1
+            }
+
+            self.logger.info("Model Evaluation Results:")
+            self.logger.info(f"Accuracy: {accuracy:.4f}")
+            self.logger.info(f"Precision: {precision:.4f}")
+            self.logger.info(f"Recall: {recall:.4f}")
+            self.logger.info(f"F1-Score: {f1:.4f}")
+
+            report = classification_report(y_true, y_pred, zero_division=0)
+            self.logger.info(f"Classification Report:\n{report}")
+
+            cm = confusion_matrix(y_true, y_pred)
+            self.logger.info(f"Confusion Matrix:\n{cm}")
+
+            return metrics
+        except Exception as e:
+            self.logger.error(f"Error during evaluation: {str(e)}")
+            raise
+
+    def save_model(self, model_path: str):
+        """
+        Save the trained model to disk
+
+        Args:
+            model_path: Path to save the model
+        """
+        try:
+            make_dirs(path=os.path.dirname(model_path))
+            with open(model_path, 'wb') as f:
+                pickle.dump(self.xgb_classifier, f)
+            self.model_path = model_path
+            self.logger.info(f"Model saved successfully to: {model_path}")
+        except Exception as e:
+            self.logger.error(f"Error saving model: {str(e)}")
+            raise
+
+    def load_model(self, model_path: str):
+        """
+        Load a trained model from the disk
+
+        Args:
+            model_path: Path to the saved model
+        """
+        try:
+            if not os.path.exists(model_path):
+                raise FileNotFoundError(f"Model file not found: {model_path}")
+            with open(model_path, 'rb') as f:
+                self.xgb_classifier = pickle.load(f)
+            self.model_path = model_path
+            self.logger.info(f"Model loaded successfully from: {model_path}")
+        except Exception as e:
+            self.logger.error(f"Error loading model: {str(e)}")
+            raise
+
+    def get_model_info(self):
+        """
+        Get information about the current model
+
+        Returns:
+            Dictionary with model information
+        """
+        info = self.model_params.copy()
+        info['model_path'] = self.model_path
+        return info
+
+    def cross_validate(self, X, y, cv=5):
+        """
+        Perform cross-validation
+
+        Args:
+            X: Features
+            y: Labels
+            cv: Number of cross-validation folds
+
+        Returns:
+            Cross-validation scores
+        """
+        from sklearn.model_selection import cross_val_score
+        try:
+            scores = cross_val_score(estimator=self.xgb_classifier, X=X, y=y, cv=cv, scoring='accuracy')
+            mean_score = np.mean(scores)
+            std_score = np.std(scores)
+            self.logger.info("Cross-validation results:")
+            self.logger.info(f"Mean accuracy: {mean_score:.4f} (+/- {std_score * 2:.4f})")
+            return scores
+        except Exception as e:
+            self.logger.error(f"Error during cross-validation: {str(e)}")
+            raise
+
+class DiabetesLightGBMClassifier:
+    """
+    Initialize a LightGBM Classifier model with essential parameters
+
+    Args:
+        n_estimators: Number of boosting rounds (default: 100)
+        max_depth: Maximum tree depth for base learners (default: -1 means no limit)
+        learning_rate: Boosting learning rate (default: 0.1)
+        num_leaves: Number of leaves in one tree (default: 31)
+        subsample: Subsample ratio of the training instances (default: 1.0)
+        colsample_bytree: Subsample ratio of columns when constructing each tree (default: 1.0)
+        random_state: Random state for reproducibility
+        log_file: Path to log file
+        log_format: Log format string
+    """
+    def __init__(self,
+                 n_estimators=100,
+                 max_depth=-1,
+                 learning_rate=0.1,
+                 num_leaves=31,
+                 subsample=1.0,
+                 colsample_bytree=1.0,
+                 random_state=RANDOM_STATE,
+                 log_file: str = None,
+                 log_format: str | None = LOG_FORMAT):
+
+        self.lgbm_classifier = LGBMClassifier(
+            n_estimators=n_estimators,
+            max_depth=max_depth,
+            learning_rate=learning_rate,
+            num_leaves=num_leaves,
+            subsample=subsample,
+            colsample_bytree=colsample_bytree,
+            random_state=random_state,
+        )
+        self.model_params = {
+            'n_estimators': n_estimators,
+            'max_depth': max_depth,
+            'learning_rate': learning_rate,
+            'num_leaves': num_leaves,
+            'subsample': subsample,
+            'colsample_bytree': colsample_bytree,
+            'random_state': random_state
+        }
+        self.model_path = None
+
+        # Log configuration
+        self.logger = logging.getLogger(name=__name__)
+        self.logger.setLevel(logging.DEBUG)
+        log_formatter = logging.Formatter(fmt=log_format)
+
+        # Clear any existing handlers
+        self.logger.handlers.clear()
+
+        # Log to file if log_file specified
+        if log_file:
+            make_dirs(path=os.path.dirname(log_file))
+            file_handler = logging.FileHandler(filename=log_file)
+            file_handler.setLevel(logging.INFO)
+            file_handler.setFormatter(log_formatter)
+            self.logger.addHandler(file_handler)
+
+        # Log to console
+        console_handler = logging.StreamHandler()
+        console_handler.setLevel(logging.INFO)
+        console_handler.setFormatter(log_formatter)
+        self.logger.addHandler(console_handler)
+
+        # Log initial parameters
+        self.logger.info("DiabetesLightGBMClassifier initialized with parameters:")
+        for key, value in self.model_params.items():
+            self.logger.info(f" {key}: {value}")
+
+    def train(self, X, y):
+        """
+        Train the LightGBM model
+
+        Args:
+            X: Training features
+            y: Training labels
+        """
+        try:
+            self.logger.info("Starting LightGBM model training...")
+            self.lgbm_classifier.fit(X=X, y=y)
+            self.logger.info(f"Model training completed. Training samples: {len(X)}")
+        except Exception as e:
+            self.logger.error(f"Error during training: {str(e)}")
+            raise
+
+    def predict(self, X):
+        """
+        Make predictions using the trained model
+
+        Args:
+            X: Features to predict
+
+        Returns:
+            Predicted labels
+        """
+        try:
+            predictions = self.lgbm_classifier.predict(X=X)
+            self.logger.info(f"Predictions made for {len(X)} samples")
+            return predictions
+        except Exception as e:
+            self.logger.error(f"Error during prediction: {str(e)}")
+            raise
+
+    def predict_proba(self, X):
+        """
+        Predict class probabilities
+
+        Args:
+            X: Features to predict
+
+        Returns:
+            Predicted probabilities
+        """
+        try:
+            probabilities = self.lgbm_classifier.predict_proba(X=X)
+            self.logger.info(f"Probabilities predicted for {len(X)} samples")
+            return probabilities
+        except Exception as e:
+            self.logger.error(f"Error during probability prediction: {str(e)}")
+            raise
+
+    def evaluate(self, y_true, y_pred):
+        """
+        Evaluate model performance
+
+        Args:
+            y_true: True labels
+            y_pred: Predicted labels
+
+        Returns:
+            Dictionary containing evaluation metrics
+        """
+        from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score, classification_report, confusion_matrix
+        try:
+            accuracy = accuracy_score(y_true, y_pred)
+            precision = precision_score(y_true, y_pred, average='macro', zero_division=0)
+            recall = recall_score(y_true, y_pred, average='macro', zero_division=0)
+            f1 = f1_score(y_true, y_pred, average='macro', zero_division=0)
+
+            metrics = {
+                'accuracy': accuracy,
+                'precision': precision,
+                'recall': recall,
+                'f1_score': f1
+            }
+
+            self.logger.info("Model Evaluation Results:")
+            self.logger.info(f"Accuracy: {accuracy:.4f}")
+            self.logger.info(f"Precision: {precision:.4f}")
+            self.logger.info(f"Recall: {recall:.4f}")
+            self.logger.info(f"F1-Score: {f1:.4f}")
+
+            report = classification_report(y_true, y_pred, zero_division=0)
+            self.logger.info(f"Classification Report:\n{report}")
+
+            cm = confusion_matrix(y_true, y_pred)
+            self.logger.info(f"Confusion Matrix:\n{cm}")
+
+            return metrics
+        except Exception as e:
+            self.logger.error(f"Error during evaluation: {str(e)}")
+            raise
+
+    def save_model(self, model_path: str):
+        """
+        Save the trained model to disk
+
+        Args:
+            model_path: Path to save the model
+        """
+        try:
+            make_dirs(path=os.path.dirname(model_path))
+            with open(model_path, 'wb') as f:
+                pickle.dump(self.lgbm_classifier, f)
+            self.model_path = model_path
+            self.logger.info(f"Model saved successfully to: {model_path}")
+        except Exception as e:
+            self.logger.error(f"Error saving model: {str(e)}")
+            raise
+
+    def load_model(self, model_path: str):
+        """
+        Load a trained model from the disk
+
+        Args:
+            model_path: Path to the saved model
+        """
+        try:
+            if not os.path.exists(model_path):
+                raise FileNotFoundError(f"Model file not found: {model_path}")
+            with open(model_path, 'rb') as f:
+                self.lgbm_classifier = pickle.load(f)
+            self.model_path = model_path
+            self.logger.info(f"Model loaded successfully from: {model_path}")
+        except Exception as e:
+            self.logger.error(f"Error loading model: {str(e)}")
+            raise
+
+    def get_model_info(self):
+        """
+        Get information about the current model
+
+        Returns:
+            Dictionary with model information
+        """
+        info = self.model_params.copy()
+        info['model_path'] = self.model_path
+        return info
+
+    def cross_validate(self, X, y, cv=5):
+        """
+        Perform cross-validation
+
+        Args:
+            X: Features
+            y: Labels
+            cv: Number of cross-validation folds
+
+        Returns:
+            Cross-validation scores
+        """
+        from sklearn.model_selection import cross_val_score
+        try:
+            scores = cross_val_score(estimator=self.lgbm_classifier, X=X, y=y, cv=cv, scoring='accuracy')
+            mean_score = np.mean(scores)
+            std_score = np.std(scores)
+            self.logger.info("Cross-validation results:")
+            self.logger.info(f"Mean accuracy: {mean_score:.4f} (+/- {std_score * 2:.4f})")
+            return scores
         except Exception as e:
             self.logger.error(f"Error during cross-validation: {str(e)}")
             raise

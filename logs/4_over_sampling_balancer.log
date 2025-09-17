@@ -1,0 +1,34 @@
+2025-09-17 16:06:01,668 - [src.balancing] - INFO - OverSamplingBalancer initialized successfully
+2025-09-17 16:06:01,694 - [src.balancing] - INFO - Starting Random Over Sampling process...
+2025-09-17 16:06:01,715 - [src.balancing] - INFO - Original class distribution:
+2025-09-17 16:06:01,717 - [src.balancing] - INFO -   - Class 0.0: 459553 samples
+2025-09-17 16:06:01,718 - [src.balancing] - INFO -   - Class 1.0: 13512 samples
+2025-09-17 16:06:01,724 - [src.balancing] - INFO -   - Class 2.0: 88947 samples
+2025-09-17 16:06:02,004 - [src.balancing] - INFO - New class distribution after Random Over Sampling:
+2025-09-17 16:06:02,007 - [src.balancing] - INFO -   - Class 0.0: 459553 samples (+0)
+2025-09-17 16:06:02,010 - [src.balancing] - INFO -   - Class 1.0: 50000 samples (+36488)
+2025-09-17 16:06:02,011 - [src.balancing] - INFO -   - Class 2.0: 150000 samples (+61053)
+2025-09-17 16:06:02,013 - [src.balancing] - INFO - Dataset size: 562012 -> 659553 samples (+97541)
+2025-09-17 16:06:02,015 - [src.balancing] - INFO - Random Over Sampling completed successfully
+2025-09-17 16:06:02,381 - [src.balancing] - INFO - Starting SMOTE process...
+2025-09-17 16:06:02,397 - [src.balancing] - INFO - Original class distribution:
+2025-09-17 16:06:02,400 - [src.balancing] - INFO -   - Class 0.0: 459553 samples
+2025-09-17 16:06:02,402 - [src.balancing] - INFO -   - Class 1.0: 13512 samples
+2025-09-17 16:06:02,404 - [src.balancing] - INFO -   - Class 2.0: 88947 samples
+2025-09-17 16:06:23,357 - [src.balancing] - INFO - New class distribution after SMOTE:
+2025-09-17 16:06:23,357 - [src.balancing] - INFO -   - Class 0.0: 459553 samples (+0 synthetic)
+2025-09-17 16:06:23,358 - [src.balancing] - INFO -   - Class 1.0: 50000 samples (+36488 synthetic)
+2025-09-17 16:06:23,359 - [src.balancing] - INFO -   - Class 2.0: 150000 samples (+61053 synthetic)
+2025-09-17 16:06:23,361 - [src.balancing] - INFO - Dataset size: 562012 -> 659553 samples (+97541 synthetic)
+2025-09-17 16:06:23,363 - [src.balancing] - INFO - SMOTE completed successfully
+2025-09-17 16:06:23,704 - [src.balancing] - INFO - Starting ADASYN over-sampling process...
+2025-09-17 16:06:23,720 - [src.balancing] - INFO - Original class distribution:
+2025-09-17 16:06:23,723 - [src.balancing] - INFO -  - Class 0.0: 459553 samples
+2025-09-17 16:06:23,724 - [src.balancing] - INFO -  - Class 1.0: 13512 samples
+2025-09-17 16:06:23,726 - [src.balancing] - INFO -  - Class 2.0: 88947 samples
+2025-09-17 16:07:02,952 - [src.balancing] - INFO - New class distribution after ADASYN:
+2025-09-17 16:07:02,953 - [src.balancing] - INFO -  - Class 0.0: 459553 samples (+0 synthetic)
+2025-09-17 16:07:02,953 - [src.balancing] - INFO -  - Class 1.0: 50523 samples (+37011 synthetic)
+2025-09-17 16:07:02,954 - [src.balancing] - INFO -  - Class 2.0: 147562 samples (+58615 synthetic)
+2025-09-17 16:07:02,954 - [src.balancing] - INFO - Dataset size: 562012 -> 657638 samples (+95626 synthetic)
+2025-09-17 16:07:02,955 - [src.balancing] - INFO - ADASYN over-sampling completed successfully

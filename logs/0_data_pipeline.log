@@ -1,0 +1,13 @@
+2025-09-16 02:46:18,599 - [src.pipelines] - INFO - DataPipeline initialized successfully
+2025-09-16 02:46:18,600 - [src.data] - INFO - BrfssDataCleaner initialized successfully
+2025-09-16 02:46:18,601 - [src.pipelines] - INFO - Starting data pipeline processing
+2025-09-16 02:46:41,039 - [src.pipelines] - INFO - Loading raw data for 2017
+2025-09-16 02:47:15,989 - [src.pipelines] - INFO - Loaded 2017 raw data. Shape: (285073, 21)
+2025-09-16 02:47:15,995 - [src.pipelines] - INFO - Loading raw data for 2019
+2025-09-16 02:47:45,009 - [src.pipelines] - INFO - Loaded 2019 raw data. Shape: (260550, 21)
+2025-09-16 02:47:45,009 - [src.pipelines] - INFO - Loading raw data for 2021
+2025-09-16 02:48:10,047 - [src.pipelines] - INFO - Loaded 2021 raw data. Shape: (241979, 21)
+2025-09-16 02:48:10,048 - [src.pipelines] - INFO - Combining all datasets
+2025-09-16 02:48:10,074 - [src.pipelines] - INFO - Saving processed data to /home/qctrung/Projects/machine-learning/diabetes-prediction-and-data-balancing/data/processed/brfss_dataset.csv
+2025-09-16 02:48:18,584 - [src.pipelines] - INFO - Data pipeline completed successfully. Final shape: (787602, 21)
+2025-09-16 02:48:18,608 - [src.pipelines] - INFO - Missing values summary:

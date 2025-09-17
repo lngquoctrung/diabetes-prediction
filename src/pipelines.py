@@ -11,11 +11,11 @@ import os
 
 from src.config import (
     LOG_FORMAT, BRFSS_17_DATA_PATH, BRFSS_19_DATA_PATH, BRFSS_21_DATA_PATH,
-    BRLSS_17_URL, BRLSS_19_URL, BRLSS_21_URL,
+    BRFSS_17_URL, BRFSS_19_URL, BRFSS_21_URL,
     BRFSS_17_FILENAME, BRFSS_19_FILENAME, BRFSS_21_FILENAME,
-    BRFSS_FILTERING_FILE_PATH, PROCESSED_DATA_DIR
+    BRFSS_CLEANED_FILE_PATH, PROCESSED_DATA_DIR
 )
-from src.data import BrfssDataLoader, BrfssDataFiltering
+from src.data import BrfssDataLoader, BrfssDataCleaner
 from src.utils import make_dirs
 
 class DataPipeline:
@@ -23,45 +23,45 @@ class DataPipeline:
 
     def __init__(self, log_file: str = None, log_format: str | None = LOG_FORMAT):
         """Initialize DataPipeline with logging configuration"""
-        self.logger = logging.getLogger(__name__)
-        self.logger.setLevel(logging.DEBUG)
-        log_formatter = logging.Formatter(log_format)
+        self.logger = logging.getLogger(name=__name__)
+        self.logger.setLevel(level=logging.DEBUG)
+        log_formatter = logging.Formatter(fmt=log_format)
         # Clear existing handlers to avoid duplicate logs
         self.logger.handlers.clear()
         # Handler log to file
         if log_file:
             # Create a log directory
-            make_dirs(os.path.dirname(log_file))
-            log_file_handler = logging.FileHandler(log_file)
-            log_file_handler.setLevel(logging.INFO)
-            log_file_handler.setFormatter(log_formatter)
-            self.logger.addHandler(log_file_handler)
+            make_dirs(path=os.path.dirname(log_file))
+            log_file_handler = logging.FileHandler(filename=log_file)
+            log_file_handler.setLevel(level=logging.INFO)
+            log_file_handler.setFormatter(fmt=log_formatter)
+            self.logger.addHandler(hdlr=log_file_handler)
         # Handler log to console
         log_console_handler = logging.StreamHandler()
-        log_console_handler.setLevel(logging.INFO)
-        log_console_handler.setFormatter(log_formatter)
-        self.logger.addHandler(log_console_handler)
+        log_console_handler.setLevel(level=logging.INFO)
+        log_console_handler.setFormatter(fmt=log_formatter)
+        self.logger.addHandler(hdlr=log_console_handler)
 
-        self.logger.info("DataPipeline initialized successfully")
+        self.logger.info(msg="DataPipeline initialized successfully")
 
         # Initialize components
-        self.brfss_data_filtering = BrfssDataFiltering(log_file=log_file)
+        self.brfss_cleaner = BrfssDataCleaner(log_file=log_file)
 
     def run_pipeline(self):
         """Run the complete data pipeline"""
-        self.logger.info("Starting data pipeline processing")
+        self.logger.info(msg="Starting data pipeline processing")
 
         # Create processed data directory
-        make_dirs(PROCESSED_DATA_DIR)
+        make_dirs(path=PROCESSED_DATA_DIR)
 
         # Load data
         missing_data = {}
         for filename, items in {
-            BRFSS_17_FILENAME: [BRFSS_17_DATA_PATH, BRLSS_17_URL],
-            BRFSS_19_FILENAME: [BRFSS_19_DATA_PATH, BRLSS_19_URL],
-            BRFSS_21_FILENAME: [BRFSS_21_DATA_PATH, BRLSS_21_URL]
+            BRFSS_17_FILENAME: [BRFSS_17_DATA_PATH, BRFSS_17_URL],
+            BRFSS_19_FILENAME: [BRFSS_19_DATA_PATH, BRFSS_19_URL],
+            BRFSS_21_FILENAME: [BRFSS_21_DATA_PATH, BRFSS_21_URL]
         }.items():
-            if not os.path.exists(items[0]):
+            if not os.path.exists(path=items[0]):
                 missing_data[filename] = items[1]
         brfss_data_loader = BrfssDataLoader()
         brfss_data_loader.load_data(
@@ -78,37 +78,37 @@ class DataPipeline:
         }
 
         for year, file_path in file_paths.items():
-            self.logger.info(f"Loading raw data for {year}")
+            self.logger.info(msg=f"Loading raw data for {year}")
 
-            # Load and filter data
-            filtered_df = self.brfss_data_filtering.select_features(file_path, dropna=True)
+            # Load and clean data
+            cleaned_df = self.brfss_cleaner.clean(file_path=file_path, dropna=True)
 
-            if filtered_df is None:
-                self.logger.error(f"Failed to filter data from {file_path}")
+            if cleaned_df is None:
+                self.logger.error(msg=f"Failed to clean data from {file_path}")
                 continue
 
-            filtered_df['Year'] = year
-            datasets[year] = filtered_df
+            cleaned_df['Year'] = year
+            datasets[year] = cleaned_df
 
-            self.logger.info(f"Loaded {year} raw data. Shape: {filtered_df.shape}")
+            self.logger.info(msg=f"Loaded {year} raw data. Shape: {cleaned_df.shape}")
 
         # Combine all datasets
-        self.logger.info("Combining all datasets")
-        valid_dfs = [df for df in datasets.values() if not df.empty and not df.isna().all().all()]
+        self.logger.info(msg="Combining all datasets")
+        valid_dfs = [df for df in datasets.values() if not df.empty]
         final_processed_df = pd.concat(valid_dfs, ignore_index=True)
 
         # Save processed data
-        self.logger.info(f"Saving processed data to {BRFSS_FILTERING_FILE_PATH}")
-        final_processed_df.to_csv(BRFSS_FILTERING_FILE_PATH, index=False)
+        self.logger.info(msg=f"Saving processed data to {BRFSS_CLEANED_FILE_PATH}")
+        final_processed_df.to_csv(path_or_buf=BRFSS_CLEANED_FILE_PATH, index=False)
 
-        self.logger.info(f"Data pipeline completed successfully. Final shape: {final_processed_df.shape}")
+        self.logger.info(msg=f"Data pipeline completed successfully. Final shape: {final_processed_df.shape}")
 
         # Log missing values summary
         missing_summary = final_processed_df.isnull().sum()
-        self.logger.info("Missing values summary:")
+        self.logger.info(msg="Missing values summary:")
         for col, count in missing_summary.items():
             if count > 0:
-                self.logger.info(f"  {col}: {count} ({count / len(final_processed_df) * 100:.2f}%)")
+                self.logger.info(msg=f"  {col}: {count} ({count / len(final_processed_df) * 100:.2f}%)")
 
 
 if __name__ == "__main__":
@@ -116,7 +116,7 @@ if __name__ == "__main__":
     pipeline = DataPipeline(log_file="./logs/data_pipeline.log")
     pipeline.run_pipeline()
 
-    df = pd.read_csv(BRFSS_FILTERING_FILE_PATH)
+    df = pd.read_csv(BRFSS_CLEANED_FILE_PATH)
     if df is not None:
         print(f"Pipeline completed successfully!")
         print(f"Final dataset shape: {df.shape}")
