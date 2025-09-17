@@ -1,5 +1,3 @@
-from pandas.conftest import axis_1
-
 # 🩺 Advanced Diabetes Prediction System
 
 **A comprehensive machine learning pipeline for diabetes risk prediction using BRFSS survey data with state-of-the-art data balancing and feature engineering techniques.**
