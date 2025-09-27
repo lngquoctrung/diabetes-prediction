@@ -29,13 +29,13 @@ TRAIN_SIZE = 0.8
 # ===== Balancing =====
 OVER_SAMPLING_STRATEGY = {
     1.0: 50000,
-    2.0: 150000,
+    2.0: 100000,
 }
 
 UNDER_SAMPLING_STRATEGY = {
-    0.0: 100000, 
-    1.0: 13512,
-    2.0: 88947,
+    0.0: 150000, 
+    1.0: 9586,
+    2.0: 66362,
 }
 
 TESTING_DATA_FILE_PATH = str(PROCESSED_DATA_DIR / "testing_data.pkl")
@@ -65,7 +65,7 @@ LR_C = 1.0
 LR_PENALTY = "l2"
 LR_CLASS_WEIGHT = None
 LR_SOLVER = "saga"
-LR_MAX_ITER = 100
+LR_MAX_ITER = 10000
 LR_VERBOSE = 0
 
 # Random Forest

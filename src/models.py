@@ -5,7 +5,6 @@ root_dir = str(Path(__file__).parent.parent.absolute())
 if not root_dir in sys.path:
     sys.path.insert(0, root_dir)
 
-import logging
 import os
 import pickle
 import numpy as np
@@ -17,7 +16,7 @@ from xgboost import XGBClassifier
 from lightgbm import LGBMClassifier
 from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score, classification_report, confusion_matrix
 from src.config import LOG_FORMAT, RANDOM_STATE
-from src.utils import make_dirs
+from src.utils import make_dirs, sanitize_path, get_configured_logger
 
 class DiabetesLogisticRegression:
     def __init__(self,
@@ -29,6 +28,7 @@ class DiabetesLogisticRegression:
                  verbose=0,
                  random_state=RANDOM_STATE,
                  n_jobs=None,
+                 logger_name: str | None = __name__,
                  log_file: str = None,
                  log_format: str | None = LOG_FORMAT):
         """
@@ -72,24 +72,11 @@ class DiabetesLogisticRegression:
         self.model_path = None
 
         # Log configuration
-        self.logger = logging.getLogger(name=__name__)
-        self.logger.setLevel(level=logging.DEBUG)
-        log_formatter = logging.Formatter(fmt=log_format)
-        # Clear existing handlers to avoid duplicate logs
-        self.logger.handlers.clear()
-        # Handler log to file
-        if log_file:
-            # Create a log directory
-            make_dirs(path=os.path.dirname(log_file))
-            log_file_handler = logging.FileHandler(filename=log_file)
-            log_file_handler.setLevel(level=logging.INFO)
-            log_file_handler.setFormatter(fmt=log_formatter)
-            self.logger.addHandler(hdlr=log_file_handler)
-        # Handler log to console
-        log_console_handler = logging.StreamHandler()
-        log_console_handler.setLevel(level=logging.INFO)
-        log_console_handler.setFormatter(fmt=log_formatter)
-        self.logger.addHandler(hdlr=log_console_handler)
+        self.logger = get_configured_logger(
+            name=logger_name, 
+            log_file=log_file, 
+            log_format=log_format
+        )
 
         # Log model initialization
         self.logger.info(msg=f"DiabetesLogisticRegression initialized with parameters:")
@@ -211,7 +198,7 @@ class DiabetesLogisticRegression:
                 pickle.dump(self.logistic_regression, f)
 
             self.model_path = model_path
-            self.logger.info(msg=f"Model saved successfully to: {model_path}")
+            self.logger.info(msg=f"Model saved successfully to: {sanitize_path(model_path)}")
 
         except Exception as e:
             self.logger.error(msg=f"Error saving model: {str(e)}")
@@ -226,14 +213,14 @@ class DiabetesLogisticRegression:
         """
         try:
             if not os.path.exists(path=model_path):
-                raise FileNotFoundError(f"Model file not found: {model_path}")
+                raise FileNotFoundError(f"Model file not found: {sanitize_path(model_path)}")
 
             # Load the model
             with open(file=model_path, mode='rb') as f:
                 self.logistic_regression = pickle.load(f)
 
             self.model_path = model_path
-            self.logger.info(msg=f"Model loaded successfully from: {model_path}")
+            self.logger.info(msg=f"Model loaded successfully from: {sanitize_path(model_path)}")
 
         except Exception as e:
             self.logger.error(msg=f"Error loading model: {str(e)}")
@@ -252,7 +239,7 @@ class DiabetesLogisticRegression:
             'solver': self.logistic_regression.solver,
             'max_iter': self.logistic_regression.max_iter,
             'random_state': self.logistic_regression.random_state,
-            'model_path': self.model_path
+            'model_path': sanitize_path(self.model_path) if self.model_path else None
         }
         return info
 
@@ -290,6 +277,7 @@ class DiabetesNaiveBayes:
                  var_smoothing=1e-09,
                  alpha=1.0,
                  binarize=0.0,
+                 logger_name: str | None = __name__,
                  log_file: str = None,
                  log_format: str | None = LOG_FORMAT):
         """
@@ -332,24 +320,11 @@ class DiabetesNaiveBayes:
         self.model_path = None
 
         # Log configuration
-        self.logger = logging.getLogger(name=__name__)
-        self.logger.setLevel(level=logging.DEBUG)
-        log_formatter = logging.Formatter(fmt=log_format)
-        # Clear existing handlers to avoid duplicate logs
-        self.logger.handlers.clear()
-        # Handler log to file
-        if log_file:
-            # Create a log directory
-            make_dirs(path=os.path.dirname(log_file))
-            log_file_handler = logging.FileHandler(filename=log_file)
-            log_file_handler.setLevel(level=logging.INFO)
-            log_file_handler.setFormatter(fmt=log_formatter)
-            self.logger.addHandler(hdlr=log_file_handler)
-        # Handler log to console
-        log_console_handler = logging.StreamHandler()
-        log_console_handler.setLevel(level=logging.INFO)
-        log_console_handler.setFormatter(fmt=log_formatter)
-        self.logger.addHandler(hdlr=log_console_handler)
+        self.logger = get_configured_logger(
+            name=logger_name, 
+            log_file=log_file, 
+            log_format=log_format
+        )
 
         # Log model initialization
         self.logger.info(msg=f"DiabetesNaiveBayes ({nb_type.title()}) initialized with parameters:")
@@ -477,7 +452,7 @@ class DiabetesNaiveBayes:
                 pickle.dump(self.naive_bayes, f)
 
             self.model_path = model_path
-            self.logger.info(msg=f"Model saved successfully to: {model_path}")
+            self.logger.info(msg=f"Model saved successfully to: {sanitize_path(model_path)}")
 
         except Exception as e:
             self.logger.error(msg=f"Error saving model: {str(e)}")
@@ -492,14 +467,14 @@ class DiabetesNaiveBayes:
         """
         try:
             if not os.path.exists(path=model_path):
-                raise FileNotFoundError(f"Model file not found: {model_path}")
+                raise FileNotFoundError(f"Model file not found: {sanitize_path(model_path)}")
 
             # Load the model
             with open(file=model_path, mode='rb') as f:
                 self.naive_bayes = pickle.load(f)
 
             self.model_path = model_path
-            self.logger.info(msg=f"Model loaded successfully from: {model_path}")
+            self.logger.info(msg=f"Model loaded successfully from: {sanitize_path(model_path)}")
 
         except Exception as e:
             self.logger.error(msg=f"Error loading model: {str(e)}")
@@ -514,7 +489,7 @@ class DiabetesNaiveBayes:
         """
         info = {
             **self.model_params,
-            'model_path': self.model_path
+            'model_path': sanitize_path(self.model_path) if self.model_path else None
         }
 
         # Add training info if the model is trained
@@ -567,6 +542,7 @@ class DiabetesRandomForest:
                  max_features='sqrt',
                  class_weight='balanced',
                  random_state=RANDOM_STATE,
+                 logger_name: str | None = __name__,
                  log_file: str = None,
                  log_format: str | None = LOG_FORMAT):
         """
@@ -609,24 +585,11 @@ class DiabetesRandomForest:
         self.model_path = None
 
         # Log configuration
-        self.logger = logging.getLogger(name=__name__)
-        self.logger.setLevel(level=logging.DEBUG)
-        log_formatter = logging.Formatter(fmt=log_format)
-        # Clear existing handlers to avoid duplicate logs
-        self.logger.handlers.clear()
-        # Handler log to file
-        if log_file:
-            # Create a log directory
-            make_dirs(path=os.path.dirname(log_file))
-            log_file_handler = logging.FileHandler(filename=log_file)
-            log_file_handler.setLevel(level=logging.INFO)
-            log_file_handler.setFormatter(fmt=log_formatter)
-            self.logger.addHandler(hdlr=log_file_handler)
-        # Handler log to console
-        log_console_handler = logging.StreamHandler()
-        log_console_handler.setLevel(level=logging.INFO)
-        log_console_handler.setFormatter(fmt=log_formatter)
-        self.logger.addHandler(hdlr=log_console_handler)
+        self.logger = get_configured_logger(
+            name=logger_name, 
+            log_file=log_file, 
+            log_format=log_format
+        )
 
         # Log model initialization
         self.logger.info(msg=f"DiabetesRandomForest initialized with parameters:")
@@ -749,7 +712,7 @@ class DiabetesRandomForest:
                 pickle.dump(self.random_forest, f)
 
             self.model_path = model_path
-            self.logger.info(msg=f"Model saved successfully to: {model_path}")
+            self.logger.info(msg=f"Model saved successfully to: {sanitize_path(model_path)}")
 
         except Exception as e:
             self.logger.error(msg=f"Error saving model: {str(e)}")
@@ -764,14 +727,14 @@ class DiabetesRandomForest:
         """
         try:
             if not os.path.exists(path=model_path):
-                raise FileNotFoundError(f"Model file not found: {model_path}")
+                raise FileNotFoundError(f"Model file not found: {sanitize_path(model_path)}")
 
             # Load the model
             with open(file=model_path, mode='rb') as f:
                 self.random_forest = pickle.load(f)
 
             self.model_path = model_path
-            self.logger.info(msg=f"Model loaded successfully from: {model_path}")
+            self.logger.info(msg=f"Model loaded successfully from: {sanitize_path(model_path)}")
 
         except Exception as e:
             self.logger.error(msg=f"Error loading model: {str(e)}")
@@ -791,7 +754,7 @@ class DiabetesRandomForest:
             'min_samples_leaf': self.random_forest.min_samples_leaf,
             'max_features': self.random_forest.max_features,
             'random_state': self.random_forest.random_state,
-            'model_path': self.model_path
+            'model_path': sanitize_path(self.model_path) if self.model_path else None
         }
 
         # Add feature info if the model is trained
@@ -892,6 +855,7 @@ class DiabetesSGDClassifier:
                  max_iter=1000,
                  random_state=RANDOM_STATE,
                  n_jobs=None,
+                 logger_name: str | None = __name__,
                  log_file: str = None,
                  log_format: str | None = LOG_FORMAT):
         """
@@ -936,24 +900,11 @@ class DiabetesSGDClassifier:
         self.model_path = None
 
         # Log configuration
-        self.logger = logging.getLogger(name=__name__)
-        self.logger.setLevel(level=logging.DEBUG)
-        log_formatter = logging.Formatter(fmt=log_format)
-        # Clear existing handlers to avoid duplicate logs
-        self.logger.handlers.clear()
-        # Handler log to file
-        if log_file:
-            # Create a log directory
-            make_dirs(path=os.path.dirname(log_file))
-            log_file_handler = logging.FileHandler(filename=log_file)
-            log_file_handler.setLevel(level=logging.INFO)
-            log_file_handler.setFormatter(fmt=log_formatter)
-            self.logger.addHandler(hdlr=log_file_handler)
-        # Handler log to console
-        log_console_handler = logging.StreamHandler()
-        log_console_handler.setLevel(level=logging.INFO)
-        log_console_handler.setFormatter(fmt=log_formatter)
-        self.logger.addHandler(hdlr=log_console_handler)
+        self.logger = get_configured_logger(
+            name=logger_name, 
+            log_file=log_file, 
+            log_format=log_format
+        )
 
         # Log model initialization
         self.logger.info(msg=f"DiabetesSGDClassifier initialized with parameters:")
@@ -1083,7 +1034,7 @@ class DiabetesSGDClassifier:
                 pickle.dump(self.sgd_classifier, f)
 
             self.model_path = model_path
-            self.logger.info(msg=f"Model saved successfully to: {model_path}")
+            self.logger.info(msg=f"Model saved successfully to: {sanitize_path(model_path)}")
 
         except Exception as e:
             self.logger.error(msg=f"Error saving model: {str(e)}")
@@ -1098,14 +1049,14 @@ class DiabetesSGDClassifier:
         """
         try:
             if not os.path.exists(path=model_path):
-                raise FileNotFoundError(f"Model file not found: {model_path}")
+                raise FileNotFoundError(f"Model file not found: {sanitize_path(model_path)}")
 
             # Load the model
             with open(file=model_path, mode='rb') as f:
                 self.sgd_classifier = pickle.load(f)
 
             self.model_path = model_path
-            self.logger.info(msg=f"Model loaded successfully from: {model_path}")
+            self.logger.info(msg=f"Model loaded successfully from: {sanitize_path(model_path)}")
 
         except Exception as e:
             self.logger.error(msg=f"Error loading model: {str(e)}")
@@ -1126,7 +1077,7 @@ class DiabetesSGDClassifier:
             'eta0': self.sgd_classifier.eta0,
             'max_iter': self.sgd_classifier.max_iter,
             'random_state': self.sgd_classifier.random_state,
-            'model_path': self.model_path
+            'model_path': sanitize_path(self.model_path) if self.model_path else None
         }
 
         # Add training info if the model is trained
@@ -1189,6 +1140,7 @@ class DiabetesXGBoostClassifier:
                  subsample=1.0,
                  colsample_bytree=1.0,
                  random_state=RANDOM_STATE,
+                 logger_name: str | None = __name__,
                  log_file: str = None,
                  log_format: str | None = LOG_FORMAT):
 
@@ -1212,26 +1164,11 @@ class DiabetesXGBoostClassifier:
         self.model_path = None
 
         # Log configuration
-        self.logger = logging.getLogger(name=__name__)
-        self.logger.setLevel(logging.DEBUG)
-        log_formatter = logging.Formatter(fmt=log_format)
-
-        # Clear any existing handlers
-        self.logger.handlers.clear()
-
-        # Log to file if log_file specified
-        if log_file:
-            make_dirs(path=os.path.dirname(log_file))
-            file_handler = logging.FileHandler(filename=log_file)
-            file_handler.setLevel(logging.INFO)
-            file_handler.setFormatter(log_formatter)
-            self.logger.addHandler(file_handler)
-
-        # Log to console
-        console_handler = logging.StreamHandler()
-        console_handler.setLevel(logging.INFO)
-        console_handler.setFormatter(log_formatter)
-        self.logger.addHandler(console_handler)
+        self.logger = get_configured_logger(
+            name=logger_name, 
+            log_file=log_file, 
+            log_format=log_format
+        )
 
         # Log initial parameters
         self.logger.info("DiabetesXGBoostClassifier initialized with parameters:")
@@ -1344,7 +1281,7 @@ class DiabetesXGBoostClassifier:
             with open(model_path, 'wb') as f:
                 pickle.dump(self.xgb_classifier, f)
             self.model_path = model_path
-            self.logger.info(f"Model saved successfully to: {model_path}")
+            self.logger.info(f"Model saved successfully to: {sanitize_path(model_path)}")
         except Exception as e:
             self.logger.error(f"Error saving model: {str(e)}")
             raise
@@ -1358,11 +1295,11 @@ class DiabetesXGBoostClassifier:
         """
         try:
             if not os.path.exists(model_path):
-                raise FileNotFoundError(f"Model file not found: {model_path}")
+                raise FileNotFoundError(f"Model file not found: {sanitize_path(model_path)}")
             with open(model_path, 'rb') as f:
                 self.xgb_classifier = pickle.load(f)
             self.model_path = model_path
-            self.logger.info(f"Model loaded successfully from: {model_path}")
+            self.logger.info(f"Model loaded successfully from: {sanitize_path(model_path)}")
         except Exception as e:
             self.logger.error(f"Error loading model: {str(e)}")
             raise
@@ -1375,7 +1312,7 @@ class DiabetesXGBoostClassifier:
             Dictionary with model information
         """
         info = self.model_params.copy()
-        info['model_path'] = self.model_path
+        info['model_path'] = sanitize_path(self.model_path) if self.model_path else None
         return info
 
     def cross_validate(self, X, y, cv=5):
@@ -1425,6 +1362,7 @@ class DiabetesLightGBMClassifier:
                  subsample=1.0,
                  colsample_bytree=1.0,
                  random_state=RANDOM_STATE,
+                 logger_name: str | None = __name__,
                  log_file: str = None,
                  log_format: str | None = LOG_FORMAT):
 
@@ -1435,6 +1373,7 @@ class DiabetesLightGBMClassifier:
             num_leaves=num_leaves,
             subsample=subsample,
             colsample_bytree=colsample_bytree,
+            force_row_wise=True, 
             random_state=random_state,
         )
         self.model_params = {
@@ -1449,26 +1388,11 @@ class DiabetesLightGBMClassifier:
         self.model_path = None
 
         # Log configuration
-        self.logger = logging.getLogger(name=__name__)
-        self.logger.setLevel(logging.DEBUG)
-        log_formatter = logging.Formatter(fmt=log_format)
-
-        # Clear any existing handlers
-        self.logger.handlers.clear()
-
-        # Log to file if log_file specified
-        if log_file:
-            make_dirs(path=os.path.dirname(log_file))
-            file_handler = logging.FileHandler(filename=log_file)
-            file_handler.setLevel(logging.INFO)
-            file_handler.setFormatter(log_formatter)
-            self.logger.addHandler(file_handler)
-
-        # Log to console
-        console_handler = logging.StreamHandler()
-        console_handler.setLevel(logging.INFO)
-        console_handler.setFormatter(log_formatter)
-        self.logger.addHandler(console_handler)
+        self.logger = get_configured_logger(
+            name=logger_name, 
+            log_file=log_file, 
+            log_format=log_format
+        )
 
         # Log initial parameters
         self.logger.info("DiabetesLightGBMClassifier initialized with parameters:")
@@ -1581,7 +1505,7 @@ class DiabetesLightGBMClassifier:
             with open(model_path, 'wb') as f:
                 pickle.dump(self.lgbm_classifier, f)
             self.model_path = model_path
-            self.logger.info(f"Model saved successfully to: {model_path}")
+            self.logger.info(f"Model saved successfully to: {sanitize_path(model_path)}")
         except Exception as e:
             self.logger.error(f"Error saving model: {str(e)}")
             raise
@@ -1595,11 +1519,11 @@ class DiabetesLightGBMClassifier:
         """
         try:
             if not os.path.exists(model_path):
-                raise FileNotFoundError(f"Model file not found: {model_path}")
+                raise FileNotFoundError(f"Model file not found: {sanitize_path(model_path)}")
             with open(model_path, 'rb') as f:
                 self.lgbm_classifier = pickle.load(f)
             self.model_path = model_path
-            self.logger.info(f"Model loaded successfully from: {model_path}")
+            self.logger.info(f"Model loaded successfully from: {sanitize_path(model_path)}")
         except Exception as e:
             self.logger.error(f"Error loading model: {str(e)}")
             raise
@@ -1612,7 +1536,7 @@ class DiabetesLightGBMClassifier:
             Dictionary with model information
         """
         info = self.model_params.copy()
-        info['model_path'] = self.model_path
+        info['model_path'] = sanitize_path(self.model_path) if self.model_path else None
         return info
 
     def cross_validate(self, X, y, cv=5):

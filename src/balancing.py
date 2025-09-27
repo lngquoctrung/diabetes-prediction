@@ -6,20 +6,19 @@ if not root_dir in sys.path:
     sys.path.insert(0, root_dir)
 
 import pandas as pd
-import logging
 import os
 
 from imblearn.over_sampling import SMOTE, RandomOverSampler, ADASYN
 from imblearn.under_sampling import RandomUnderSampler, TomekLinks, EditedNearestNeighbours
 from imblearn.combine import SMOTETomek, SMOTEENN
 from src.config import LOG_FORMAT, RANDOM_STATE
-from src.utils import make_dirs
+from src.utils import get_configured_logger
 
 
 class OverSamplingBalancer:
     """Class for over-sampling techniques to balance imbalanced datasets"""
 
-    def __init__(self, log_file: str | None = None,
+    def __init__(self, logger_name: str | None = __name__, log_file: str | None = None,
                  log_format: str | None = LOG_FORMAT):
         """
         Constructor of OverSamplingBalancer class
@@ -32,24 +31,11 @@ class OverSamplingBalancer:
                 The log format
         """
         # Log configuration
-        self.logger = logging.getLogger(name=__name__)
-        self.logger.setLevel(level=logging.DEBUG)
-        log_formatter = logging.Formatter(fmt=log_format)
-        # Clear existing handlers to avoid duplicate logs
-        self.logger.handlers.clear()
-        # Handler log to file
-        if log_file:
-            # Create a log directory
-            make_dirs(path=os.path.dirname(log_file))
-            log_file_handler = logging.FileHandler(filename=log_file)
-            log_file_handler.setLevel(level=logging.INFO)
-            log_file_handler.setFormatter(fmt=log_formatter)
-            self.logger.addHandler(hdlr=log_file_handler)
-        # Handler log to console
-        log_console_handler = logging.StreamHandler()
-        log_console_handler.setLevel(level=logging.INFO)
-        log_console_handler.setFormatter(fmt=log_formatter)
-        self.logger.addHandler(hdlr=log_console_handler)
+        self.logger = get_configured_logger(
+            name=logger_name, 
+            log_file=log_file, 
+            log_format=log_format
+        )
 
         self.logger.info(msg="OverSamplingBalancer initialized successfully")
 
@@ -220,7 +206,7 @@ class OverSamplingBalancer:
 class UnderSamplingBalancer:
     """Class for under-sampling techniques to balance imbalanced datasets"""
 
-    def __init__(self, log_file: str | None = None,
+    def __init__(self, logger_name: str | None = __name__, log_file: str | None = None,
                  log_format: str | None = LOG_FORMAT):
         """
         Constructor of UnderSamplingBalancer class
@@ -233,24 +219,11 @@ class UnderSamplingBalancer:
                 The log format
         """
         # Log configuration
-        self.logger = logging.getLogger(name=__name__)
-        self.logger.setLevel(level=logging.DEBUG)
-        log_formatter = logging.Formatter(fmt=log_format)
-        # Clear existing handlers to avoid duplicate logs
-        self.logger.handlers.clear()
-        # Handler log to file
-        if log_file:
-            # Create a log directory
-            make_dirs(path=os.path.dirname(log_file))
-            log_file_handler = logging.FileHandler(filename=log_file)
-            log_file_handler.setLevel(level=logging.INFO)
-            log_file_handler.setFormatter(fmt=log_formatter)
-            self.logger.addHandler(hdlr=log_file_handler)
-        # Handler log to console
-        log_console_handler = logging.StreamHandler()
-        log_console_handler.setLevel(level=logging.INFO)
-        log_console_handler.setFormatter(fmt=log_formatter)
-        self.logger.addHandler(hdlr=log_console_handler)
+        self.logger = get_configured_logger(
+            name=logger_name, 
+            log_file=log_file, 
+            log_format=log_format
+        )
 
         self.logger.info(msg="UnderSamplingBalancer initialized successfully")
 
@@ -421,7 +394,7 @@ class UnderSamplingBalancer:
 class HybridSamplingBalancer:
     """Class for hybrid sampling techniques (SMOTE and Under-sampling) to balance imbalanced datasets"""
 
-    def __init__(self, log_file: str | None = None,
+    def __init__(self, logger_name: str | None = __name__, log_file: str | None = None,
                  log_format: str | None = LOG_FORMAT):
         """
         Constructor of HybridSamplingBalancer class
@@ -434,24 +407,11 @@ class HybridSamplingBalancer:
                 The log format
         """
         # Log configuration
-        self.logger = logging.getLogger(name=__name__)
-        self.logger.setLevel(level=logging.DEBUG)
-        log_formatter = logging.Formatter(fmt=log_format)
-        # Clear existing handlers to avoid duplicate logs
-        self.logger.handlers.clear()
-        # Handler log to file
-        if log_file:
-            # Create a log directory
-            make_dirs(path=os.path.dirname(log_file))
-            log_file_handler = logging.FileHandler(filename=log_file)
-            log_file_handler.setLevel(level=logging.INFO)
-            log_file_handler.setFormatter(fmt=log_formatter)
-            self.logger.addHandler(hdlr=log_file_handler)
-        # Handler log to console
-        log_console_handler = logging.StreamHandler()
-        log_console_handler.setLevel(level=logging.INFO)
-        log_console_handler.setFormatter(fmt=log_formatter)
-        self.logger.addHandler(hdlr=log_console_handler)
+        self.logger = get_configured_logger(
+            name=logger_name, 
+            log_file=log_file, 
+            log_format=log_format
+        )
 
         self.logger.info(msg="HybridSamplingBalancer initialized successfully")
 
