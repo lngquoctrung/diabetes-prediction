@@ -197,7 +197,7 @@ docker run -p 8080:8080 diabetes-prediction
 
 3. **Access the application**
 
-Open your browser and navigate to `http://localhost:8080`
+Open your browser and navigate to `http://localhost:8080` or <https://diabetes-prediction-qctrung.streamlit.app/>
 
 ## 📊 Usage Guide
 
