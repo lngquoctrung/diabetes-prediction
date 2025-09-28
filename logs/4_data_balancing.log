@@ -1,217 +1,240 @@
-2025-09-27 20:55:35,546 - [data_balancing.feature_engineering_pipeline] - INFO - Enhanced DiabetesFeatureEngineering initialized successfully
-2025-09-27 20:55:35,547 - [data_balancing.feature_engineering_pipeline] - INFO - ================================================================================
-2025-09-27 20:55:35,548 - [data_balancing.feature_engineering_pipeline] - INFO - STARTING ENHANCED FEATURE ENGINEERING PIPELINE
-2025-09-27 20:55:35,549 - [data_balancing.feature_engineering_pipeline] - INFO - ================================================================================
-2025-09-27 20:55:35,550 - [data_balancing.feature_engineering_pipeline] - INFO - Initial dataset shape: (452655, 33)
-2025-09-27 20:55:35,551 - [data_balancing.feature_engineering_pipeline] - INFO - Starting null values removal process...
-2025-09-27 20:55:35,571 - [data_balancing.feature_engineering_pipeline] - INFO - No null values found in the dataset
-2025-09-27 20:55:35,633 - [data_balancing.feature_engineering_pipeline] - INFO - Null values removal completed. Removed 0 rows (0.00%)
-2025-09-27 20:55:35,634 - [data_balancing.feature_engineering_pipeline] - INFO - Dataset shape: 452655 -> 452655 rows
-2025-09-27 20:55:35,635 - [data_balancing.feature_engineering_pipeline] - INFO - After null removal: (452655, 33)
-2025-09-27 20:55:35,635 - [data_balancing.feature_engineering_pipeline] - INFO - Starting duplicate removal process...
-2025-09-27 20:55:35,889 - [data_balancing.feature_engineering_pipeline] - INFO - Found 3450 duplicate rows
-2025-09-27 20:55:35,949 - [data_balancing.feature_engineering_pipeline] - INFO -   - Label 2.0: 211 duplicate rows
-2025-09-27 20:55:36,152 - [data_balancing.feature_engineering_pipeline] - INFO -   - Label 0.0: 3228 duplicate rows
-2025-09-27 20:55:36,163 - [data_balancing.feature_engineering_pipeline] - INFO -   - Label 1.0: 11 duplicate rows
-2025-09-27 20:55:36,492 - [data_balancing.feature_engineering_pipeline] - INFO - Duplicate removal completed. Removed 3450 rows (0.76%)
-2025-09-27 20:55:36,492 - [data_balancing.feature_engineering_pipeline] - INFO - Dataset shape: 452655 -> 449205 rows
-2025-09-27 20:55:36,493 - [data_balancing.feature_engineering_pipeline] - INFO - After duplicate removal: (449205, 33)
-2025-09-27 20:55:36,494 - [data_balancing.feature_engineering_pipeline] - INFO - Starting enhanced outlier handling process...
-2025-09-27 20:55:36,494 - [data_balancing.feature_engineering_pipeline] - INFO - Columns to process: ['BMI', 'MentHlth', 'PhysHlth', 'AlcoholDays']
-2025-09-27 20:55:36,520 - [data_balancing.feature_engineering_pipeline] - INFO - Processing outliers for column: BMI
-2025-09-27 20:55:36,577 - [data_balancing.feature_engineering_pipeline] - INFO -   - Diabetes group 2.0: 2024 outliers (Lower: 9, Upper: 2015)
-2025-09-27 20:55:36,711 - [data_balancing.feature_engineering_pipeline] - INFO -   - Diabetes group 0.0: 11891 outliers (Lower: 63, Upper: 11828)
-2025-09-27 20:55:36,732 - [data_balancing.feature_engineering_pipeline] - INFO -   - Diabetes group 1.0: 554 outliers (Lower: 22, Upper: 532)
-2025-09-27 20:55:36,738 - [data_balancing.feature_engineering_pipeline] - INFO - Processing outliers for column: MentHlth
-2025-09-27 20:55:36,788 - [data_balancing.feature_engineering_pipeline] - INFO -   - Diabetes group 2.0: 13244 outliers (Lower: 0, Upper: 13244)
-2025-09-27 20:55:36,911 - [data_balancing.feature_engineering_pipeline] - INFO -   - Diabetes group 0.0: 53646 outliers (Lower: 0, Upper: 53646)
-2025-09-27 20:55:36,933 - [data_balancing.feature_engineering_pipeline] - INFO -   - Diabetes group 1.0: 1921 outliers (Lower: 0, Upper: 1921)
-2025-09-27 20:55:36,938 - [data_balancing.feature_engineering_pipeline] - INFO - Processing outliers for column: PhysHlth
-2025-09-27 20:55:37,107 - [data_balancing.feature_engineering_pipeline] - INFO -   - Diabetes group 0.0: 59172 outliers (Lower: 0, Upper: 59172)
-2025-09-27 20:55:37,128 - [data_balancing.feature_engineering_pipeline] - INFO -   - Diabetes group 1.0: 1787 outliers (Lower: 0, Upper: 1787)
-2025-09-27 20:55:37,132 - [data_balancing.feature_engineering_pipeline] - INFO - Processing outliers for column: AlcoholDays
-2025-09-27 20:55:37,181 - [data_balancing.feature_engineering_pipeline] - INFO -   - Diabetes group 2.0: 14393 outliers (Lower: 0, Upper: 14393)
-2025-09-27 20:55:37,308 - [data_balancing.feature_engineering_pipeline] - INFO -   - Diabetes group 0.0: 41346 outliers (Lower: 0, Upper: 41346)
-2025-09-27 20:55:37,328 - [data_balancing.feature_engineering_pipeline] - INFO -   - Diabetes group 1.0: 1634 outliers (Lower: 0, Upper: 1634)
-2025-09-27 20:55:37,331 - [data_balancing.feature_engineering_pipeline] - INFO - Enhanced outlier handling completed. Total outliers handled: 201612
-2025-09-27 20:55:37,333 - [data_balancing.feature_engineering_pipeline] - INFO - Creating enhanced feature set...
-2025-09-27 20:55:37,334 - [data_balancing.feature_engineering_pipeline] - INFO - Creating enhanced health score feature...
-2025-09-27 20:55:37,357 - [data_balancing.feature_engineering_pipeline] - INFO - Using columns for health score: ['GenHlth', 'MentHlth', 'PhysHlth', 'DiffWalk']
-2025-09-27 20:55:37,368 - [data_balancing.feature_engineering_pipeline] - INFO - Enhanced health score created using 4 features. Range: [0.200, 2.917]
-2025-09-27 20:55:37,369 - [data_balancing.feature_engineering_pipeline] - INFO - Creating enhanced comprehensive risk score feature...
-2025-09-27 20:55:37,440 - [data_balancing.feature_engineering_pipeline] - INFO - Using 8 risk factors: ['HighBP', 'HighChol', 'HeartDiseaseorAttack', 'Stroke', 'DiagnosedHeartAttack', 'CoronaryHeartDisease', 'COPD', 'KidneyDisease']
-2025-09-27 20:55:37,490 - [data_balancing.feature_engineering_pipeline] - INFO - Enhanced risk score created successfully. Range: [0.0, 8.0]
-2025-09-27 20:55:37,491 - [data_balancing.feature_engineering_pipeline] - INFO - Creating enhanced lifestyle score feature...
-2025-09-27 20:55:37,598 - [data_balancing.feature_engineering_pipeline] - INFO - Enhanced lifestyle score created using 1 positive and 2 negative factors
-2025-09-27 20:55:37,602 - [data_balancing.feature_engineering_pipeline] - INFO - Range: [-1.333, 1.000]
-2025-09-27 20:55:37,603 - [data_balancing.feature_engineering_pipeline] - INFO - Creating enhanced cardiovascular risk feature...
-2025-09-27 20:55:37,683 - [data_balancing.feature_engineering_pipeline] - INFO - Enhanced cardiovascular risk created using: ['HighBP', 'HighChol', 'DiagnosedHeartAttack', 'CoronaryHeartDisease', 'BMI_Obesity']
-2025-09-27 20:55:37,687 - [data_balancing.feature_engineering_pipeline] - INFO - Range: [0.0, 5.0]
-2025-09-27 20:55:37,688 - [data_balancing.feature_engineering_pipeline] - INFO - Creating BMI category feature...
-2025-09-27 20:55:37,851 - [data_balancing.feature_engineering_pipeline] - INFO - BMI category distribution:
-2025-09-27 20:55:37,852 - [data_balancing.feature_engineering_pipeline] - INFO -   - Pre-obesity: 163017 (36.29%)
-2025-09-27 20:55:37,852 - [data_balancing.feature_engineering_pipeline] - INFO -   - Obesity class I: 107175 (23.86%)
-2025-09-27 20:55:37,853 - [data_balancing.feature_engineering_pipeline] - INFO -   - Normal weight: 99203 (22.08%)
-2025-09-27 20:55:37,853 - [data_balancing.feature_engineering_pipeline] - INFO -   - Obesity class II: 45231 (10.07%)
-2025-09-27 20:55:37,854 - [data_balancing.feature_engineering_pipeline] - INFO -   - Obesity class III: 29862 (6.65%)
-2025-09-27 20:55:37,855 - [data_balancing.feature_engineering_pipeline] - INFO -   - Underweight: 4717 (1.05%)
-2025-09-27 20:55:37,856 - [data_balancing.feature_engineering_pipeline] - INFO - Creating enhanced age group feature...
-2025-09-27 20:55:37,957 - [data_balancing.feature_engineering_pipeline] - INFO - Age-Sex distribution analysis:
-2025-09-27 20:55:37,996 - [data_balancing.feature_engineering_pipeline] - INFO -   - Middle-Sex0.0: 81318
-2025-09-27 20:55:37,997 - [data_balancing.feature_engineering_pipeline] - INFO -   - Middle-Sex1.0: 84992
-2025-09-27 20:55:37,997 - [data_balancing.feature_engineering_pipeline] - INFO -   - Middle-Sex9.0: 1
-2025-09-27 20:55:37,998 - [data_balancing.feature_engineering_pipeline] - INFO -   - Senior-Sex0.0: 114689
-2025-09-27 20:55:37,999 - [data_balancing.feature_engineering_pipeline] - INFO -   - Senior-Sex1.0: 131791
-2025-09-27 20:55:38,000 - [data_balancing.feature_engineering_pipeline] - INFO -   - Senior-Sex9.0: 10
-2025-09-27 20:55:38,002 - [data_balancing.feature_engineering_pipeline] - INFO -   - Young-Sex0.0: 18851
-2025-09-27 20:55:38,003 - [data_balancing.feature_engineering_pipeline] - INFO -   - Young-Sex1.0: 17553
-2025-09-27 20:55:38,003 - [data_balancing.feature_engineering_pipeline] - INFO -   - Young-Sex9.0: 0
-2025-09-27 20:55:38,019 - [data_balancing.feature_engineering_pipeline] - INFO - Age group distribution:
-2025-09-27 20:55:38,020 - [data_balancing.feature_engineering_pipeline] - INFO -   - Senior: 246490 (54.87%)
-2025-09-27 20:55:38,021 - [data_balancing.feature_engineering_pipeline] - INFO -   - Middle: 166311 (37.02%)
-2025-09-27 20:55:38,021 - [data_balancing.feature_engineering_pipeline] - INFO -   - Young: 36404 (8.10%)
-2025-09-27 20:55:38,023 - [data_balancing.feature_engineering_pipeline] - INFO - Creating healthcare access score feature...
-2025-09-27 20:55:38,124 - [data_balancing.feature_engineering_pipeline] - INFO - Healthcare access score created using: ['AnyHealthcare', 'HasPersonalDoctor', 'NoDocbcCost', 'CannotAffordDoctor', 'LastCheckup']
-2025-09-27 20:55:38,126 - [data_balancing.feature_engineering_pipeline] - INFO - Range: [-2.000, 3.000]
-2025-09-27 20:55:38,128 - [data_balancing.feature_engineering_pipeline] - INFO - Creating socioeconomic score feature...
-2025-09-27 20:55:38,222 - [data_balancing.feature_engineering_pipeline] - INFO - Socioeconomic score created using: ['Education', 'Income', 'EmploymentStatus', 'MaritalStatus']
-2025-09-27 20:55:38,224 - [data_balancing.feature_engineering_pipeline] - INFO - Range: [0.549, 4.000]
-2025-09-27 20:55:38,226 - [data_balancing.feature_engineering_pipeline] - INFO - Creating cholesterol management score feature...
-2025-09-27 20:55:38,314 - [data_balancing.feature_engineering_pipeline] - INFO - Cholesterol management score created using: ['CholCheck', 'HighChol', 'CholesterolMeds']
-2025-09-27 20:55:38,317 - [data_balancing.feature_engineering_pipeline] - INFO - Range: [-1.000, 2.000]
-2025-09-27 20:55:38,320 - [data_balancing.feature_engineering_pipeline] - INFO - Creating comprehensive mental health score feature...
-2025-09-27 20:55:38,410 - [data_balancing.feature_engineering_pipeline] - INFO - Comprehensive mental health score created using: ['Depression', 'CognitiveIssues', 'MentHlth']
-2025-09-27 20:55:38,413 - [data_balancing.feature_engineering_pipeline] - INFO - Range: [-2.417, 0.000]
-2025-09-27 20:55:38,414 - [data_balancing.feature_engineering_pipeline] - INFO - After enhanced feature creation: (449205, 43)
-2025-09-27 20:55:38,415 - [data_balancing.feature_engineering_pipeline] - INFO - Starting enhanced categorical feature encoding...
-2025-09-27 20:55:38,506 - [data_balancing.feature_engineering_pipeline] - INFO - Found 2 categorical columns to encode: ['BMICategory', 'AgeGroup']
-2025-09-27 20:55:38,507 - [data_balancing.feature_engineering_pipeline] - INFO - Encoding column: BMICategory
-2025-09-27 20:55:38,551 - [data_balancing.feature_engineering_pipeline] - INFO -   - Encoding mapping: {'Normal weight': 0, 'Obesity class I': 1, 'Obesity class II': 2, 'Obesity class III': 3, 'Pre-obesity': 4, 'Underweight': 5}
-2025-09-27 20:55:38,552 - [data_balancing.feature_engineering_pipeline] - INFO - Encoding column: AgeGroup
-2025-09-27 20:55:38,594 - [data_balancing.feature_engineering_pipeline] - INFO -   - Encoding mapping: {'Middle': 0, 'Senior': 1, 'Young': 2}
-2025-09-27 20:55:38,595 - [data_balancing.feature_engineering_pipeline] - INFO - Categorical feature encoding completed for 2 columns
-2025-09-27 20:55:38,597 - [data_balancing.feature_engineering_pipeline] - INFO - After categorical encoding: (449205, 43)
-2025-09-27 20:55:38,597 - [data_balancing.feature_engineering_pipeline] - INFO - Starting enhanced feature selection process...
-2025-09-27 20:55:38,598 - [data_balancing.feature_engineering_pipeline] - INFO - Target column: Diabetes
-2025-09-27 20:55:38,599 - [data_balancing.feature_engineering_pipeline] - INFO - Correlation threshold: 0.05
-2025-09-27 20:55:40,465 - [data_balancing.feature_engineering_pipeline] - INFO - Selected 33 features (+ target column) out of 42 available
-2025-09-27 20:55:40,466 - [data_balancing.feature_engineering_pipeline] - INFO - Top 10 selected features by correlation:
-2025-09-27 20:55:40,467 - [data_balancing.feature_engineering_pipeline] - INFO -   - PhysHlth: 0.4401 (|0.4401|)
-2025-09-27 20:55:40,469 - [data_balancing.feature_engineering_pipeline] - INFO -   - HlthScore: 0.3969 (|0.3969|)
-2025-09-27 20:55:40,470 - [data_balancing.feature_engineering_pipeline] - INFO -   - CardioRisk: 0.3386 (|0.3386|)
-2025-09-27 20:55:40,471 - [data_balancing.feature_engineering_pipeline] - INFO -   - RiskScore: 0.3054 (|0.3054|)
-2025-09-27 20:55:40,472 - [data_balancing.feature_engineering_pipeline] - INFO -   - GenHlth: 0.3029 (|0.3029|)
-2025-09-27 20:55:40,472 - [data_balancing.feature_engineering_pipeline] - INFO -   - CholesterolMeds: 0.2956 (|0.2956|)
-2025-09-27 20:55:40,472 - [data_balancing.feature_engineering_pipeline] - INFO -   - HighBP: 0.2645 (|0.2645|)
-2025-09-27 20:55:40,473 - [data_balancing.feature_engineering_pipeline] - INFO -   - BMI: 0.2483 (|0.2483|)
-2025-09-27 20:55:40,473 - [data_balancing.feature_engineering_pipeline] - INFO -   - AlcoholDays: -0.2444 (|0.2444|)
-2025-09-27 20:55:40,474 - [data_balancing.feature_engineering_pipeline] - INFO -   - DiffWalk: 0.2193 (|0.2193|)
-2025-09-27 20:55:40,506 - [data_balancing.feature_engineering_pipeline] - INFO - Final dataset shape: (449205, 34)
-2025-09-27 20:55:40,507 - [data_balancing.feature_engineering_pipeline] - INFO - ================================================================================
-2025-09-27 20:55:40,507 - [data_balancing.feature_engineering_pipeline] - INFO - ENHANCED FEATURE ENGINEERING PIPELINE COMPLETED
-2025-09-27 20:55:40,508 - [data_balancing.feature_engineering_pipeline] - INFO - ================================================================================
-2025-09-27 20:55:40,508 - [data_balancing.feature_engineering_pipeline] - INFO - Dataset transformation: (452655, 33) -> (449205, 34)
-2025-09-27 20:55:40,509 - [data_balancing.feature_engineering_pipeline] - INFO - Rows change: 452655 -> 449205 (-0.76%)
-2025-09-27 20:55:40,509 - [data_balancing.feature_engineering_pipeline] - INFO - Features change: 33 -> 34 (+3.03%)
-2025-09-27 20:55:40,902 - [data_balancing.oversampling_balancer] - INFO - OverSamplingBalancer initialized successfully
-2025-09-27 20:55:40,910 - [data_balancing.oversampling_balancer] - INFO - Starting Random Over Sampling process...
-2025-09-27 20:55:40,916 - [data_balancing.oversampling_balancer] - INFO - Original class distribution:
-2025-09-27 20:55:40,918 - [data_balancing.oversampling_balancer] - INFO -   - Class 0.0: 283416 samples
-2025-09-27 20:55:40,919 - [data_balancing.oversampling_balancer] - INFO -   - Class 1.0: 9586 samples
-2025-09-27 20:55:40,921 - [data_balancing.oversampling_balancer] - INFO -   - Class 2.0: 66362 samples
-2025-09-27 20:55:41,069 - [data_balancing.oversampling_balancer] - INFO - New class distribution after Random Over Sampling:
-2025-09-27 20:55:41,070 - [data_balancing.oversampling_balancer] - INFO -   - Class 0.0: 283416 samples (+0)
-2025-09-27 20:55:41,070 - [data_balancing.oversampling_balancer] - INFO -   - Class 1.0: 50000 samples (+40414)
-2025-09-27 20:55:41,071 - [data_balancing.oversampling_balancer] - INFO -   - Class 2.0: 100000 samples (+33638)
-2025-09-27 20:55:41,072 - [data_balancing.oversampling_balancer] - INFO - Dataset size: 359364 -> 433416 samples (+74052)
-2025-09-27 20:55:41,072 - [data_balancing.oversampling_balancer] - INFO - Random Over Sampling completed successfully
-2025-09-27 20:55:41,347 - [data_balancing.oversampling_balancer] - INFO - Starting SMOTE process...
-2025-09-27 20:55:41,354 - [data_balancing.oversampling_balancer] - INFO - Original class distribution:
-2025-09-27 20:55:41,355 - [data_balancing.oversampling_balancer] - INFO -   - Class 0.0: 283416 samples
-2025-09-27 20:55:41,356 - [data_balancing.oversampling_balancer] - INFO -   - Class 1.0: 9586 samples
-2025-09-27 20:55:41,357 - [data_balancing.oversampling_balancer] - INFO -   - Class 2.0: 66362 samples
-2025-09-27 20:55:48,643 - [data_balancing.oversampling_balancer] - INFO - New class distribution after SMOTE:
-2025-09-27 20:55:48,644 - [data_balancing.oversampling_balancer] - INFO -   - Class 0.0: 283416 samples (+0 synthetic)
-2025-09-27 20:55:48,645 - [data_balancing.oversampling_balancer] - INFO -   - Class 1.0: 50000 samples (+40414 synthetic)
-2025-09-27 20:55:48,646 - [data_balancing.oversampling_balancer] - INFO -   - Class 2.0: 100000 samples (+33638 synthetic)
-2025-09-27 20:55:48,647 - [data_balancing.oversampling_balancer] - INFO - Dataset size: 359364 -> 433416 samples (+74052 synthetic)
-2025-09-27 20:55:48,648 - [data_balancing.oversampling_balancer] - INFO - SMOTE completed successfully
-2025-09-27 20:55:48,935 - [data_balancing.oversampling_balancer] - INFO - Starting ADASYN over-sampling process...
-2025-09-27 20:55:48,942 - [data_balancing.oversampling_balancer] - INFO - Original class distribution:
-2025-09-27 20:55:48,943 - [data_balancing.oversampling_balancer] - INFO -  - Class 0.0: 283416 samples
-2025-09-27 20:55:48,944 - [data_balancing.oversampling_balancer] - INFO -  - Class 1.0: 9586 samples
-2025-09-27 20:55:48,945 - [data_balancing.oversampling_balancer] - INFO -  - Class 2.0: 66362 samples
-2025-09-27 20:57:00,048 - [data_balancing.oversampling_balancer] - INFO - New class distribution after ADASYN:
-2025-09-27 20:57:00,049 - [data_balancing.oversampling_balancer] - INFO -  - Class 0.0: 283416 samples (+0 synthetic)
-2025-09-27 20:57:00,049 - [data_balancing.oversampling_balancer] - INFO -  - Class 1.0: 49354 samples (+39768 synthetic)
-2025-09-27 20:57:00,050 - [data_balancing.oversampling_balancer] - INFO -  - Class 2.0: 96460 samples (+30098 synthetic)
-2025-09-27 20:57:00,051 - [data_balancing.oversampling_balancer] - INFO - Dataset size: 359364 -> 429230 samples (+69866 synthetic)
-2025-09-27 20:57:00,052 - [data_balancing.oversampling_balancer] - INFO - ADASYN over-sampling completed successfully
-2025-09-27 20:57:00,372 - [data_balancing.undersampling_balancer] - INFO - UnderSamplingBalancer initialized successfully
-2025-09-27 20:57:00,383 - [data_balancing.undersampling_balancer] - INFO - Starting Random Under Sampling process...
-2025-09-27 20:57:00,390 - [data_balancing.undersampling_balancer] - INFO - Original class distribution:
-2025-09-27 20:57:00,391 - [data_balancing.undersampling_balancer] - INFO -   - Class 0.0: 283416 samples
-2025-09-27 20:57:00,392 - [data_balancing.undersampling_balancer] - INFO -   - Class 1.0: 9586 samples
-2025-09-27 20:57:00,393 - [data_balancing.undersampling_balancer] - INFO -   - Class 2.0: 66362 samples
-2025-09-27 20:57:00,560 - [data_balancing.undersampling_balancer] - INFO - New class distribution after Random Under Sampling:
-2025-09-27 20:57:00,561 - [data_balancing.undersampling_balancer] - INFO -   - Class 0.0: 150000 samples (-133416)
-2025-09-27 20:57:00,562 - [data_balancing.undersampling_balancer] - INFO -   - Class 1.0: 9586 samples (-0)
-2025-09-27 20:57:00,563 - [data_balancing.undersampling_balancer] - INFO -   - Class 2.0: 66362 samples (-0)
-2025-09-27 20:57:00,565 - [data_balancing.undersampling_balancer] - INFO - Dataset size: 359364 -> 225948 samples (-133416)
-2025-09-27 20:57:00,566 - [data_balancing.undersampling_balancer] - INFO - Random Under Sampling completed successfully
-2025-09-27 20:57:00,728 - [data_balancing.undersampling_balancer] - INFO - Starting Tomek Links process...
-2025-09-27 20:57:00,740 - [data_balancing.undersampling_balancer] - INFO - Original class distribution:
-2025-09-27 20:57:00,742 - [data_balancing.undersampling_balancer] - INFO -   - Class 0.0: 283416 samples
-2025-09-27 20:57:00,743 - [data_balancing.undersampling_balancer] - INFO -   - Class 1.0: 9586 samples
-2025-09-27 20:57:00,745 - [data_balancing.undersampling_balancer] - INFO -   - Class 2.0: 66362 samples
-2025-09-27 21:01:31,507 - [data_balancing.undersampling_balancer] - INFO - New class distribution after Tomek Links:
-2025-09-27 21:01:31,508 - [data_balancing.undersampling_balancer] - INFO -   - Class 0.0: 274180 samples (-9236 Tomek links)
-2025-09-27 21:01:31,508 - [data_balancing.undersampling_balancer] - INFO -   - Class 1.0: 9586 samples (unchanged)
-2025-09-27 21:01:31,509 - [data_balancing.undersampling_balancer] - INFO -   - Class 2.0: 57778 samples (-8584 Tomek links)
-2025-09-27 21:01:31,509 - [data_balancing.undersampling_balancer] - INFO - Dataset size: 359364 -> 341544 samples (-17820 Tomek links)
-2025-09-27 21:01:31,510 - [data_balancing.undersampling_balancer] - INFO - Tomek Links processing completed successfully
-2025-09-27 21:01:31,646 - [data_balancing.undersampling_balancer] - INFO - Starting Edited Nearest Neighbours (ENN) under-sampling process...
-2025-09-27 21:01:31,654 - [data_balancing.undersampling_balancer] - INFO - Original class distribution:
-2025-09-27 21:01:31,656 - [data_balancing.undersampling_balancer] - INFO -  - Class 0.0: 283416 samples
-2025-09-27 21:01:31,657 - [data_balancing.undersampling_balancer] - INFO -  - Class 1.0: 9586 samples
-2025-09-27 21:01:31,658 - [data_balancing.undersampling_balancer] - INFO -  - Class 2.0: 66362 samples
-2025-09-27 21:05:55,856 - [data_balancing.undersampling_balancer] - INFO - New class distribution after ENN:
-2025-09-27 21:05:55,857 - [data_balancing.undersampling_balancer] - INFO -  - Class 0.0: 218788 samples (-64628 removed)
-2025-09-27 21:05:55,857 - [data_balancing.undersampling_balancer] - INFO -  - Class 1.0: 9586 samples (-0 removed)
-2025-09-27 21:05:55,858 - [data_balancing.undersampling_balancer] - INFO -  - Class 2.0: 25899 samples (-40463 removed)
-2025-09-27 21:05:55,859 - [data_balancing.undersampling_balancer] - INFO - Dataset size: 359364 -> 254273 samples (-105091)
-2025-09-27 21:05:55,859 - [data_balancing.undersampling_balancer] - INFO - ENN under-sampling completed successfully
-2025-09-27 21:05:55,976 - [data_balancing.hybrid_sampling_balancer] - INFO - HybridSamplingBalancer initialized successfully
-2025-09-27 21:05:55,986 - [data_balancing.hybrid_sampling_balancer] - INFO - Starting SMOTETomek hybrid sampling process...
-2025-09-27 21:05:55,993 - [data_balancing.hybrid_sampling_balancer] - INFO - Original class distribution:
-2025-09-27 21:05:55,995 - [data_balancing.hybrid_sampling_balancer] - INFO -   - Class 0.0: 283416 samples
-2025-09-27 21:05:55,996 - [data_balancing.hybrid_sampling_balancer] - INFO -   - Class 1.0: 9586 samples
-2025-09-27 21:05:55,997 - [data_balancing.hybrid_sampling_balancer] - INFO -   - Class 2.0: 66362 samples
-2025-09-27 21:13:31,895 - [data_balancing.hybrid_sampling_balancer] - INFO - New class distribution after SMOTETomek:
-2025-09-27 21:13:31,897 - [data_balancing.hybrid_sampling_balancer] - INFO -   - Class 0.0: 279388 samples (-4028 net)
-2025-09-27 21:13:31,898 - [data_balancing.hybrid_sampling_balancer] - INFO -   - Class 1.0: 49787 samples (+40201 net)
-2025-09-27 21:13:31,899 - [data_balancing.hybrid_sampling_balancer] - INFO -   - Class 2.0: 96111 samples (+29749 net)
-2025-09-27 21:13:31,900 - [data_balancing.hybrid_sampling_balancer] - INFO - Dataset size: 359364 -> 425286 samples (+65922)
-2025-09-27 21:13:31,901 - [data_balancing.hybrid_sampling_balancer] - INFO - SMOTETomek processing completed successfully
-2025-09-27 21:13:32,109 - [data_balancing.hybrid_sampling_balancer] - INFO - Starting SMOTEENN hybrid sampling process...
-2025-09-27 21:13:32,120 - [data_balancing.hybrid_sampling_balancer] - INFO - Original class distribution:
-2025-09-27 21:13:32,121 - [data_balancing.hybrid_sampling_balancer] - INFO -   - Class 0.0: 283416 samples
-2025-09-27 21:13:32,122 - [data_balancing.hybrid_sampling_balancer] - INFO -   - Class 1.0: 9586 samples
-2025-09-27 21:13:32,123 - [data_balancing.hybrid_sampling_balancer] - INFO -   - Class 2.0: 66362 samples
-2025-09-27 21:21:14,947 - [data_balancing.hybrid_sampling_balancer] - INFO - New class distribution after SMOTEENN:
-2025-09-27 21:21:14,948 - [data_balancing.hybrid_sampling_balancer] - INFO -   - Class 0.0: 204391 samples (-79025 net)
-2025-09-27 21:21:14,949 - [data_balancing.hybrid_sampling_balancer] - INFO -   - Class 1.0: 45067 samples (+35481 net)
-2025-09-27 21:21:14,949 - [data_balancing.hybrid_sampling_balancer] - INFO -   - Class 2.0: 56031 samples (-10331 net)
-2025-09-27 21:21:14,950 - [data_balancing.hybrid_sampling_balancer] - INFO - Dataset size: 359364 -> 305489 samples (-53875)
-2025-09-27 21:21:14,951 - [data_balancing.hybrid_sampling_balancer] - INFO - SMOTEENN processing completed successfully
-2025-09-27 21:21:15,085 - [data_balancing.hybrid_sampling_balancer] - INFO - Starting ADASYN + TomekLinks hybrid sampling process...
-2025-09-27 21:21:15,091 - [data_balancing.hybrid_sampling_balancer] - INFO - Original class distribution:
-2025-09-27 21:21:15,093 - [data_balancing.hybrid_sampling_balancer] - INFO -   - Class 0.0: 283416 samples
-2025-09-27 21:21:15,094 - [data_balancing.hybrid_sampling_balancer] - INFO -   - Class 1.0: 9586 samples
-2025-09-27 21:21:15,095 - [data_balancing.hybrid_sampling_balancer] - INFO -   - Class 2.0: 66362 samples
-2025-09-27 21:29:06,076 - [data_balancing.hybrid_sampling_balancer] - INFO - New class distribution after ADASYN + TomekLinks:
-2025-09-27 21:29:06,076 - [data_balancing.hybrid_sampling_balancer] - INFO -   - Class 0.0: 281315 samples (-2101 net)
-2025-09-27 21:29:06,077 - [data_balancing.hybrid_sampling_balancer] - INFO -   - Class 1.0: 49354 samples (+39768 net)
-2025-09-27 21:29:06,077 - [data_balancing.hybrid_sampling_balancer] - INFO -   - Class 2.0: 94491 samples (+28129 net)
-2025-09-27 21:29:06,078 - [data_balancing.hybrid_sampling_balancer] - INFO - Dataset size: 359364 -> 425160 samples (+65796)
-2025-09-27 21:29:06,079 - [data_balancing.hybrid_sampling_balancer] - INFO - ADASYN + TomekLinks processing completed successfully
+2025-09-28 04:39:30,975 - [data_balancing.feature_engineering_pipeline] - INFO - Enhanced DiabetesFeatureEngineering initialized successfully
+2025-09-28 04:39:30,976 - [data_balancing.feature_engineering_pipeline] - INFO - ================================================================================
+2025-09-28 04:39:30,976 - [data_balancing.feature_engineering_pipeline] - INFO - STARTING ENHANCED FEATURE ENGINEERING PIPELINE
+2025-09-28 04:39:30,977 - [data_balancing.feature_engineering_pipeline] - INFO - ================================================================================
+2025-09-28 04:39:30,978 - [data_balancing.feature_engineering_pipeline] - INFO - Initial dataset shape: (863745, 33)
+2025-09-28 04:39:30,979 - [data_balancing.feature_engineering_pipeline] - INFO - Starting null values removal process...
+2025-09-28 04:39:31,020 - [data_balancing.feature_engineering_pipeline] - INFO - Found 481755 null values across 23 columns
+2025-09-28 04:39:31,021 - [data_balancing.feature_engineering_pipeline] - INFO -   - HighChol: 53679 null values
+2025-09-28 04:39:31,021 - [data_balancing.feature_engineering_pipeline] - INFO -   - BMI: 34879 null values
+2025-09-28 04:39:31,022 - [data_balancing.feature_engineering_pipeline] - INFO -   - Smoker: 1 null values
+2025-09-28 04:39:31,023 - [data_balancing.feature_engineering_pipeline] - INFO -   - Stroke: 3 null values
+2025-09-28 04:39:31,023 - [data_balancing.feature_engineering_pipeline] - INFO -   - HeartDiseaseorAttack: 1 null values
+2025-09-28 04:39:31,024 - [data_balancing.feature_engineering_pipeline] - INFO -   - AnyHealthcare: 4 null values
+2025-09-28 04:39:31,025 - [data_balancing.feature_engineering_pipeline] - INFO -   - NoDocbcCost: 5 null values
+2025-09-28 04:39:31,025 - [data_balancing.feature_engineering_pipeline] - INFO -   - GenHlth: 10 null values
+2025-09-28 04:39:31,026 - [data_balancing.feature_engineering_pipeline] - INFO -   - MentHlth: 9 null values
+2025-09-28 04:39:31,027 - [data_balancing.feature_engineering_pipeline] - INFO -   - PhysHlth: 17 null values
+2025-09-28 04:39:31,028 - [data_balancing.feature_engineering_pipeline] - INFO -   - DiffWalk: 1 null values
+2025-09-28 04:39:31,029 - [data_balancing.feature_engineering_pipeline] - INFO -   - Education: 6 null values
+2025-09-28 04:39:31,031 - [data_balancing.feature_engineering_pipeline] - INFO -   - Income: 20 null values
+2025-09-28 04:39:31,032 - [data_balancing.feature_engineering_pipeline] - INFO -   - Depression: 1 null values
+2025-09-28 04:39:31,033 - [data_balancing.feature_engineering_pipeline] - INFO -   - CognitiveIssues: 2 null values
+2025-09-28 04:39:31,033 - [data_balancing.feature_engineering_pipeline] - INFO -   - KidneyDisease: 1 null values
+2025-09-28 04:39:31,034 - [data_balancing.feature_engineering_pipeline] - INFO -   - DiagnosedHeartAttack: 1 null values
+2025-09-28 04:39:31,035 - [data_balancing.feature_engineering_pipeline] - INFO -   - LastCheckup: 4 null values
+2025-09-28 04:39:31,035 - [data_balancing.feature_engineering_pipeline] - INFO -   - HasPersonalDoctor: 2 null values
+2025-09-28 04:39:31,036 - [data_balancing.feature_engineering_pipeline] - INFO -   - CholesterolMeds: 393085 null values
+2025-09-28 04:39:31,036 - [data_balancing.feature_engineering_pipeline] - INFO -   - MaritalStatus: 15 null values
+2025-09-28 04:39:31,037 - [data_balancing.feature_engineering_pipeline] - INFO -   - EmploymentStatus: 4 null values
+2025-09-28 04:39:31,037 - [data_balancing.feature_engineering_pipeline] - INFO -   - CannotAffordDoctor: 5 null values
+2025-09-28 04:39:31,148 - [data_balancing.feature_engineering_pipeline] - INFO - Null values removal completed. Removed 411090 rows (47.59%)
+2025-09-28 04:39:31,149 - [data_balancing.feature_engineering_pipeline] - INFO - Dataset shape: 863745 -> 452655 rows
+2025-09-28 04:39:31,149 - [data_balancing.feature_engineering_pipeline] - INFO - After null removal: (452655, 33)
+2025-09-28 04:39:31,150 - [data_balancing.feature_engineering_pipeline] - INFO - Starting duplicate removal process...
+2025-09-28 04:39:31,408 - [data_balancing.feature_engineering_pipeline] - INFO - Found 3450 duplicate rows
+2025-09-28 04:39:31,466 - [data_balancing.feature_engineering_pipeline] - INFO -   - Label 2.0: 211 duplicate rows
+2025-09-28 04:39:31,655 - [data_balancing.feature_engineering_pipeline] - INFO -   - Label 0.0: 3228 duplicate rows
+2025-09-28 04:39:31,667 - [data_balancing.feature_engineering_pipeline] - INFO -   - Label 1.0: 11 duplicate rows
+2025-09-28 04:39:31,954 - [data_balancing.feature_engineering_pipeline] - INFO - Duplicate removal completed. Removed 3450 rows (0.76%)
+2025-09-28 04:39:31,954 - [data_balancing.feature_engineering_pipeline] - INFO - Dataset shape: 452655 -> 449205 rows
+2025-09-28 04:39:31,955 - [data_balancing.feature_engineering_pipeline] - INFO - After duplicate removal: (449205, 33)
+2025-09-28 04:39:31,956 - [data_balancing.feature_engineering_pipeline] - INFO - Starting enhanced outlier handling process...
+2025-09-28 04:39:31,956 - [data_balancing.feature_engineering_pipeline] - INFO - Columns to process: ['BMI', 'MentHlth', 'PhysHlth', 'AlcoholDays']
+2025-09-28 04:39:31,979 - [data_balancing.feature_engineering_pipeline] - INFO - Processing outliers for column: BMI
+2025-09-28 04:39:32,031 - [data_balancing.feature_engineering_pipeline] - INFO -   - Diabetes group 2.0: 2024 outliers (Lower: 9, Upper: 2015)
+2025-09-28 04:39:32,157 - [data_balancing.feature_engineering_pipeline] - INFO -   - Diabetes group 0.0: 11891 outliers (Lower: 63, Upper: 11828)
+2025-09-28 04:39:32,179 - [data_balancing.feature_engineering_pipeline] - INFO -   - Diabetes group 1.0: 554 outliers (Lower: 22, Upper: 532)
+2025-09-28 04:39:32,183 - [data_balancing.feature_engineering_pipeline] - INFO - Processing outliers for column: MentHlth
+2025-09-28 04:39:32,233 - [data_balancing.feature_engineering_pipeline] - INFO -   - Diabetes group 2.0: 13244 outliers (Lower: 0, Upper: 13244)
+2025-09-28 04:39:32,354 - [data_balancing.feature_engineering_pipeline] - INFO -   - Diabetes group 0.0: 53646 outliers (Lower: 0, Upper: 53646)
+2025-09-28 04:39:32,376 - [data_balancing.feature_engineering_pipeline] - INFO -   - Diabetes group 1.0: 1921 outliers (Lower: 0, Upper: 1921)
+2025-09-28 04:39:32,380 - [data_balancing.feature_engineering_pipeline] - INFO - Processing outliers for column: PhysHlth
+2025-09-28 04:39:32,544 - [data_balancing.feature_engineering_pipeline] - INFO -   - Diabetes group 0.0: 59172 outliers (Lower: 0, Upper: 59172)
+2025-09-28 04:39:32,564 - [data_balancing.feature_engineering_pipeline] - INFO -   - Diabetes group 1.0: 1787 outliers (Lower: 0, Upper: 1787)
+2025-09-28 04:39:32,567 - [data_balancing.feature_engineering_pipeline] - INFO - Processing outliers for column: AlcoholDays
+2025-09-28 04:39:32,616 - [data_balancing.feature_engineering_pipeline] - INFO -   - Diabetes group 2.0: 14393 outliers (Lower: 0, Upper: 14393)
+2025-09-28 04:39:32,738 - [data_balancing.feature_engineering_pipeline] - INFO -   - Diabetes group 0.0: 41346 outliers (Lower: 0, Upper: 41346)
+2025-09-28 04:39:32,758 - [data_balancing.feature_engineering_pipeline] - INFO -   - Diabetes group 1.0: 1634 outliers (Lower: 0, Upper: 1634)
+2025-09-28 04:39:32,762 - [data_balancing.feature_engineering_pipeline] - INFO - Enhanced outlier handling completed. Total outliers handled: 201612
+2025-09-28 04:39:32,763 - [data_balancing.feature_engineering_pipeline] - INFO - Creating enhanced feature set...
+2025-09-28 04:39:32,764 - [data_balancing.feature_engineering_pipeline] - INFO - Creating enhanced health score feature...
+2025-09-28 04:39:32,785 - [data_balancing.feature_engineering_pipeline] - INFO - Using columns for health score: ['GenHlth', 'MentHlth', 'PhysHlth', 'DiffWalk']
+2025-09-28 04:39:32,795 - [data_balancing.feature_engineering_pipeline] - INFO - Enhanced health score created using 4 features. Range: [0.200, 2.917]
+2025-09-28 04:39:32,796 - [data_balancing.feature_engineering_pipeline] - INFO - Creating enhanced comprehensive risk score feature...
+2025-09-28 04:39:32,866 - [data_balancing.feature_engineering_pipeline] - INFO - Using 8 risk factors: ['HighBP', 'HighChol', 'HeartDiseaseorAttack', 'Stroke', 'DiagnosedHeartAttack', 'CoronaryHeartDisease', 'COPD', 'KidneyDisease']
+2025-09-28 04:39:32,917 - [data_balancing.feature_engineering_pipeline] - INFO - Enhanced risk score created successfully. Range: [0.0, 8.0]
+2025-09-28 04:39:32,918 - [data_balancing.feature_engineering_pipeline] - INFO - Creating enhanced lifestyle score feature...
+2025-09-28 04:39:33,021 - [data_balancing.feature_engineering_pipeline] - INFO - Enhanced lifestyle score created using 1 positive and 2 negative factors
+2025-09-28 04:39:33,024 - [data_balancing.feature_engineering_pipeline] - INFO - Range: [-1.333, 1.000]
+2025-09-28 04:39:33,025 - [data_balancing.feature_engineering_pipeline] - INFO - Creating enhanced cardiovascular risk feature...
+2025-09-28 04:39:33,106 - [data_balancing.feature_engineering_pipeline] - INFO - Enhanced cardiovascular risk created using: ['HighBP', 'HighChol', 'DiagnosedHeartAttack', 'CoronaryHeartDisease', 'BMI_Obesity']
+2025-09-28 04:39:33,109 - [data_balancing.feature_engineering_pipeline] - INFO - Range: [0.0, 5.0]
+2025-09-28 04:39:33,111 - [data_balancing.feature_engineering_pipeline] - INFO - Creating BMI category feature...
+2025-09-28 04:39:33,267 - [data_balancing.feature_engineering_pipeline] - INFO - BMI category distribution:
+2025-09-28 04:39:33,268 - [data_balancing.feature_engineering_pipeline] - INFO -   - Pre-obesity: 163017 (36.29%)
+2025-09-28 04:39:33,268 - [data_balancing.feature_engineering_pipeline] - INFO -   - Obesity class I: 107175 (23.86%)
+2025-09-28 04:39:33,268 - [data_balancing.feature_engineering_pipeline] - INFO -   - Normal weight: 99203 (22.08%)
+2025-09-28 04:39:33,269 - [data_balancing.feature_engineering_pipeline] - INFO -   - Obesity class II: 45231 (10.07%)
+2025-09-28 04:39:33,269 - [data_balancing.feature_engineering_pipeline] - INFO -   - Obesity class III: 29862 (6.65%)
+2025-09-28 04:39:33,270 - [data_balancing.feature_engineering_pipeline] - INFO -   - Underweight: 4717 (1.05%)
+2025-09-28 04:39:33,271 - [data_balancing.feature_engineering_pipeline] - INFO - Creating enhanced age group feature...
+2025-09-28 04:39:33,372 - [data_balancing.feature_engineering_pipeline] - INFO - Age-Sex distribution analysis:
+2025-09-28 04:39:33,412 - [data_balancing.feature_engineering_pipeline] - INFO -   - Middle-Sex0.0: 81318
+2025-09-28 04:39:33,412 - [data_balancing.feature_engineering_pipeline] - INFO -   - Middle-Sex1.0: 84992
+2025-09-28 04:39:33,413 - [data_balancing.feature_engineering_pipeline] - INFO -   - Middle-Sex9.0: 1
+2025-09-28 04:39:33,414 - [data_balancing.feature_engineering_pipeline] - INFO -   - Senior-Sex0.0: 114689
+2025-09-28 04:39:33,415 - [data_balancing.feature_engineering_pipeline] - INFO -   - Senior-Sex1.0: 131791
+2025-09-28 04:39:33,416 - [data_balancing.feature_engineering_pipeline] - INFO -   - Senior-Sex9.0: 10
+2025-09-28 04:39:33,416 - [data_balancing.feature_engineering_pipeline] - INFO -   - Young-Sex0.0: 18851
+2025-09-28 04:39:33,417 - [data_balancing.feature_engineering_pipeline] - INFO -   - Young-Sex1.0: 17553
+2025-09-28 04:39:33,417 - [data_balancing.feature_engineering_pipeline] - INFO -   - Young-Sex9.0: 0
+2025-09-28 04:39:33,434 - [data_balancing.feature_engineering_pipeline] - INFO - Age group distribution:
+2025-09-28 04:39:33,434 - [data_balancing.feature_engineering_pipeline] - INFO -   - Senior: 246490 (54.87%)
+2025-09-28 04:39:33,435 - [data_balancing.feature_engineering_pipeline] - INFO -   - Middle: 166311 (37.02%)
+2025-09-28 04:39:33,435 - [data_balancing.feature_engineering_pipeline] - INFO -   - Young: 36404 (8.10%)
+2025-09-28 04:39:33,437 - [data_balancing.feature_engineering_pipeline] - INFO - Creating healthcare access score feature...
+2025-09-28 04:39:33,538 - [data_balancing.feature_engineering_pipeline] - INFO - Healthcare access score created using: ['AnyHealthcare', 'HasPersonalDoctor', 'NoDocbcCost', 'CannotAffordDoctor', 'LastCheckup']
+2025-09-28 04:39:33,540 - [data_balancing.feature_engineering_pipeline] - INFO - Range: [-2.000, 3.000]
+2025-09-28 04:39:33,543 - [data_balancing.feature_engineering_pipeline] - INFO - Creating socioeconomic score feature...
+2025-09-28 04:39:33,637 - [data_balancing.feature_engineering_pipeline] - INFO - Socioeconomic score created using: ['Education', 'Income', 'EmploymentStatus', 'MaritalStatus']
+2025-09-28 04:39:33,639 - [data_balancing.feature_engineering_pipeline] - INFO - Range: [0.549, 4.000]
+2025-09-28 04:39:33,641 - [data_balancing.feature_engineering_pipeline] - INFO - Creating cholesterol management score feature...
+2025-09-28 04:39:33,731 - [data_balancing.feature_engineering_pipeline] - INFO - Cholesterol management score created using: ['CholCheck', 'HighChol', 'CholesterolMeds']
+2025-09-28 04:39:33,734 - [data_balancing.feature_engineering_pipeline] - INFO - Range: [-1.000, 2.000]
+2025-09-28 04:39:33,736 - [data_balancing.feature_engineering_pipeline] - INFO - Creating comprehensive mental health score feature...
+2025-09-28 04:39:33,825 - [data_balancing.feature_engineering_pipeline] - INFO - Comprehensive mental health score created using: ['Depression', 'CognitiveIssues', 'MentHlth']
+2025-09-28 04:39:33,829 - [data_balancing.feature_engineering_pipeline] - INFO - Range: [-2.417, 0.000]
+2025-09-28 04:39:33,831 - [data_balancing.feature_engineering_pipeline] - INFO - After enhanced feature creation: (449205, 43)
+2025-09-28 04:39:33,831 - [data_balancing.feature_engineering_pipeline] - INFO - Starting enhanced categorical feature encoding...
+2025-09-28 04:39:33,920 - [data_balancing.feature_engineering_pipeline] - INFO - Found 2 categorical columns to encode: ['BMICategory', 'AgeGroup']
+2025-09-28 04:39:33,921 - [data_balancing.feature_engineering_pipeline] - INFO - Encoding column: BMICategory
+2025-09-28 04:39:33,962 - [data_balancing.feature_engineering_pipeline] - INFO -   - Encoding mapping: {'Normal weight': 0, 'Obesity class I': 1, 'Obesity class II': 2, 'Obesity class III': 3, 'Pre-obesity': 4, 'Underweight': 5}
+2025-09-28 04:39:33,963 - [data_balancing.feature_engineering_pipeline] - INFO - Encoding column: AgeGroup
+2025-09-28 04:39:34,004 - [data_balancing.feature_engineering_pipeline] - INFO -   - Encoding mapping: {'Middle': 0, 'Senior': 1, 'Young': 2}
+2025-09-28 04:39:34,005 - [data_balancing.feature_engineering_pipeline] - INFO - Categorical feature encoding completed for 2 columns
+2025-09-28 04:39:34,007 - [data_balancing.feature_engineering_pipeline] - INFO - After categorical encoding: (449205, 43)
+2025-09-28 04:39:34,008 - [data_balancing.feature_engineering_pipeline] - INFO - Starting enhanced feature selection process...
+2025-09-28 04:39:34,008 - [data_balancing.feature_engineering_pipeline] - INFO - Target column: Diabetes
+2025-09-28 04:39:34,009 - [data_balancing.feature_engineering_pipeline] - INFO - Correlation threshold: 0.05
+2025-09-28 04:39:35,850 - [data_balancing.feature_engineering_pipeline] - INFO - Selected 33 features (+ target column) out of 42 available
+2025-09-28 04:39:35,851 - [data_balancing.feature_engineering_pipeline] - INFO - Top 10 selected features by correlation:
+2025-09-28 04:39:35,851 - [data_balancing.feature_engineering_pipeline] - INFO -   - PhysHlth: 0.4401 (|0.4401|)
+2025-09-28 04:39:35,852 - [data_balancing.feature_engineering_pipeline] - INFO -   - HlthScore: 0.3969 (|0.3969|)
+2025-09-28 04:39:35,852 - [data_balancing.feature_engineering_pipeline] - INFO -   - CardioRisk: 0.3386 (|0.3386|)
+2025-09-28 04:39:35,853 - [data_balancing.feature_engineering_pipeline] - INFO -   - RiskScore: 0.3054 (|0.3054|)
+2025-09-28 04:39:35,854 - [data_balancing.feature_engineering_pipeline] - INFO -   - GenHlth: 0.3029 (|0.3029|)
+2025-09-28 04:39:35,854 - [data_balancing.feature_engineering_pipeline] - INFO -   - CholesterolMeds: 0.2956 (|0.2956|)
+2025-09-28 04:39:35,855 - [data_balancing.feature_engineering_pipeline] - INFO -   - HighBP: 0.2645 (|0.2645|)
+2025-09-28 04:39:35,855 - [data_balancing.feature_engineering_pipeline] - INFO -   - BMI: 0.2483 (|0.2483|)
+2025-09-28 04:39:35,856 - [data_balancing.feature_engineering_pipeline] - INFO -   - AlcoholDays: -0.2444 (|0.2444|)
+2025-09-28 04:39:35,856 - [data_balancing.feature_engineering_pipeline] - INFO -   - DiffWalk: 0.2193 (|0.2193|)
+2025-09-28 04:39:35,883 - [data_balancing.feature_engineering_pipeline] - INFO - Final dataset shape: (449205, 34)
+2025-09-28 04:39:35,884 - [data_balancing.feature_engineering_pipeline] - INFO - ================================================================================
+2025-09-28 04:39:35,884 - [data_balancing.feature_engineering_pipeline] - INFO - ENHANCED FEATURE ENGINEERING PIPELINE COMPLETED
+2025-09-28 04:39:35,885 - [data_balancing.feature_engineering_pipeline] - INFO - ================================================================================
+2025-09-28 04:39:35,885 - [data_balancing.feature_engineering_pipeline] - INFO - Dataset transformation: (863745, 33) -> (449205, 34)
+2025-09-28 04:39:35,886 - [data_balancing.feature_engineering_pipeline] - INFO - Rows change: 863745 -> 449205 (-47.99%)
+2025-09-28 04:39:35,886 - [data_balancing.feature_engineering_pipeline] - INFO - Features change: 33 -> 34 (+3.03%)
+2025-09-28 04:39:36,259 - [data_balancing.oversampling_balancer] - INFO - OverSamplingBalancer initialized successfully
+2025-09-28 04:39:36,269 - [data_balancing.oversampling_balancer] - INFO - Starting Random Over Sampling process...
+2025-09-28 04:39:36,274 - [data_balancing.oversampling_balancer] - INFO - Original class distribution:
+2025-09-28 04:39:36,276 - [data_balancing.oversampling_balancer] - INFO -   - Class 0.0: 283416 samples
+2025-09-28 04:39:36,277 - [data_balancing.oversampling_balancer] - INFO -   - Class 1.0: 9586 samples
+2025-09-28 04:39:36,278 - [data_balancing.oversampling_balancer] - INFO -   - Class 2.0: 66362 samples
+2025-09-28 04:39:36,480 - [data_balancing.oversampling_balancer] - INFO - New class distribution after Random Over Sampling:
+2025-09-28 04:39:36,480 - [data_balancing.oversampling_balancer] - INFO -   - Class 0.0: 283416 samples (+0)
+2025-09-28 04:39:36,481 - [data_balancing.oversampling_balancer] - INFO -   - Class 1.0: 50000 samples (+40414)
+2025-09-28 04:39:36,481 - [data_balancing.oversampling_balancer] - INFO -   - Class 2.0: 100000 samples (+33638)
+2025-09-28 04:39:36,481 - [data_balancing.oversampling_balancer] - INFO - Dataset size: 359364 -> 433416 samples (+74052)
+2025-09-28 04:39:36,482 - [data_balancing.oversampling_balancer] - INFO - Random Over Sampling completed successfully
+2025-09-28 04:39:36,616 - [data_balancing.oversampling_balancer] - INFO - Starting SMOTE process...
+2025-09-28 04:39:36,621 - [data_balancing.oversampling_balancer] - INFO - Original class distribution:
+2025-09-28 04:39:36,622 - [data_balancing.oversampling_balancer] - INFO -   - Class 0.0: 283416 samples
+2025-09-28 04:39:36,622 - [data_balancing.oversampling_balancer] - INFO -   - Class 1.0: 9586 samples
+2025-09-28 04:39:36,622 - [data_balancing.oversampling_balancer] - INFO -   - Class 2.0: 66362 samples
+2025-09-28 04:39:43,693 - [data_balancing.oversampling_balancer] - INFO - New class distribution after SMOTE:
+2025-09-28 04:39:43,694 - [data_balancing.oversampling_balancer] - INFO -   - Class 0.0: 283416 samples (+0 synthetic)
+2025-09-28 04:39:43,695 - [data_balancing.oversampling_balancer] - INFO -   - Class 1.0: 50000 samples (+40414 synthetic)
+2025-09-28 04:39:43,696 - [data_balancing.oversampling_balancer] - INFO -   - Class 2.0: 100000 samples (+33638 synthetic)
+2025-09-28 04:39:43,696 - [data_balancing.oversampling_balancer] - INFO - Dataset size: 359364 -> 433416 samples (+74052 synthetic)
+2025-09-28 04:39:43,698 - [data_balancing.oversampling_balancer] - INFO - SMOTE completed successfully
+2025-09-28 04:39:43,871 - [data_balancing.oversampling_balancer] - INFO - Starting ADASYN over-sampling process...
+2025-09-28 04:39:43,879 - [data_balancing.oversampling_balancer] - INFO - Original class distribution:
+2025-09-28 04:39:43,880 - [data_balancing.oversampling_balancer] - INFO -  - Class 0.0: 283416 samples
+2025-09-28 04:39:43,882 - [data_balancing.oversampling_balancer] - INFO -  - Class 1.0: 9586 samples
+2025-09-28 04:39:43,883 - [data_balancing.oversampling_balancer] - INFO -  - Class 2.0: 66362 samples
+2025-09-28 04:40:52,335 - [data_balancing.oversampling_balancer] - INFO - New class distribution after ADASYN:
+2025-09-28 04:40:52,336 - [data_balancing.oversampling_balancer] - INFO -  - Class 0.0: 283416 samples (+0 synthetic)
+2025-09-28 04:40:52,336 - [data_balancing.oversampling_balancer] - INFO -  - Class 1.0: 49354 samples (+39768 synthetic)
+2025-09-28 04:40:52,337 - [data_balancing.oversampling_balancer] - INFO -  - Class 2.0: 96460 samples (+30098 synthetic)
+2025-09-28 04:40:52,338 - [data_balancing.oversampling_balancer] - INFO - Dataset size: 359364 -> 429230 samples (+69866 synthetic)
+2025-09-28 04:40:52,339 - [data_balancing.oversampling_balancer] - INFO - ADASYN over-sampling completed successfully
+2025-09-28 04:40:52,549 - [data_balancing.undersampling_balancer] - INFO - UnderSamplingBalancer initialized successfully
+2025-09-28 04:40:52,560 - [data_balancing.undersampling_balancer] - INFO - Starting Random Under Sampling process...
+2025-09-28 04:40:52,570 - [data_balancing.undersampling_balancer] - INFO - Original class distribution:
+2025-09-28 04:40:52,572 - [data_balancing.undersampling_balancer] - INFO -   - Class 0.0: 283416 samples
+2025-09-28 04:40:52,573 - [data_balancing.undersampling_balancer] - INFO -   - Class 1.0: 9586 samples
+2025-09-28 04:40:52,574 - [data_balancing.undersampling_balancer] - INFO -   - Class 2.0: 66362 samples
+2025-09-28 04:40:52,744 - [data_balancing.undersampling_balancer] - INFO - New class distribution after Random Under Sampling:
+2025-09-28 04:40:52,745 - [data_balancing.undersampling_balancer] - INFO -   - Class 0.0: 150000 samples (-133416)
+2025-09-28 04:40:52,745 - [data_balancing.undersampling_balancer] - INFO -   - Class 1.0: 9586 samples (-0)
+2025-09-28 04:40:52,746 - [data_balancing.undersampling_balancer] - INFO -   - Class 2.0: 66362 samples (-0)
+2025-09-28 04:40:52,747 - [data_balancing.undersampling_balancer] - INFO - Dataset size: 359364 -> 225948 samples (-133416)
+2025-09-28 04:40:52,748 - [data_balancing.undersampling_balancer] - INFO - Random Under Sampling completed successfully
+2025-09-28 04:40:52,874 - [data_balancing.undersampling_balancer] - INFO - Starting Tomek Links process...
+2025-09-28 04:40:52,884 - [data_balancing.undersampling_balancer] - INFO - Original class distribution:
+2025-09-28 04:40:52,885 - [data_balancing.undersampling_balancer] - INFO -   - Class 0.0: 283416 samples
+2025-09-28 04:40:52,885 - [data_balancing.undersampling_balancer] - INFO -   - Class 1.0: 9586 samples
+2025-09-28 04:40:52,887 - [data_balancing.undersampling_balancer] - INFO -   - Class 2.0: 66362 samples
+2025-09-28 04:45:31,096 - [data_balancing.undersampling_balancer] - INFO - New class distribution after Tomek Links:
+2025-09-28 04:45:31,097 - [data_balancing.undersampling_balancer] - INFO -   - Class 0.0: 274180 samples (-9236 Tomek links)
+2025-09-28 04:45:31,099 - [data_balancing.undersampling_balancer] - INFO -   - Class 1.0: 9586 samples (unchanged)
+2025-09-28 04:45:31,100 - [data_balancing.undersampling_balancer] - INFO -   - Class 2.0: 57778 samples (-8584 Tomek links)
+2025-09-28 04:45:31,101 - [data_balancing.undersampling_balancer] - INFO - Dataset size: 359364 -> 341544 samples (-17820 Tomek links)
+2025-09-28 04:45:31,102 - [data_balancing.undersampling_balancer] - INFO - Tomek Links processing completed successfully
+2025-09-28 04:45:31,241 - [data_balancing.undersampling_balancer] - INFO - Starting Edited Nearest Neighbours (ENN) under-sampling process...
+2025-09-28 04:45:31,250 - [data_balancing.undersampling_balancer] - INFO - Original class distribution:
+2025-09-28 04:45:31,251 - [data_balancing.undersampling_balancer] - INFO -  - Class 0.0: 283416 samples
+2025-09-28 04:45:31,252 - [data_balancing.undersampling_balancer] - INFO -  - Class 1.0: 9586 samples
+2025-09-28 04:45:31,254 - [data_balancing.undersampling_balancer] - INFO -  - Class 2.0: 66362 samples
+2025-09-28 04:50:01,088 - [data_balancing.undersampling_balancer] - INFO - New class distribution after ENN:
+2025-09-28 04:50:01,089 - [data_balancing.undersampling_balancer] - INFO -  - Class 0.0: 218788 samples (-64628 removed)
+2025-09-28 04:50:01,089 - [data_balancing.undersampling_balancer] - INFO -  - Class 1.0: 9586 samples (-0 removed)
+2025-09-28 04:50:01,090 - [data_balancing.undersampling_balancer] - INFO -  - Class 2.0: 25899 samples (-40463 removed)
+2025-09-28 04:50:01,090 - [data_balancing.undersampling_balancer] - INFO - Dataset size: 359364 -> 254273 samples (-105091)
+2025-09-28 04:50:01,091 - [data_balancing.undersampling_balancer] - INFO - ENN under-sampling completed successfully
+2025-09-28 04:50:01,202 - [data_balancing.hybrid_sampling_balancer] - INFO - HybridSamplingBalancer initialized successfully
+2025-09-28 04:50:01,214 - [data_balancing.hybrid_sampling_balancer] - INFO - Starting SMOTETomek hybrid sampling process...
+2025-09-28 04:50:01,219 - [data_balancing.hybrid_sampling_balancer] - INFO - Original class distribution:
+2025-09-28 04:50:01,221 - [data_balancing.hybrid_sampling_balancer] - INFO -   - Class 0.0: 283416 samples
+2025-09-28 04:50:01,222 - [data_balancing.hybrid_sampling_balancer] - INFO -   - Class 1.0: 9586 samples
+2025-09-28 04:50:01,223 - [data_balancing.hybrid_sampling_balancer] - INFO -   - Class 2.0: 66362 samples
+2025-09-28 04:56:54,962 - [data_balancing.hybrid_sampling_balancer] - INFO - New class distribution after SMOTETomek:
+2025-09-28 04:56:54,963 - [data_balancing.hybrid_sampling_balancer] - INFO -   - Class 0.0: 279388 samples (-4028 net)
+2025-09-28 04:56:54,964 - [data_balancing.hybrid_sampling_balancer] - INFO -   - Class 1.0: 49787 samples (+40201 net)
+2025-09-28 04:56:54,965 - [data_balancing.hybrid_sampling_balancer] - INFO -   - Class 2.0: 96111 samples (+29749 net)
+2025-09-28 04:56:54,966 - [data_balancing.hybrid_sampling_balancer] - INFO - Dataset size: 359364 -> 425286 samples (+65922)
+2025-09-28 04:56:54,966 - [data_balancing.hybrid_sampling_balancer] - INFO - SMOTETomek processing completed successfully
+2025-09-28 04:56:55,120 - [data_balancing.hybrid_sampling_balancer] - INFO - Starting SMOTEENN hybrid sampling process...
+2025-09-28 04:56:55,127 - [data_balancing.hybrid_sampling_balancer] - INFO - Original class distribution:
+2025-09-28 04:56:55,128 - [data_balancing.hybrid_sampling_balancer] - INFO -   - Class 0.0: 283416 samples
+2025-09-28 04:56:55,129 - [data_balancing.hybrid_sampling_balancer] - INFO -   - Class 1.0: 9586 samples
+2025-09-28 04:56:55,131 - [data_balancing.hybrid_sampling_balancer] - INFO -   - Class 2.0: 66362 samples
+2025-09-28 05:03:48,784 - [data_balancing.hybrid_sampling_balancer] - INFO - New class distribution after SMOTEENN:
+2025-09-28 05:03:48,785 - [data_balancing.hybrid_sampling_balancer] - INFO -   - Class 0.0: 204391 samples (-79025 net)
+2025-09-28 05:03:48,786 - [data_balancing.hybrid_sampling_balancer] - INFO -   - Class 1.0: 45067 samples (+35481 net)
+2025-09-28 05:03:48,787 - [data_balancing.hybrid_sampling_balancer] - INFO -   - Class 2.0: 56031 samples (-10331 net)
+2025-09-28 05:03:48,787 - [data_balancing.hybrid_sampling_balancer] - INFO - Dataset size: 359364 -> 305489 samples (-53875)
+2025-09-28 05:03:48,788 - [data_balancing.hybrid_sampling_balancer] - INFO - SMOTEENN processing completed successfully
+2025-09-28 05:03:48,915 - [data_balancing.hybrid_sampling_balancer] - INFO - Starting ADASYN + TomekLinks hybrid sampling process...
+2025-09-28 05:03:48,923 - [data_balancing.hybrid_sampling_balancer] - INFO - Original class distribution:
+2025-09-28 05:03:48,924 - [data_balancing.hybrid_sampling_balancer] - INFO -   - Class 0.0: 283416 samples
+2025-09-28 05:03:48,925 - [data_balancing.hybrid_sampling_balancer] - INFO -   - Class 1.0: 9586 samples
+2025-09-28 05:03:48,926 - [data_balancing.hybrid_sampling_balancer] - INFO -   - Class 2.0: 66362 samples
+2025-09-28 05:11:38,673 - [data_balancing.hybrid_sampling_balancer] - INFO - New class distribution after ADASYN + TomekLinks:
+2025-09-28 05:11:38,674 - [data_balancing.hybrid_sampling_balancer] - INFO -   - Class 0.0: 281315 samples (-2101 net)
+2025-09-28 05:11:38,675 - [data_balancing.hybrid_sampling_balancer] - INFO -   - Class 1.0: 49354 samples (+39768 net)
+2025-09-28 05:11:38,675 - [data_balancing.hybrid_sampling_balancer] - INFO -   - Class 2.0: 94491 samples (+28129 net)
+2025-09-28 05:11:38,676 - [data_balancing.hybrid_sampling_balancer] - INFO - Dataset size: 359364 -> 425160 samples (+65796)
+2025-09-28 05:11:38,677 - [data_balancing.hybrid_sampling_balancer] - INFO - ADASYN + TomekLinks processing completed successfully
