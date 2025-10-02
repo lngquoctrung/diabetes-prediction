@@ -18,10 +18,10 @@ import pandas as pd
 setup_page_config()
 add_custom_css()
 
-st.header("📋 Project Details")
+st.header("Project Details")
 
 # Project overview
-st.subheader("🎯 Project Objectives")
+st.subheader("Project Objectives")
 st.markdown("""
 - **Main Goal**: Build machine learning models to predict diabetes risk with high accuracy
 - **Dataset**: BRFSS (Behavioral Risk Factor Surveillance System) 2017-2023
@@ -30,9 +30,9 @@ st.markdown("""
 """)
 
 # Technical details
-st.subheader("🔧 Technical Details")
+st.subheader("Technical Details")
 
-tab1, tab2, tab3, tab4 = st.tabs(["📊 Data Pipeline", "🛠 Feature Engineering", "⚖️ Data Balancing", "🤖 Models"])
+tab1, tab2, tab3, tab4 = st.tabs(["Data Pipeline", "Feature Engineering", "Data Balancing", "Models"])
 
 with tab1:
     st.markdown("""
@@ -140,7 +140,7 @@ with tab4:
     """)
 
 # Performance summary - Updated with actual results
-st.subheader("🏆 Performance Summary")
+st.subheader("Performance Summary")
 
 performance_summary = {
     'Metric': ['Accuracy', 'Precision', 'Recall', 'F1-Score'],
@@ -152,7 +152,7 @@ performance_summary = {
 st.table(pd.DataFrame(performance_summary))
 
 # Detailed comparison table
-st.subheader("📊 Detailed Model Comparison")
+st.subheader("Detailed Model Comparison")
 
 detailed_results = {
     'Model + Method': [
@@ -172,7 +172,7 @@ detailed_results = {
 st.table(pd.DataFrame(detailed_results))
 
 # Recommendations
-st.subheader("💡 Recommendations")
+st.subheader("Recommendations")
 st.markdown("""
 **1. Production Deployment**
 - **Primary Model**: LightGBM + ADASYN Tomek Links for highest accuracy (90.11%)

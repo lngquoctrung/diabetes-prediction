@@ -20,13 +20,13 @@ from utils.visualization import create_model_comparison_chart, create_confusion_
 setup_page_config()
 add_custom_css()
 
-st.header("📈 Model Performance Analysis")
+st.header("Model Performance Analysis")
 
 # Get model comparison data
 df_models = get_model_comparison_data()
 
 # Model performance comparison
-st.subheader("🏆 Top 5 Model Performance Comparison")
+st.subheader("Top 5 Model Performance Comparison")
 
 # Interactive metric selection
 metric = st.selectbox("Select metric to compare:", ['Accuracy', 'Precision', 'Recall', 'F1-Score'])
@@ -36,14 +36,14 @@ fig_comparison = create_model_comparison_chart(df_models, metric)
 st.plotly_chart(fig_comparison, use_container_width=True)
 
 # Detailed metrics table
-st.subheader("📊 Detailed Results Table")
+st.subheader("Detailed Results Table")
 st.dataframe(
     df_models.style.highlight_max(axis=0, subset=['Accuracy', 'Precision', 'Recall', 'F1-Score']),
-    width='stretch'
+    use_container_width=True,
 )
 
 # Best models summary - Updated with actual results
-st.subheader("🏅 Best Performing Models")
+st.subheader("Best Performing Models")
 col1, col2, col3, col4 = st.columns(4)
 
 with col1:
@@ -75,7 +75,7 @@ with col4:
     )
 
 # Confusion matrix for best model - Updated with actual data
-st.subheader("🎯 Confusion Matrix - Best F1-Score Model")
+st.subheader("Confusion Matrix - Best F1-Score Model")
 st.markdown("**XGBoost with Random Oversampling (F1-Score: 69.92%)**")
 
 # Actual confusion matrix data from results (approximate)

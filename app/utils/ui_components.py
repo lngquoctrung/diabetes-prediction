@@ -4,7 +4,6 @@ def setup_page_config():
     """Configure Streamlit page settings"""
     st.set_page_config(
         page_title="Diabetes Prediction Dashboard",
-        page_icon="🏥",
         layout="wide",
         initial_sidebar_state="expanded"
     )
@@ -75,30 +74,30 @@ def add_sidebar_info():
     # Enhanced sidebar with better styling
     st.sidebar.markdown("""
     <div style="background-color: #1f77b4; color: white; padding: 15px; border-radius: 10px; margin-bottom: 20px;">
-        <h3 style="color: white; margin: 0;">🏥 Diabetes Prediction Dashboard</h3>
+        <h3 style="color: white; margin: 0;">Diabetes Prediction Dashboard</h3>
     </div>
     """, unsafe_allow_html=True)
     
-    st.sidebar.markdown("### 📊 **Model Information**")
+    st.sidebar.markdown("###**Model Information**")
     st.sidebar.info("""
-    **🤖 Algorithm**: XGBoost + Random Oversampling  
-    **📈 F1-Score**: 69.92%  
-    **🎯 Accuracy**: 89.5%  
-    **📋 Features**: 34 engineered features
+    **Algorithm**: XGBoost + Random Oversampling  
+    **F1-Score**: 69.92%  
+    **Accuracy**: 89.5%  
+    **Features**: 34 engineered features
     """)
     
-    st.sidebar.markdown("### 📚 **Data Source**")
+    st.sidebar.markdown("###**Data Source**")
     st.sidebar.success("""
     **BRFSS 2017-2023**  
     450,445 samples  
     Behavioral Risk Factor Surveillance System
     """)
     
-    st.sidebar.markdown("### 🚀 **Quick Start**")
+    st.sidebar.markdown("###**Quick Start**")
     st.sidebar.markdown("""
-    1. **🤖 Prediction**: Enter health data for risk assessment
-    2. **📈 Model Analysis**: Compare model performance 
-    3. **📋 Project Details**: Technical methodology
+    1. **Prediction**: Enter health data for risk assessment
+    2. **Model Analysis**: Compare model performance 
+    3. **Project Details**: Technical methodology
     """)
 
 # Rest of your functions remain the same...
@@ -123,10 +122,10 @@ def create_prediction_result_box(risk_level, prediction_class, probability, reco
     
     st.markdown(f"""
     <div class="prediction-box">
-        <h3>🎯 Risk Assessment: <span style="color: {color}; font-weight: bold;">{risk_level}</span></h3>
+        <h3>Risk Assessment: <span style="color: {color}; font-weight: bold;">{risk_level}</span></h3>
         <p style="font-size: 18px;">Prediction: <strong>{prediction_class}</strong> ({probability:.1%})</p>
-        <p style="font-size: 16px;">💡 Recommendation: {recommendation}</p>
-        <p style="font-size: 14px;">⚠️ <em>Results are for reference only. Please consult a medical professional.</em></p>
+        <p style="font-size: 16px;">Recommendation: {recommendation}</p>
+        <p style="font-size: 14px;"><em>Results are for reference only. Please consult a medical professional.</em></p>
     </div>
     """, unsafe_allow_html=True)
 
@@ -136,7 +135,7 @@ def create_health_input_form():
         col1, col2, col3, col4 = st.columns(4)
         
         with col1:
-            st.subheader("📊 Basic Information")
+            st.subheader("Basic Information")
             age = st.slider("Age", 18, 80, 45, help="Your age")
             bmi = st.number_input("BMI", 15.0, 50.0, 25.0, step=0.1, help="Body Mass Index")
             genhlth = st.selectbox("General Health", [1, 2, 3, 4, 5], 
@@ -148,7 +147,7 @@ def create_health_input_form():
                                                       6: "$35-50K", 7: "$50-75K", 8: "$75-100K", 9: "$100-150K", 10: "$150-200K", 11: ">$200K"}[x])
         
         with col2:
-            st.subheader("🩺 Health Conditions")
+            st.subheader("Health Conditions")
             high_bp = st.selectbox("High Blood Pressure", [0, 1], format_func=lambda x: "Yes" if x else "No")
             high_chol = st.selectbox("High Cholesterol", [0, 1], format_func=lambda x: "Yes" if x else "No")
             chol_meds = st.selectbox("Cholesterol Medications", [0, 1], format_func=lambda x: "Yes" if x else "No")
@@ -158,7 +157,7 @@ def create_health_input_form():
             copd = st.selectbox("COPD", [0, 1], format_func=lambda x: "Yes" if x else "No")
         
         with col3:
-            st.subheader("🏃 Lifestyle & Behavior")
+            st.subheader("Lifestyle & Behavior")
             phys_activity = st.selectbox("Physical Activity", [0, 1], format_func=lambda x: "Yes" if x else "No")
             smoker = st.selectbox("Smoker", [0, 1], format_func=lambda x: "Yes" if x else "No")
             alcohol_days = st.slider("Alcohol Days per Month", 0, 30, 0)
@@ -168,7 +167,7 @@ def create_health_input_form():
                                                           4: "Unemployed <1yr", 5: "Homemaker", 6: "Student", 7: "Retired", 8: "Unable to work"}[x])
         
         with col4:
-            st.subheader("🧠 Mental Health")
+            st.subheader("Mental Health")
             ment_hlth = st.slider("Poor Mental Health Days/Month", 0, 30, 0)
             phys_hlth = st.slider("Poor Physical Health Days/Month", 0, 30, 0)
             depression = st.selectbox("Depression", [0, 1], format_func=lambda x: "Yes" if x else "No")
@@ -177,7 +176,7 @@ def create_health_input_form():
                                       format_func=lambda x: {0: ">5 years/Never", 1: "Within 1 year", 2: "1-2 years", 3: "2-5 years"}[x])
             has_doctor = st.selectbox("Has Personal Doctor", [0, 1], format_func=lambda x: "Yes" if x else "No")
         
-        submit = st.form_submit_button("🔍 Predict with XGBoost", width="stretch")
+        submit = st.form_submit_button("Predict with XGBoost", use_container_width=True)
         
         if submit:
             return {

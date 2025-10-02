@@ -20,7 +20,7 @@ setup_page_config()
 add_custom_css()
 
 # Main title
-st.title("🏥 Diabetes Prediction Dashboard")
+st.title("Diabetes Prediction Dashboard")
 st.markdown("**Advanced diabetes prediction system using BRFSS 2017-2023 data with machine learning**")
 st.markdown("---")
 
@@ -28,7 +28,7 @@ st.markdown("---")
 df = load_sample_data()
 
 # Overview section
-st.header("📊 Project Overview")
+st.header("Project Overview")
 
 # Key metrics - Updated with actual results
 col1, col2, col3, col4 = st.columns(4)
@@ -70,7 +70,7 @@ st.markdown("---")
 col1, col2 = st.columns([2, 1])
 
 with col1:
-    st.subheader("🍰 Diabetes Distribution in Dataset")
+    st.subheader("Diabetes Distribution in Dataset")
     # Create pie chart
     diabetes_counts = df['Diabetes'].value_counts()
     diabetes_labels = {0: 'No Diabetes', 1: 'Pre-diabetes', 2: 'Diabetes'}
@@ -79,7 +79,7 @@ with col1:
     st.plotly_chart(fig_pie, use_container_width=True)
 
 with col2:
-    st.subheader("🔧 Data Balancing Techniques")
+    st.subheader("Data Balancing Techniques")
     balancing_methods = [
         "Random Oversampling",
         "SMOTE",
@@ -94,22 +94,22 @@ with col2:
     
     st.markdown("**Applied methods:**")
     for method in balancing_methods:
-        st.markdown(f"✅ {method}")
+        st.markdown(f"{method}")
 
 # Feature importance visualization
-st.subheader("🎯 Top 10 Most Important Features")
+st.subheader("Top 10 Most Important Features")
 feature_importance = get_feature_importance_data()
 fig_importance = create_feature_importance_chart(feature_importance)
 st.plotly_chart(fig_importance, use_container_width=True)
 
 # Navigation guide
 st.markdown("---")
-st.markdown("## 🚀 Getting Started")
+st.markdown("## Getting Started")
 st.markdown("**Use the sidebar to navigate between different pages:**")
 st.markdown("""
-- **🔮 Prediction**: Enter your health information to get diabetes risk prediction
-- **📈 Model Analysis**: Compare different machine learning models performance  
-- **📋 Project Details**: Technical details about the project methodology
+- **Prediction**: Enter your health information to get diabetes risk prediction
+- **Model Analysis**: Compare different machine learning models performance  
+- **Project Details**: Technical details about the project methodology
 """)
 
 # Add sidebar info

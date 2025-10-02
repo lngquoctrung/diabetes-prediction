@@ -32,7 +32,7 @@ if 'load_detailed_analysis' not in st.session_state:
 if 'load_charts' not in st.session_state:
     st.session_state.load_charts = False
 
-st.header("📊 BRFSS Dataset Dashboard")
+st.header("BRFSS Dataset Dashboard")
 st.markdown("Comprehensive analysis and visualization of BRFSS diabetes dataset")
 
 # Optimized data loading with Arrow-compatible data types
@@ -41,19 +41,12 @@ def load_and_optimize_brfss_data():
     """Load BRFSS dataset with memory optimization and Arrow compatibility"""
     try:
         df = pd.read_csv(BRFSS_CLEANED_FILE_PATH)
-        
-        # Memory optimization while maintaining Arrow compatibility
-        # Keep int64 and float64 for Arrow compatibility, but optimize where safe
         for col in df.select_dtypes(include=['int64']).columns:
-            # Only convert to smaller int types if values fit and no nulls
             if not df[col].isnull().any():
                 if df[col].max() <= 32767 and df[col].min() >= -32768:
-                    df[col] = df[col].astype('int32')  # Use int32 instead of int16 for better Arrow support
+                    df[col] = df[col].astype('int32')
                 elif df[col].max() <= 2147483647 and df[col].min() >= -2147483648:
                     df[col] = df[col].astype('int32')
-        
-        # Keep float64 for Arrow compatibility - don't convert to float32
-        # This prevents the Arrow serialization error
         
         return df
     except Exception as e:
@@ -95,27 +88,27 @@ if df is not None:
     stats = calculate_summary_statistics(df)
     
     # Dataset overview - always visible (lightweight)
-    st.subheader("📋 Dataset Overview")
+    st.subheader("Dataset Overview")
     
     col1, col2, col3, col4 = st.columns(4)
     
     with col1:
-        st.metric("📊 Total Samples", f"{stats['total_samples']:,}")
+        st.metric("Total Samples", f"{stats['total_samples']:,}")
     
     with col2:
-        st.metric("🔢 Features", f"{stats['total_features']}")
+        st.metric("Features", f"{stats['total_features']}")
     
     with col3:
-        st.metric("🩺 Diabetes Rate", f"{stats['diabetes_rate']:.1f}%")
+        st.metric("Diabetes Rate", f"{stats['diabetes_rate']:.1f}%")
     
     with col4:
-        st.metric("❌ Missing Data", f"{stats['missing_percentage']:.2f}%")
+        st.metric("Missing Data", f"{stats['missing_percentage']:.2f}%")
     
     # Lazy loading with tabs
-    tab1, tab2, tab3, tab4 = st.tabs(["📈 Quick Analysis", "📊 Detailed Analysis", "📋 Data Viewer", "🔍 Data Quality"])
+    tab1, tab2, tab3, tab4 = st.tabs(["Quick Analysis", "Detailed Analysis", "Data Viewer", "Data Quality"])
     
     with tab1:
-        st.subheader("🎯 Quick Diabetes Distribution (Sample Data)")
+        st.subheader("Quick Diabetes Distribution (Sample Data)")
         
         # Use sample data for quick visualization
         sample_df = get_sample_data(df, 10000)
@@ -140,7 +133,7 @@ if df is not None:
                     height=400,
                     showlegend=True
                 )
-                st.plotly_chart(fig_pie, width='stretch')  # Fixed: replaced use_container_width
+                st.plotly_chart(fig_pie, use_container_width=True)
             
             with col2:
                 # Quick age distribution
@@ -152,18 +145,18 @@ if df is not None:
                         color_discrete_map={0: '#90EE90', 1: '#67ABF8', 2: '#FF6B6B'}
                     )
                     fig_age.update_layout(height=400)
-                    st.plotly_chart(fig_age, width='stretch')  # Fixed: replaced use_container_width
+                    st.plotly_chart(fig_age, use_container_width=True)
     
     with tab2:
-        st.subheader("📊 Detailed Analysis")
+        st.subheader("Detailed Analysis")
         
         if not st.session_state.load_detailed_analysis:
-            if st.button("🚀 Load Detailed Analysis", key="load_detailed"):
+            if st.button("Load Detailed Analysis", key="load_detailed"):
                 st.session_state.load_detailed_analysis = True
                 st.rerun()
         else:
             # Health indicators analysis
-            st.subheader("🏥 Health Indicators Analysis")
+            st.subheader("Health Indicators Analysis")
             
             health_indicators = ['BMI', 'GenHlth', 'MentHlth', 'PhysHlth']
             available_indicators = [col for col in health_indicators if col in df.columns]
@@ -186,7 +179,7 @@ if df is not None:
                         color='Diabetes',
                         color_discrete_map={0: '#90EE90', 1: '#67ABF8', 2: '#FF6B6B'}
                     )
-                    st.plotly_chart(fig_box, width='stretch')  # Fixed: replaced use_container_width
+                    st.plotly_chart(fig_box, use_container_width=True)
                 
                 with col2:
                     # Violin plot
@@ -197,11 +190,11 @@ if df is not None:
                         color='Diabetes',
                         color_discrete_map={0: '#90EE90', 1: '#67ABF8', 2: '#FF6B6B'}
                     )
-                    st.plotly_chart(fig_violin, width='stretch')  # Fixed: replaced use_container_width
+                    st.plotly_chart(fig_violin, use_container_width=True)
             
             # Risk factors analysis
             if 'Diabetes' in df.columns:
-                st.subheader("⚠️ Risk Factors Analysis")
+                st.subheader("Risk Factors Analysis")
                 
                 risk_factors = ['HighBP', 'HighChol', 'Smoker', 'Stroke', 'HeartDiseaseorAttack', 
                                'PhysActivity', 'Depression', 'KidneyDisease', 'COPD']
@@ -238,11 +231,11 @@ if df is not None:
                         }
                     )
                     fig_risk.update_layout(height=500, xaxis_tickangle=-45)
-                    st.plotly_chart(fig_risk, width='stretch')  # Fixed: replaced use_container_width
+                    st.plotly_chart(fig_risk, use_container_width=True)
             
             # Correlation analysis
             if 'Diabetes' in df.columns:
-                st.subheader("🔗 Feature Correlation")
+                st.subheader("Feature Correlation")
                 
                 numeric_cols = df.select_dtypes(include=[np.number]).columns.tolist()
                 if 'Diabetes' in numeric_cols:
@@ -258,10 +251,10 @@ if df is not None:
                         color_continuous_scale='Reds'
                     )
                     fig_corr.update_layout(height=500)
-                    st.plotly_chart(fig_corr, width='stretch')  # Fixed: replaced use_container_width
+                    st.plotly_chart(fig_corr, use_container_width=True)
     
     with tab3:
-        st.subheader("📋 Data Viewer with Pagination")
+        st.subheader("Data Viewer with Pagination")
         
         # Pagination controls
         total_pages = (len(df) - 1) // st.session_state.page_size + 1
@@ -269,12 +262,12 @@ if df is not None:
         col1, col2, col3, col4, col5 = st.columns([1, 1, 2, 1, 1])
         
         with col1:
-            if st.button("⏮️ First") and st.session_state.current_page > 0:
+            if st.button("First") and st.session_state.current_page > 0:
                 st.session_state.current_page = 0
                 st.rerun()
         
         with col2:
-            if st.button("◀️ Previous") and st.session_state.current_page > 0:
+            if st.button("Previous") and st.session_state.current_page > 0:
                 st.session_state.current_page -= 1
                 st.rerun()
         
@@ -294,12 +287,12 @@ if df is not None:
                 st.rerun()
         
         with col4:
-            if st.button("Next ▶️") and st.session_state.current_page < total_pages - 1:
+            if st.button("Next") and st.session_state.current_page < total_pages - 1:
                 st.session_state.current_page += 1
                 st.rerun()
         
         with col5:
-            if st.button("Last ⏭️") and st.session_state.current_page < total_pages - 1:
+            if st.button("Last") and st.session_state.current_page < total_pages - 1:
                 st.session_state.current_page = total_pages - 1
                 st.rerun()
         
@@ -308,17 +301,16 @@ if df is not None:
         
         st.info(f"Showing rows {st.session_state.current_page * st.session_state.page_size + 1} to {min((st.session_state.current_page + 1) * st.session_state.page_size, len(df))} of {len(df)}")
         
-        # Display data with width parameter instead of use_container_width
         st.dataframe(
             page_data,
             height=400,
-            width='stretch'
+            use_container_width=True
         )
         
         # Download option
         csv = df.to_csv(index=False)
         st.download_button(
-            label="📥 Download Full Dataset CSV",
+            label="Download Full Dataset CSV",
             data=csv,
             file_name="brfss_dataset.csv",
             mime="text/csv"
@@ -344,7 +336,7 @@ if df is not None:
                     color_continuous_scale='Reds'
                 )
                 fig_missing.update_layout(height=400)
-                st.plotly_chart(fig_missing, width='stretch')  # Fixed: replaced use_container_width
+                st.plotly_chart(fig_missing, use_container_width=True)
             else:
                 st.success("No missing data found!")
         
@@ -356,7 +348,7 @@ if df is not None:
             st.dataframe(stats_df, height=400)
         
         # Data types information
-        st.subheader("📊 Dataset Information")
+        st.subheader("Dataset Information")
         
         col1, col2 = st.columns(2)
         
@@ -365,9 +357,9 @@ if df is not None:
             # Create Arrow-compatible dtype info
             dtype_info = pd.DataFrame({
                 'Column': df.dtypes.index,
-                'Data Type': df.dtypes.astype(str).values,  # Convert dtype objects to strings for Arrow compatibility
+                'Data Type': df.dtypes.astype(str).values, 
                 'Non-Null Count': df.count().values,
-                'Memory Usage (MB)': (df.memory_usage(deep=True).values[1:] / 1024**2).round(2)  # Skip index, convert to MB
+                'Memory Usage (MB)': (df.memory_usage(deep=True).values[1:] / 1024**2).round(2)
             })
             st.dataframe(dtype_info, height=400)
         
@@ -385,7 +377,7 @@ if df is not None:
                 labels={'x': 'Memory (MB)', 'y': 'Column'}
             )
             fig_memory.update_layout(height=400)
-            st.plotly_chart(fig_memory, width='stretch')  # Fixed: replaced use_container_width
+            st.plotly_chart(fig_memory, use_container_width=True)
 
 else:
     st.error("Unable to load data. Please check the file path in config.py")
