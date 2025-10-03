@@ -21,8 +21,8 @@ add_custom_css()
 
 # Main title
 st.title("Diabetes Prediction Dashboard")
-st.markdown("**Advanced diabetes prediction system using BRFSS 2017-2023 data with machine learning**")
-st.markdown("---")
+st.write("**Advanced diabetes prediction system using BRFSS 2017-2023 data with machine learning**")
+st.write("---")
 
 # Load sample data
 df = load_sample_data()
@@ -64,7 +64,7 @@ with col4:
         help="Number of features after feature selection"
     )
 
-st.markdown("---")
+st.write("---")
 
 # Layout in 2 columns
 col1, col2 = st.columns([2, 1])
@@ -92,9 +92,9 @@ with col2:
         "ADASYN + Tomek Links"
     ]
     
-    st.markdown("**Applied methods:**")
+    st.write("**Applied methods:**")
     for method in balancing_methods:
-        st.markdown(f"{method}")
+        st.write(f"{method}")
 
 # Feature importance visualization
 st.subheader("Top 10 Most Important Features")
@@ -103,10 +103,10 @@ fig_importance = create_feature_importance_chart(feature_importance)
 st.plotly_chart(fig_importance, use_container_width=True)
 
 # Navigation guide
-st.markdown("---")
-st.markdown("## Getting Started")
-st.markdown("**Use the sidebar to navigate between different pages:**")
-st.markdown("""
+st.write("---")
+st.write("## Getting Started")
+st.write("**Use the sidebar to navigate between different pages:**")
+st.write("""
 - **Prediction**: Enter your health information to get diabetes risk prediction
 - **Model Analysis**: Compare different machine learning models performance  
 - **Project Details**: Technical details about the project methodology
