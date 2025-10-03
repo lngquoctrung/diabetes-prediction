@@ -1,9 +1,12 @@
 data/raw
 data/processed/*
-!data/processed/brfss_dataset.csv
 **/__pycache__
 **/.ipynb_checkpoints
 .idea
 .pytest_cache
-README.md
 .venv
+
+.env
+requirements.prod.txt
+
+!data/processed/brfss_dataset.csv

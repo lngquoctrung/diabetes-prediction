@@ -6,7 +6,6 @@ if not root_dir in sys.path:
     sys.path.insert(0, root_dir)
 
 import pandas as pd
-import os
 
 from imblearn.over_sampling import SMOTE, RandomOverSampler, ADASYN
 from imblearn.under_sampling import RandomUnderSampler, TomekLinks, EditedNearestNeighbours

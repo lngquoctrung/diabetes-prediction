@@ -7,6 +7,7 @@ asttokens==3.0.0
 async-lru==2.0.5
 attrs==25.3.0
 babel==2.17.0
+backcall==0.2.0
 beautifulsoup4==4.13.4
 bleach==6.2.0
 blinker==1.9.0
@@ -21,6 +22,7 @@ cycler==0.12.1
 debugpy==1.8.14
 decorator==5.2.1
 defusedxml==0.7.1
+docopt==0.6.2
 executing==2.2.0
 fastjsonschema==2.21.1
 fonttools==4.59.0
@@ -34,7 +36,7 @@ idna==3.10
 imbalanced-learn==0.13.0
 iniconfig==2.1.0
 ipykernel==6.29.5
-ipython==9.4.0
+ipython==8.12.3
 ipython_pygments_lexers==1.1.1
 ipywidgets==8.1.7
 isoduration==20.11.0
@@ -80,7 +82,9 @@ pandas==2.3.1
 pandocfilters==1.5.1
 parso==0.8.4
 pexpect==4.9.0
+pickleshare==0.7.5
 pillow==10.4.0
+pipreqs==0.5.0
 platformdirs==4.3.8
 plotly==6.3.0
 pluggy==1.6.0
@@ -139,3 +143,4 @@ webencodings==0.5.1
 websocket-client==1.8.0
 widgetsnbextension==4.0.14
 xgboost==3.0.5
+yarg==0.1.9
