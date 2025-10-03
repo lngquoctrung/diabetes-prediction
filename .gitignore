@@ -7,6 +7,6 @@ data/processed/*
 .venv
 
 .env
-requirements.prod.txt
+requirements.dev.txt
 
 !data/processed/brfss_dataset.csv
