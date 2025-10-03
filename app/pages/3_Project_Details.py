@@ -22,7 +22,7 @@ st.header("Project Details")
 
 # Project overview
 st.subheader("Project Objectives")
-st.write("""
+st.markdown("""
 - **Main Goal**: Build machine learning models to predict diabetes risk with high accuracy
 - **Dataset**: BRFSS (Behavioral Risk Factor Surveillance System) 2017-2023
 - **Scope**: 3-class classification - No Diabetes, Pre-diabetes, Diabetes
@@ -35,7 +35,7 @@ st.subheader("Technical Details")
 tab1, tab2, tab3, tab4 = st.tabs(["Data Pipeline", "Feature Engineering", "Data Balancing", "Models"])
 
 with tab1:
-    st.write("""
+    st.markdown("""
     ### Data Pipeline
     
     **1. Data Loading & Cleaning**
@@ -60,7 +60,7 @@ with tab1:
     """)
 
 with tab2:
-    st.write("""
+    st.markdown("""
     ### Feature Engineering
     
     **1. Composite Health Scores**
@@ -85,7 +85,7 @@ with tab2:
     """)
 
 with tab3:
-    st.write("""
+    st.markdown("""
     ### Data Balancing Techniques
     
     **1. Oversampling Methods**
@@ -110,7 +110,7 @@ with tab3:
     """)
 
 with tab4:
-    st.write("""
+    st.markdown("""
     ### Machine Learning Models
     
     **1. Algorithms Tested**
@@ -173,7 +173,7 @@ st.table(pd.DataFrame(detailed_results))
 
 # Recommendations
 st.subheader("Recommendations")
-st.write("""
+st.markdown("""
 **1. Production Deployment**
 - **Primary Model**: LightGBM + ADASYN Tomek Links for highest accuracy (90.11%)
 - **Balanced Alternative**: XGBoost + Random Oversampling for better F1-Score (69.92%)

@@ -24,7 +24,7 @@ setup_page_config()
 add_custom_css()
 
 st.header("Diabetes Prediction")
-st.write("Enter comprehensive health information to accurately predict diabetes risk using XGBoost + Random Oversampling model")
+st.markdown("Enter comprehensive health information to accurately predict diabetes risk using XGBoost + Random Oversampling model")
 
 # Load model and scaler
 model, scaler = load_trained_model_and_scaler()
@@ -45,7 +45,7 @@ if user_inputs:
     
     if predictions:
         # Display results
-        st.write("---")
+        st.markdown("---")
         st.subheader("Prediction Results from XGBoost + Random Oversampling")
         
         # Create prediction visualization

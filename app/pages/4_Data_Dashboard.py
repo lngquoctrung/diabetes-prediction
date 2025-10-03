@@ -33,7 +33,7 @@ if 'load_charts' not in st.session_state:
     st.session_state.load_charts = False
 
 st.header("BRFSS Dataset Dashboard")
-st.write("Comprehensive analysis and visualization of BRFSS diabetes dataset")
+st.markdown("Comprehensive analysis and visualization of BRFSS diabetes dataset")
 
 # Optimized data loading with Arrow-compatible data types
 @st.cache_data(ttl=3600)  # Cache for 1 hour
@@ -272,7 +272,7 @@ if df is not None:
                 st.rerun()
         
         with col3:
-            st.write(f"Page {st.session_state.current_page + 1} of {total_pages}")
+            st.markdown(f"Page {st.session_state.current_page + 1} of {total_pages}")
             
             # Page size selector
             new_page_size = st.selectbox(
@@ -322,7 +322,7 @@ if df is not None:
         col1, col2 = st.columns(2)
         
         with col1:
-            st.write("**Missing Data by Column:**")
+            st.markdown("**Missing Data by Column:**")
             missing_data = stats['missing_data']
             missing_data = missing_data[missing_data > 0]
             
@@ -341,7 +341,7 @@ if df is not None:
                 st.success("No missing data found!")
         
         with col2:
-            st.write("**Basic Statistics:**")
+            st.markdown("**Basic Statistics:**")
             # Show stats for numeric columns only (lighter computation)
             numeric_df = df.select_dtypes(include=[np.number])
             stats_df = numeric_df.describe().round(2)
@@ -353,7 +353,7 @@ if df is not None:
         col1, col2 = st.columns(2)
         
         with col1:
-            st.write("**Data Types:**")
+            st.markdown("**Data Types:**")
             # Create Arrow-compatible dtype info
             dtype_info = pd.DataFrame({
                 'Column': df.dtypes.index,
@@ -364,7 +364,7 @@ if df is not None:
             st.dataframe(dtype_info, height=400)
         
         with col2:
-            st.write("**Memory Usage Summary:**")
+            st.markdown("**Memory Usage Summary:**")
             total_memory = df.memory_usage(deep=True).sum()
             st.metric("Total Memory Usage", f"{total_memory / 1024**2:.2f} MB")
             
