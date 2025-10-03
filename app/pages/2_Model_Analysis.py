@@ -39,7 +39,7 @@ st.plotly_chart(fig_comparison, use_container_width=True)
 st.subheader("Detailed Results Table")
 st.dataframe(
     df_models.style.highlight_max(axis=0, subset=['Accuracy', 'Precision', 'Recall', 'F1-Score']),
-    use_container_width=True,
+    width='stretch',
 )
 
 # Best models summary - Updated with actual results
