@@ -21,8 +21,8 @@ add_custom_css()
 
 # Main title
 st.title("Diabetes Prediction Dashboard")
-st.markdown("<p><strong>Advanced diabetes prediction system using BRFSS 2017-2023 data with machine learning</strong></p>", unsafe_allow_html=True)
-st.markdown("---", unsafe_allow_html=True)
+st.markdown("**Advanced diabetes prediction system using BRFSS 2017-2023 data with machine learning**")
+st.markdown("---")
 
 # Load sample data
 df = load_sample_data()
