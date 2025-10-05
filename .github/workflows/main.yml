@@ -22,10 +22,7 @@ jobs:
     - name: Deploy to EC2
       run: |
         ssh ${{ secrets.USERNAME }}@${{ secrets.HOST }} << 'EOF'
-          if [ ! -d ~/services/.git ]; then
-            git clone git@github.com:lngquoctrung/diabetes-prediction.git ~/services/diabetes-prediction-system
-          fi
-          cd /services/diabetes-prediction-system
+          cd /home/ubuntu/services/diabetes-prediction-system
           git pull origin main
           docker stop diabetes-prediction-system || true
           docker rm diabetes-prediction-system || true
