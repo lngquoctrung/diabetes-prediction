@@ -23,6 +23,7 @@ FROM python:3.11-slim AS runtime
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
     libgl1 \
+    libgomp1 \
     libglib2.0-0 \
     fonts-dejavu \
     curl \
