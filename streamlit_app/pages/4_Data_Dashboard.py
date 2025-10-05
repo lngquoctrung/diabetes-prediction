@@ -304,7 +304,7 @@ if df is not None:
         st.dataframe(
             page_data,
             height=400,
-            use_container_width=True
+            width='stretch'
         )
         
         # Download option

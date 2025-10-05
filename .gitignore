@@ -5,8 +5,5 @@ data/processed/*
 .idea
 .pytest_cache
 .venv
-
 .env
-requirements.dev.txt
-
 !data/processed/brfss_dataset.csv
