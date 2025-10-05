@@ -1,46 +1,46 @@
-# 🏥 Diabetes Prediction System
+# Diabetes Prediction System
 
-## 📋 Project Overview
+## Project Overview
 
 An advanced machine learning system for predicting diabetes risk using BRFSS (Behavioral Risk Factor Surveillance System) data from 2017-2023. The project addresses the critical healthcare challenge of early diabetes detection through comprehensive data analysis, feature engineering, and multiple machine learning approaches.
 
-### 🎯 Key Objectives
+### Key Objectives
 
 - **Multi-class Classification**: Predict 3 diabetes states (No Diabetes, Pre-diabetes, Diabetes)
 - **Class Imbalance Solution**: Address severe imbalance (82% No Diabetes, 2.4% Pre-diabetes, 15.6% Diabetes)
 - **Production-Ready**: Deploy via interactive Streamlit web application
 - **Real-world Validation**: Test on latest 2023 BRFSS data
 
-## 🚀 Key Features
+## Key Features
 
-### 📊 Data Processing Pipeline
+### Data Processing Pipeline
 
 - **Comprehensive Cleaning**: Process 450K+ samples from BRFSS 2017-2021
 - **Feature Engineering**: Create 8 composite health scores (Health, Risk, Lifestyle, Cardio, etc.)
 - **Smart Selection**: Reduce 43 features to 34 most predictive ones using correlation analysis
 
-### ⚖️ Advanced Data Balancing
+### Advanced Data Balancing
 
 - **9 Balancing Techniques**: Random Oversampling, SMOTE, ADASYN, Tomek Links, ENN, and hybrid methods
 - **Synthetic Data Generation**: Create balanced datasets for better minority class detection
 - **Comprehensive Evaluation**: Test all combinations of 6 models × 9 balancing methods (54 experiments)
 
-### 🤖 Machine Learning Models
+### Machine Learning Models
 
 - **6 Algorithms**: Logistic Regression, Random Forest, XGBoost, LightGBM, Naive Bayes, SGD Classifier
 - **Cross-Validation**: 5-fold CV for robust performance evaluation
 - **Multiple Metrics**: Accuracy, Precision, Recall, F1-Score, ROC-AUC
 
-### 📱 Interactive Web Application
+### Interactive Web Application
 
 - **Real-time Prediction**: Input health parameters and get instant diabetes risk assessment
 - **Model Analysis**: Compare performance across different models and balancing techniques
 - **Data Visualization**: Comprehensive dashboards with interactive charts
 - **Technical Details**: Complete methodology and results documentation
 
-## 🏆 Performance Results
+## Performance Results
 
-### Top Performing Models:
+### Top Performing Models
 
 | Metric | Score | Model | Method |
 |--------|--------|--------|---------|
@@ -54,7 +54,7 @@ An advanced machine learning system for predicting diabetes risk using BRFSS (Be
 - **XGBoost + Random Oversampling**: 68.93% accuracy, 44.00% F1-score
 - **Production Model**: Maintains good performance on unseen data
 
-## 🛠️ Tech Stack
+## Tech Stack
 
 ### Data Science & ML
 
@@ -66,7 +66,7 @@ An advanced machine learning system for predicting diabetes risk using BRFSS (Be
 
 ### Visualization & Web App
 
-- **Streamlit**: Interactive web application framework
+- **Streamlit**, **Gradio**: Interactive web application framework
 - **Plotly**: Dynamic, interactive visualizations
 - **Seaborn, Matplotlib**: Statistical plotting
 
@@ -75,42 +75,26 @@ An advanced machine learning system for predicting diabetes risk using BRFSS (Be
 - **Docker**: Containerized deployment
 - **Git**: Version control and collaboration
 
-## 📁 Project Structure
+## Project Structure
 
 ```bash
-├── README.md                     # Project documentation
-├── requirements.txt              # Python dependencies
-├── Dockerfile                    # Container configuration
-├── app/                          # Streamlit web application
-│   ├── Home.py                  # Main dashboard
-│   ├── data/
-│   │   └── sample_data.py       # Sample data utilities
-│   ├── pages/                   # Application pages
-│   │   ├── 1_Prediction.py      # Prediction interface
-│   │   ├── 2_Model_Analysis.py  # Performance analysis
-│   │   ├── 3_Project_Details.py # Technical documentation
-│   │   └── 4_Data_Dashboard.py  # Data exploration
-│   └── utils/                   # Application utilities
-│       ├── feature_engineering.py # Feature processing
-│       ├── model_utils.py       # Model loading & inference
-│       ├── ui_components.py     # UI components
-│       └── visualization.py     # Chart creation
-├── artifacts/                   # Model artifacts
-│   ├── models/                  # Trained models
+.
+├── artifacts
+│   ├── models
 │   │   ├── best_accuracy_model.pkl
 │   │   ├── best_f1_model.pkl
 │   │   ├── best_precision_model.pkl
 │   │   └── best_recall_model.pkl
-│   ├── scalers/                 # Data scalers
+│   ├── scalers
 │   │   ├── best_f1_model_scaler.pkl
 │   │   ├── best_model_scaler.pkl
 │   │   ├── best_precision_model_scaler.pkl
 │   │   └── best_recall_model_scaler.pkl
-│   └── training_2017_2019_2021/ # Training artifacts
+│   └── training_2017_2019_2021
 │       ├── encoders.pkl
 │       └── selected_features.pkl
-├── data/                        # Dataset storage
-│   ├── processed/               # Processed datasets
+├── data
+│   ├── processed
 │   │   ├── adasyn_data.pkl
 │   │   ├── adasyn_tomek_data.pkl
 │   │   ├── brfss_dataset.csv
@@ -122,38 +106,80 @@ An advanced machine learning system for predicting diabetes risk using BRFSS (Be
 │   │   ├── smote_tomek_links_data.pkl
 │   │   ├── testing_data.pkl
 │   │   └── tomek_links_data.pkl
-│   └── raw/                     # Raw datasets
+│   └── raw
 │       ├── brfss_2017.XPT
 │       ├── brfss_2019.XPT
-│       └── brfss_2021.XPT
-├── logs/                        # Training logs
+│       ├── brfss_2021.XPT
+│       └── brfss_2023.XPT
+├── Dockerfile
+├── .dockerignore
+├── .gitattributes
+├── .gitignore
+├── .gradio
+│   └── certificate.pem
+├── gradio_app
+│   ├── app.py
+│   ├── components
+│   │   ├── data_dashboard.py
+│   │   ├── home.py
+│   │   ├── __init__.py
+│   │   ├── model_analysis.py
+│   │   ├── prediction.py
+│   │   └── project_details.py
+│   ├── config
+│   │   └── settings.py
+│   └── utils
+│       ├── feature_engineering.py
+│       ├── __init__.py
+│       ├── model_utils.py
+│       ├── sample_data.py
+│       └── visualization.py
+├── logs
 │   ├── 0_data_pipeline.log
 │   ├── 2_model_training_with_original_data.log
 │   ├── 3_feature_engineering.log
 │   ├── 4_data_balancing.log
 │   ├── 5_model_training_with_enhanced_data.log
 │   └── 6_diabetes_2023_prediction.log
-├── notebooks/                   # Research notebooks
-│   ├── 0_data_pipeline.ipynb    # Data processing
-│   ├── 1_visualization.ipynb    # EDA & visualization
-│   ├── 2_models_with_original_data.ipynb # Baseline models
-│   ├── 3_feature_engineering.ipynb # Feature engineering
-│   ├── 4_data_balancing.ipynb   # Data balancing
-│   ├── 5_models_with_balancing_data.ipynb # Comprehensive training
-│   ├── 6_diabetes_prediction_2023.ipynb # Real-world validation
-└── src/                         # Source code modules
-    ├── balancing.py             # Data balancing methods
-    ├── config.py                # Configuration settings
-    ├── data.py                  # Data processing utilities
-    ├── evaluate.py              # Model evaluation functions
-    ├── features.py              # Feature engineering
-    ├── models.py                # ML model implementations
-    ├── pipelines.py             # ML pipelines
-    ├── utils.py                 # General utilities
-    └── visualization.py         # Plotting functions
+├── notebooks
+│   ├── 0_data_pipeline.ipynb
+│   ├── 1_visualization.ipynb
+│   ├── 2_models_with_original_data.ipynb
+│   ├── 3_feature_engineering.ipynb
+│   ├── 4_data_balancing.ipynb
+│   ├── 5_models_with_balancing_data.ipynb
+│   └── 6_diabetes_prediction_2023.ipynb
+├── README.md
+├── requirements.dev.txt
+├── requirements.txt
+├── src
+│   ├── balancing.py
+│   ├── config.py
+│   ├── data.py
+│   ├── evaluate.py
+│   ├── features.py
+│   ├── models.py
+│   ├── pipelines.py
+│   ├── utils.py
+│   └── visualization.py
+├── .streamlit
+└── streamlit_app
+    ├── data
+    │   └── sample_data.py
+    ├── Home.py
+    ├── pages
+    │   ├── 1_Prediction.py
+    │   ├── 2_Model_Analysis.py
+    │   ├── 3_Project_Details.py
+    │   └── 4_Data_Dashboard.py
+    └── utils
+        ├── feature_engineering.py
+        ├── model_utils.py
+        ├── ui_components.py
+        └── visualization.py
 ```
 
-## 🚀 Getting Started
+## Getting Started
 
 ### Prerequisites
 
@@ -165,7 +191,7 @@ An advanced machine learning system for predicting diabetes risk using BRFSS (Be
 1. **Clone the repository**
 
 ```bash
-git clone <repository-url>
+git clone https://github.com/lngquoctrung/diabetes-prediction.git
 cd diabetes-prediction-system
 ```
 
@@ -178,7 +204,13 @@ pip install -r requirements.txt
 3. **Run the Streamlit application**
 
 ```bash
-streamlit run Home.py
+streamlit run streamlit_app/Home.py
+```
+
+4. **Or run the Gradio application**
+
+```bash
+python gradio_app/app.py
 ```
 
 ### Docker Deployment
@@ -192,14 +224,21 @@ docker build -t diabetes-prediction .
 2. **Run the container**
 
 ```bash
+docker run -p 7860:7860 diabetes-prediction
+```
+
+>> The Dockerfile is configured to run with the Gradio application. Read the Dockerfile and adjust it if you want to deploy with the Streamlit application.
+
+```bash
+# Deploy with Streamlit application
 docker run -p 8080:8080 diabetes-prediction
 ```
 
 3. **Access the application**
 
-Open your browser and navigate to `http://localhost:8080` or <https://diabetes-prediction-qctrung.streamlit.app/>
+Open your browser and navigate to `http://localhost:7860` or <google.com/>
 
-## 📊 Usage Guide
+## Usage Guide
 
 ### 1. Making Predictions
 
@@ -209,23 +248,23 @@ Open your browser and navigate to `http://localhost:8080` or <https://diabetes-p
 
 ### 2. Analyzing Models
 
-- Visit "📈 Model Analysis" for comprehensive performance comparison
+- Visit "Model Analysis" for comprehensive performance comparison
 - Interactive charts showing accuracy, precision, recall, and F1-scores
 - Confusion matrices for detailed classification analysis
 
 ### 3. Exploring Data
 
-- Use "📊 Data Dashboard" to explore the BRFSS dataset
+- Use "Data Dashboard" to explore the BRFSS dataset
 - Interactive visualizations of health indicators and risk factors
 - Pagination support for large dataset browsing
 
 ### 4. Technical Details
 
-- Check "📋 Project Details" for complete methodology
+- Check "Project Details" for complete methodology
 - Performance metrics across all models and balancing techniques
 - Recommendations for production deployment
 
-## 🎯 Key Insights
+## Key Insights
 
 ### Model Performance
 
@@ -245,7 +284,7 @@ Open your browser and navigate to `http://localhost:8080` or <https://diabetes-p
 2. **Feature Innovation**: Created interpretable composite health scores
 3. **Production Pipeline**: End-to-end system from data processing to web deployment
 
-## 🔬 Research Methodology
+## Research Methodology
 
 ### Data Sources
 
@@ -265,7 +304,7 @@ Open your browser and navigate to `http://localhost:8080` or <https://diabetes-p
 2. **Undersampling**: Random, Tomek Links, ENN for majority class reduction
 3. **Hybrid Approaches**: Combine oversampling + cleaning for optimal results
 
-## 🔮 Future Enhancements
+## Future Enhancements
 
 ### Model Improvements
 
@@ -285,13 +324,13 @@ Open your browser and navigate to `http://localhost:8080` or <https://diabetes-p
 - **External Sources**: Integrate with other health datasets
 - **Real-time Monitoring**: Connect with wearable devices and health apps
 
-## 🙏 Acknowledgments
+## Acknowledgments
 
 - **CDC BRFSS Program**: For providing comprehensive public health surveillance data
 - **Open Source Community**: For excellent machine learning libraries and tools
 - **Healthcare Professionals**: For domain expertise and validation of medical relevance
 
-## 📧 Contact
+## Contact
 
 For questions, suggestions, or collaboration opportunities, please reach out through the project's issue tracker or contact the development team.
 

@@ -1,11 +1,11 @@
 import pandas as pd
-import numpy as np
+
 
 def create_feature_dataframe(user_inputs):
     """
-    Create DataFrame with all 34 features needed for the model
+    Create DataFrame with all 33 features needed for the model
     """
-    # List of all 34 features in training data order
+    # List of all 33 features in training data order
     all_features = [
         'HighBP', 'HighChol', 'CholCheck', 'BMI', 'Smoker', 'Stroke',
         'HeartDiseaseorAttack', 'PhysActivity', 'HvyAlcoholConsump', 'GenHlth',
@@ -29,7 +29,7 @@ def create_feature_dataframe(user_inputs):
         'Stroke': user_inputs.get('stroke', 0),
         'HeartDiseaseorAttack': user_inputs.get('heart_disease', 0),
         'PhysActivity': user_inputs.get('phys_activity', 1),
-        'GenHlth': user_inputs.get('genhlth', 3),
+        'GenHlth': user_inputs.get('gen_hlth', 3),
         'Age': user_inputs.get('age', 45),
         'Education': user_inputs.get('education', 4),
         'Income': user_inputs.get('income', 6),
@@ -49,7 +49,9 @@ def create_feature_dataframe(user_inputs):
     
     # Set default values for missing features
     defaults = {
-        'CholCheck': 1, 'HvyAlcoholConsump': 0, 'DiagnosedHeartAttack': 0,
+        'CholCheck': 1,
+        'HvyAlcoholConsump': 0,
+        'DiagnosedHeartAttack': 0,
         'CoronaryHeartDisease': 0,
     }
     
@@ -62,15 +64,18 @@ def create_feature_dataframe(user_inputs):
     
     # Create DataFrame with correct feature order
     df = pd.DataFrame([feature_data])[all_features]
+    
     return df
+
 
 def calculate_engineered_features(feature_data):
     """Calculate engineered features based on base features"""
+    
     # Health Score: combination of general health indicators
     health_score = (
-        feature_data['GenHlth'] / 5 + 
-        feature_data['MentHlth'] / 30 + 
-        feature_data['PhysHlth'] / 30 + 
+        feature_data['GenHlth'] / 5 +
+        feature_data['MentHlth'] / 30 +
+        feature_data['PhysHlth'] / 30 +
         feature_data['DiffWalk'] * 0.5
     )
     feature_data['HlthScore'] = health_score
@@ -85,16 +90,16 @@ def calculate_engineered_features(feature_data):
     
     # Lifestyle Score: positive vs negative lifestyle factors
     lifestyle_score = (
-        feature_data['PhysActivity'] - 
+        feature_data['PhysActivity'] -
         (feature_data['AlcoholDays'] / 30 + feature_data['Smoker'])
     )
     feature_data['LifestyleScore'] = lifestyle_score
     
     # Cardio Risk: cardiovascular disease risk factors
     cardio_risk = (
-        feature_data['HighBP'] + 
-        feature_data['HighChol'] + 
-        feature_data['DiagnosedHeartAttack'] + 
+        feature_data['HighBP'] +
+        feature_data['HighChol'] +
+        feature_data['DiagnosedHeartAttack'] +
         feature_data['CoronaryHeartDisease'] +
         (1 if feature_data['BMI'] > 30 else 0)
     )
@@ -102,17 +107,57 @@ def calculate_engineered_features(feature_data):
     
     # Cholesterol Management Score
     chol_mgmt = (
-        1 + feature_data['CholesterolMeds'] - 
+        1 + feature_data['CholesterolMeds'] -
         feature_data['HighChol'] * (1 - feature_data['CholesterolMeds'] * 0.5)
     )
     feature_data['CholesterolManagementScore'] = chol_mgmt
     
     # Mental Health Score: negative mental health indicators
     mental_health = -(
-        feature_data['Depression'] + 
-        feature_data['CognitiveIssues'] + 
+        feature_data['Depression'] +
+        feature_data['CognitiveIssues'] +
         feature_data['MentHlth'] / 30
     )
     feature_data['MentalHealthScore'] = mental_health
     
     return feature_data
+
+
+def get_feature_descriptions():
+    """Get descriptions of all features for user reference"""
+    descriptions = {
+        'HighBP': 'High Blood Pressure (0=No, 1=Yes)',
+        'HighChol': 'High Cholesterol (0=No, 1=Yes)',
+        'CholCheck': 'Cholesterol Check in Past 5 Years (0=No, 1=Yes)',
+        'BMI': 'Body Mass Index (10-60)',
+        'Smoker': 'Smoking Status (0=No, 1=Yes)',
+        'Stroke': 'History of Stroke (0=No, 1=Yes)',
+        'HeartDiseaseorAttack': 'Heart Disease or Attack History (0=No, 1=Yes)',
+        'PhysActivity': 'Physical Activity in Past 30 Days (0=No, 1=Yes)',
+        'HvyAlcoholConsump': 'Heavy Alcohol Consumption (0=No, 1=Yes)',
+        'GenHlth': 'General Health (1=Excellent to 5=Poor)',
+        'MentHlth': 'Mental Health Days (0-30 days not good)',
+        'PhysHlth': 'Physical Health Days (0-30 days not good)',
+        'DiffWalk': 'Difficulty Walking (0=No, 1=Yes)',
+        'Age': 'Age (18-80 years)',
+        'Education': 'Education Level (1=Elementary to 6=College Graduate)',
+        'Income': 'Income Level (1=<$10k to 8=>$75k)',
+        'Depression': 'Depression Diagnosis (0=No, 1=Yes)',
+        'CognitiveIssues': 'Cognitive Issues (0=No, 1=Yes)',
+        'KidneyDisease': 'Kidney Disease (0=No, 1=Yes)',
+        'DiagnosedHeartAttack': 'Diagnosed Heart Attack (0=No, 1=Yes)',
+        'CoronaryHeartDisease': 'Coronary Heart Disease (0=No, 1=Yes)',
+        'COPD': 'COPD Diagnosis (0=No, 1=Yes)',
+        'AlcoholDays': 'Alcohol Consumption Days in Past 30 Days (0-30)',
+        'LastCheckup': 'Last Medical Checkup (1=Within year, 2=1-2 years, etc.)',
+        'HasPersonalDoctor': 'Has Personal Doctor (0=No, 1=Yes)',
+        'CholesterolMeds': 'Taking Cholesterol Medication (0=No, 1=Yes)',
+        'EmploymentStatus': 'Employment Status (1=Employed, 2=Unemployed, etc.)',
+        'HlthScore': 'Engineered: Overall Health Score',
+        'RiskScore': 'Engineered: Disease Risk Score',
+        'LifestyleScore': 'Engineered: Lifestyle Quality Score',
+        'CardioRisk': 'Engineered: Cardiovascular Risk Score',
+        'CholesterolManagementScore': 'Engineered: Cholesterol Management Score',
+        'MentalHealthScore': 'Engineered: Mental Health Score'
+    }
+    return descriptions

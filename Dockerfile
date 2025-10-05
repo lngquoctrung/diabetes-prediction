@@ -33,11 +33,17 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 
 COPY --from=builder /opt/.venv /opt/.venv
 ENV PATH="/opt/.venv/bin:$PATH"
-ENV STREAMLIT_TELEMETRY="0"
+# Remove comment if you want to run Streamlit application instead of Gradio application
+# ENV STREAMLIT_TELEMETRY="0"
 
 WORKDIR /app
 COPY . .
 
-EXPOSE 8080
+## ==== Streamlit application ====
+# EXPOSE 8080
+# CMD ["streamlit", "run", "app/Home.py", "--server.port=8080", "--server.address=0.0.0.0"]
 
-CMD ["streamlit", "run", "app/Home.py", "--server.port=8080", "--server.address=0.0.0.0"]
+## ==== Gradio application ====
+EXPOSE 7860
+RUN ["python", "gradio_app/app.py"]
+
