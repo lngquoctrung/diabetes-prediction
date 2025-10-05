@@ -1,4 +1,4 @@
-# Builder stage - Build environment for the application
+# Builder stage
 FROM python:3.11-slim AS builder
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
@@ -21,9 +21,11 @@ RUN pip install --no-cache-dir --upgrade pip \
 # Runtime stage
 FROM python:3.11-slim AS runtime
 
+# Copy dependencies from builder to optimize the size
+COPY --from=builder /usr/lib/x86_64-linux-gnu/libgomp.so.1* /usr/lib/x86_64-linux-gnu/
+
 RUN apt-get update && apt-get install -y --no-install-recommends \
     libgl1 \
-    libgomp1 \
     libglib2.0-0 \
     fonts-dejavu \
     curl \
@@ -32,6 +34,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
+# Copy virtual environment
 COPY --from=builder /opt/.venv /opt/.venv
 ENV PATH="/opt/.venv/bin:$PATH"
 
@@ -48,4 +51,3 @@ COPY . .
 ## ==== Gradio application ====
 EXPOSE 7860
 CMD ["python", "./gradio_app/app.py"]
-
