@@ -34,6 +34,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 
 COPY --from=builder /opt/.venv /opt/.venv
 ENV PATH="/opt/.venv/bin:$PATH"
+
 # Remove comment if you want to run Streamlit application instead of Gradio application
 # ENV STREAMLIT_TELEMETRY="0"
 
