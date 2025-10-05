@@ -7,8 +7,6 @@ data/raw/
 logs
 notebooks
 artifacts/training_2017_2019_2021
-.streamlit
-streamlit_app
 
 .env
 requirements.dev.txt

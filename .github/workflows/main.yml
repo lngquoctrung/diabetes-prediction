@@ -22,11 +22,27 @@ jobs:
     - name: Deploy to EC2
       run: |
         ssh ${{ secrets.USERNAME }}@${{ secrets.HOST }} << 'EOF'
-          cd /home/ubuntu/services/diabetes-prediction-system
-          git pull origin main
+          # Redirect to service folder
+          cd /home/ubuntu/services
+
+          # Clone project if project folder does not exist
+          if [ ! -d "diabetes-prediction-system" ]; then
+            git clone git@github.com:lngquoctrung/diabetes-prediction.git ~/services/diabetes-prediction-system
+          fi
+
+          # Redirect to project folder
+          cd diabetes-prediction-system
+
+          # Remove old version
           docker stop diabetes-prediction-system || true
           docker rm diabetes-prediction-system || true
           docker image rm diabetes-prediction:latest || true
+          
+          # Create new image and run container
           docker build -t diabetes-prediction:latest .
           docker run -d --name diabetes-prediction-system -p 7860:7860 diabetes-prediction:latest
+
+          # Remove root folder release memory of server
+          cd ..
+          rm -rf diabetes-prediction-system
         EOF

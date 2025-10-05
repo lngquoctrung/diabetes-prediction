@@ -41,9 +41,9 @@ COPY . .
 
 ## ==== Streamlit application ====
 # EXPOSE 8080
-# CMD ["streamlit", "run", "app/Home.py", "--server.port=8080", "--server.address=0.0.0.0"]
+# CMD ["streamlit", "run", "streamlit_app/Home.py", "--server.port=8080", "--server.address=0.0.0.0"]
 
 ## ==== Gradio application ====
 EXPOSE 7860
-RUN ["python", "gradio_app/app.py"]
+CMD ["python", "./gradio_app/app.py"]
 
