@@ -23,7 +23,7 @@ jobs:
       run: |
         ssh ${{ secrets.USERNAME }}@${{ secrets.HOST }} << 'EOF'
           # Redirect to service folder
-          cd /home/ubuntu/services
+          cd ~/services
 
           # Clone project if project folder does not exist
           if [ ! -d "diabetes-prediction-system" ]; then
