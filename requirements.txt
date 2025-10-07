@@ -8,3 +8,4 @@ scikit_learn==1.7.2
 seaborn==0.13.2
 tqdm==4.67.1
 xgboost==3.0.5
+lightgbm==4.6.0
