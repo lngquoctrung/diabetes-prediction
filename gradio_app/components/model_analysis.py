@@ -1,8 +1,5 @@
 import gradio as gr
-import pandas as pd
-import numpy as np
 import sys
-import os
 from pathlib import Path
 
 root_dir = str(Path(__file__).parent.parent.absolute())
@@ -25,9 +22,9 @@ def create_model_analysis_tab():
             """
         )
         
-        # Best performing models
+        # Best performing models cards
         with gr.Row():
-            with gr.Column(scale=1):
+            with gr.Column(scale=1, min_width=200):
                 gr.HTML("""
                     <div class='metric-card' style='background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);'>
                         <div class='metric-label'>Best Accuracy</div>
@@ -38,7 +35,7 @@ def create_model_analysis_tab():
                     </div>
                 """)
             
-            with gr.Column(scale=1):
+            with gr.Column(scale=1, min_width=200):
                 gr.HTML("""
                     <div class='metric-card' style='background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);'>
                         <div class='metric-label'>Best Precision</div>
@@ -49,18 +46,18 @@ def create_model_analysis_tab():
                     </div>
                 """)
             
-            with gr.Column(scale=1):
+            with gr.Column(scale=1, min_width=200):
                 gr.HTML("""
                     <div class='metric-card' style='background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);'>
                         <div class='metric-label'>Best Recall</div>
-                        <div class='metric-value'>62.47%</div>
+                        <div class='metric-value'>65.42%</div>
                         <div style='font-size: 0.85em; opacity: 0.9; margin-top: 0.5rem;'>
-                            Multiple Models
+                            XGBoost + Random Oversampling
                         </div>
                     </div>
                 """)
             
-            with gr.Column(scale=1):
+            with gr.Column(scale=1, min_width=200):
                 gr.HTML("""
                     <div class='metric-card' style='background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);'>
                         <div class='metric-label'>Best F1-Score</div>
@@ -71,42 +68,32 @@ def create_model_analysis_tab():
                     </div>
                 """)
         
-        gr.Markdown("---")
-        
         # Model comparison table
         gr.Markdown("### Top 5 Model Performance Comparison")
         
+        # Get data and display as DataFrame
         df_models = get_model_comparison_data()
-        
-        # Format percentages
-        for col in ['Accuracy', 'Precision', 'Recall', 'F1-Score']:
-            df_models[col] = df_models[col].apply(lambda x: f"{x:.2%}")
         
         gr.DataFrame(
             value=df_models,
-            label="Model Comparison Results",
-            interactive=False
+            interactive=False,
+            wrap=False
         )
-        
-        gr.Markdown("---")
         
         # Key insights
         gr.Markdown(
             """
             ### Key Insights
             
-            **Model Performance Analysis:**
+            - **LightGBM with ADASYN + Tomek Links** achieved the highest accuracy (90.11%) and precision (91.67%)
+            - **XGBoost with Random Oversampling** shows the best balance with highest F1-Score (69.92%)
+            - **Data balancing techniques** significantly improve model performance
+            - **Hybrid methods** (SMOTE/ADASYN + Tomek Links) generally outperform single methods
             
-            1. **Best Overall Performance**: LightGBM with ADASYN Tomek Links achieves 90.11% accuracy
-            2. **Balanced Performance**: XGBoost with Random Oversampling provides best F1-Score (69.92%)
-            3. **Class Imbalance Impact**: Pre-diabetes class remains challenging due to limited samples (2.4%)
-            4. **Data Balancing Success**: Synthetic sampling methods significantly improve minority class detection
+            ### Recommendations
             
-            **Recommendations:**
-            
-            - Use **LightGBM + ADASYN Tomek Links** for highest accuracy in production
-            - Use **XGBoost + Random Oversampling** for balanced precision-recall performance
-            - Consider ensemble methods for further improvement
-            - Focus on collecting more pre-diabetes samples to improve model performance
+            - For **high-precision requirements**: Use LightGBM + ADASYN Tomek Links
+            - For **balanced performance**: Use XGBoost + Random Oversampling
+            - For **recall-focused tasks**: Consider XGBoost with oversampling methods
             """
         )

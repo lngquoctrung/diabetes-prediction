@@ -91,17 +91,26 @@ def create_home_tab():
                         "Random Oversampling",
                         "SMOTE",
                         "ADASYN",
+                        "Random Undersampling",
+                        "Tomek Links",
+                        "Edited Nearest Neighbors",
                         "SMOTE + Tomek Links",
+                        "SMOTE + ENN",
                         "ADASYN + Tomek Links"
                     ],
                     "Type": [
-                        "Oversampling",
-                        "Synthetic",
-                        "Adaptive Synthetic",
-                        "Hybrid",
-                        "Hybrid"
+                        "Oversampling",           # Random Oversampling
+                        "Synthetic",              # SMOTE
+                        "Adaptive Synthetic",     # ADASYN
+                        "Undersampling",          # Random Undersampling
+                        "Undersampling",          # Tomek Links
+                        "Undersampling",          # Edited Nearest Neighbors
+                        "Hybrid",                 # SMOTE + Tomek Links
+                        "Hybrid",                 # SMOTE + ENN
+                        "Hybrid"                  # ADASYN + Tomek Links
                     ]
                 }
+
                 df_balance = pd.DataFrame(balancing_data)
                 
                 gr.DataFrame(

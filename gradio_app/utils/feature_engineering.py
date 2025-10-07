@@ -1,6 +1,5 @@
 import pandas as pd
 
-
 def create_feature_dataframe(user_inputs):
     """
     Create DataFrame with all 33 features needed for the model

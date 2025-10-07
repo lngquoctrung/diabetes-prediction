@@ -42,6 +42,9 @@ jobs:
           docker build -t diabetes-prediction:latest .
           docker run -d --name diabetes-prediction-system -p 7860:7860 diabetes-prediction:latest
 
+          # Clean cache builder
+          docker builder prune -f
+
           # Remove root folder release memory of server
           cd ..
           rm -rf diabetes-prediction-system

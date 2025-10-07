@@ -1,7 +1,6 @@
 import gradio as gr
 import pandas as pd
 
-
 def create_project_details_tab():
     """Create Project Details tab content with accurate project information"""
     

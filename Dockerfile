@@ -2,17 +2,8 @@
 FROM python:3.11-slim AS builder
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
-    gcc \
-    g++ \
-    make \
-    libgomp1 \
-    gfortran \
-    build-essential \
-    ca-certificates \
+    gcc g++ make libgomp1 gfortran \
     && rm -rf /var/lib/apt/lists/*
-
-RUN python -m venv /opt/.venv
-ENV PATH="/opt/.venv/bin:$PATH"
 
 COPY requirements.txt ./
 RUN pip install --no-cache-dir --upgrade pip \
@@ -21,28 +12,27 @@ RUN pip install --no-cache-dir --upgrade pip \
 # Runtime stage
 FROM python:3.11-slim AS runtime
 
-# Copy dependencies from builder to optimize the size
-COPY --from=builder /usr/lib/x86_64-linux-gnu/libgomp.so.1* /usr/lib/x86_64-linux-gnu/
-
 RUN apt-get update && apt-get install -y --no-install-recommends \
     libgl1 \
     libglib2.0-0 \
     fonts-dejavu \
-    curl \
     ca-certificates \
-    openssl \
-    && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
-# Copy virtual environment
-COPY --from=builder /opt/.venv /opt/.venv
-ENV PATH="/opt/.venv/bin:$PATH"
+COPY --from=builder /usr/local/lib/python3.11/site-packages /usr/local/lib/python3.11/site-packages
+COPY --from=builder /usr/local/bin /usr/local/bin
 
 # Remove comment if you want to run Streamlit application instead of Gradio application
 # ENV STREAMLIT_TELEMETRY="0"
 
 WORKDIR /app
 COPY . .
+
+# Cleanup
+RUN find /usr/local/lib/python3.11/site-packages -type d -name "tests" -exec rm -rf {} + \
+    && find /usr/local/lib/python3.11/site-packages -type d -name "__pycache__" -exec rm -rf {} + \
+    && find /usr/local/lib/python3.11/site-packages -type f -name "*.pyc" -delete \
+    && rm -rf /root/.cache /root/.local
 
 ## ==== Streamlit application ====
 # EXPOSE 8080
