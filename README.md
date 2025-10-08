@@ -49,7 +49,7 @@ An advanced machine learning system for predicting diabetes risk using BRFSS (Be
 | **Best Precision** | 91.67% | LightGBM | ADASYN + Tomek Links |
 | **Best Recall** | 62.47% | Multiple | Various |
 
-### Real-world Performance (2023 Data):
+### Real-world Performance (2023 Data)
 
 - **XGBoost + Random Oversampling**: 68.93% accuracy, 44.00% F1-score
 - **Production Model**: Maintains good performance on unseen data
@@ -191,20 +191,25 @@ An advanced machine learning system for predicting diabetes risk using BRFSS (Be
 1. **Clone the repository**
 
 ```bash
-git clone https://github.com/lngquoctrung/diabetes-prediction.git
+git clone https://github.com/lngquoctrung/diabetes-prediction.git ~/diabetes-prediction-system
 cd diabetes-prediction-system
 ```
 
-2. **Install dependencies**
+2. **Create virtual environment and install dependencies**
 
 ```bash
+# Create virtual environment
+python -m venv .venv
+source .venv/bin/activate
+
+# Install dependencies
 pip install -r requirements.txt
 ```
 
 3. **Run the Streamlit application**
 
 ```bash
-streamlit run streamlit_app/Home.py
+streamlit run streamlit_app/Home.py --server.port 6000 --server.address 0.0.0.0
 ```
 
 4. **Or run the Gradio application**
@@ -218,31 +223,31 @@ python gradio_app/app.py
 1. **Build the Docker image**
 
 ```bash
-docker build -t diabetes-prediction .
+docker build -t diabetes-prediction:latest .
 ```
 
 2. **Run the container**
 
 ```bash
-docker run -p 7860:7860 diabetes-prediction
+docker run -d --name diabetes-prediction-system -p 7000:7000 diabetes-prediction:latest
 ```
 
 >> The Dockerfile is configured to run with the Gradio application. Read the Dockerfile and adjust it if you want to deploy with the Streamlit application.
 
 ```bash
 # Deploy with Streamlit application
-docker run -p 8080:8080 diabetes-prediction
+docker run -d --name diabetes-prediction-system -p 6000:6000 diabetes-prediction:latest
 ```
 
 3. **Access the application**
 
-Open your browser and navigate to `http://localhost:7860` or <google.com/>
+Open your browser and navigate to `http://localhost:7000` if you run with Gradio application, or `http://localhost:6000` if you run with Streamlit application. You can also access the application through the available site <https://diabetes-prediction.qctrung.site/>
 
 ## Usage Guide
 
 ### 1. Making Predictions
 
-- Navigate to the "🔮 Prediction" page
+- Navigate to the "Prediction" page
 - Fill in health parameters (BMI, blood pressure, lifestyle factors, etc.)
 - Get instant diabetes risk assessment with probability scores
 

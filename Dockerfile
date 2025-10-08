@@ -1,5 +1,5 @@
 # Builder stage
-FROM python:3.11-slim AS builder
+FROM python:3.13-slim AS builder
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
     gcc g++ make libgomp1 gfortran \
@@ -10,7 +10,7 @@ RUN pip install --no-cache-dir --upgrade pip \
     && pip install --no-cache-dir -r requirements.txt
 
 # Runtime stage
-FROM python:3.11-slim AS runtime
+FROM python:3.13-slim AS runtime
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
     libgl1 \
@@ -37,8 +37,8 @@ RUN find /usr/local/lib/python3.11/site-packages -type d -name "tests" -exec rm 
 
 ## ==== Streamlit application ====
 # EXPOSE 8080
-# CMD ["streamlit", "run", "streamlit_app/Home.py", "--server.port=8080", "--server.address=0.0.0.0"]
+# CMD ["streamlit", "run", "streamlit_app/Home.py", "--server.port=6000", "--server.address=0.0.0.0"]
 
 ## ==== Gradio application ====
-EXPOSE 7860
+EXPOSE 7000
 CMD ["python", "./gradio_app/app.py"]
