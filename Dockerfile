@@ -20,7 +20,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     ca-certificates \
     && rm -rf /var/lib/apt/lists/*
 
-COPY --from=builder /usr/local/lib/python3.11/site-packages /usr/local/lib/python3.11/site-packages
+COPY --from=builder /usr/local/lib/python3.13/site-packages /usr/local/lib/python3.13/site-packages
 COPY --from=builder /usr/local/bin /usr/local/bin
 
 # Remove comment if you want to run Streamlit application instead of Gradio application
@@ -30,9 +30,9 @@ WORKDIR /app
 COPY . .
 
 # Cleanup
-RUN find /usr/local/lib/python3.11/site-packages -type d -name "tests" -exec rm -rf {} + \
-    && find /usr/local/lib/python3.11/site-packages -type d -name "__pycache__" -exec rm -rf {} + \
-    && find /usr/local/lib/python3.11/site-packages -type f -name "*.pyc" -delete \
+RUN find /usr/local/lib/python3.13/site-packages -type d -name "tests" -exec rm -rf {} + \
+    && find /usr/local/lib/python3.13/site-packages -type d -name "__pycache__" -exec rm -rf {} + \
+    && find /usr/local/lib/python3.13/site-packages -type f -name "*.pyc" -delete \
     && rm -rf /root/.cache /root/.local
 
 ## ==== Streamlit application ====
