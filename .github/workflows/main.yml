@@ -36,10 +36,10 @@ jobs:
           # Remove old version
           docker stop diabetes-prediction-system || true
           docker rm diabetes-prediction-system || true
-          docker image rm diabetes-prediction:latest || true
+          docker rmi diabetes-prediction:latest || true
           
           # Create new image and run container
-          docker build -t diabetes-prediction:latest .
+          docker build --no-cache -t diabetes-prediction:latest .
           docker run -d --name diabetes-prediction-system -p 7000:7000 diabetes-prediction:latest
 
           # Clean cache builder
