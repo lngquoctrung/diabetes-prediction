@@ -34,9 +34,9 @@ jobs:
           cd diabetes-prediction-system
 
           # Remove old version
-          docker stop diabetes-prediction-system || true
-          docker rm diabetes-prediction-system || true
-          docker rmi diabetes-prediction:latest || true
+          docker stop diabetes-prediction-system 2>/dev/null || true
+          docker rm diabetes-prediction-system 2>/dev/null || true
+          docker rmi diabetes-prediction:latest 2>/dev/null || true
           
           # Create new image and run container
           docker build --no-cache -t diabetes-prediction:latest .
