@@ -2,15 +2,7 @@ import gradio as gr
 import pandas as pd
 import plotly.express as px
 import plotly.graph_objects as go
-import sys
-from pathlib import Path
 import gc
-
-root_dir = str(Path(__file__).parent.parent.parent.absolute())
-if root_dir not in sys.path:
-    sys.path.insert(0, root_dir)
-
-from src.config import BRFSS_CLEANED_FILE_PATH
 
 _cached_df = None
 _cached_stats = None
@@ -21,7 +13,7 @@ def load_and_optimize_brfss_data():
         return _cached_df
     
     try:
-        df = pd.read_csv(BRFSS_CLEANED_FILE_PATH, low_memory=False)
+        df = pd.read_csv("https://media.githubusercontent.com/media/lngquoctrung/diabetes-prediction/refs/heads/main/data/processed/brfss_dataset.csv", low_memory=False)
         
         # Optimize memory usage
         for col in df.columns:

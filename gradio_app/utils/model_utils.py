@@ -10,7 +10,7 @@ import os
 import pickle
 from xgboost import XGBClassifier
 
-from src.config import BEST_F1_MODEL_FILE_PATH, BEST_F1_MODEL_SCALER_FILE_PATH, RANDOM_STATE, LOG_FORMAT
+from src.config import RANDOM_STATE, LOG_FORMAT
 from src.utils import load_data, make_dirs, sanitize_path, get_configured_logger
 
 class DiabetesXGBoostClassifier:
@@ -238,10 +238,10 @@ def load_trained_model_and_scaler():
     try:
         # Load pretrained model
         model = DiabetesXGBoostClassifier()
-        model.load_model(model_path=BEST_F1_MODEL_FILE_PATH)
+        model.load_model(model_path="https://media.githubusercontent.com/media/lngquoctrung/diabetes-prediction/refs/heads/main/artifacts/models/best_f1_model.pkl")
         
         # Load scaler
-        scaler = load_data(path=BEST_F1_MODEL_SCALER_FILE_PATH)
+        scaler = load_data(path="https://media.githubusercontent.com/media/lngquoctrung/diabetes-prediction/refs/heads/main/artifacts/scalers/best_f1_model_scaler.pkl")
         
         return model, scaler
     
