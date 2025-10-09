@@ -33,12 +33,9 @@ RUN find "${ENV_PATH}" -type d -name "tests" -exec rm -rf {} + 2>/dev/null || tr
     && find "${ENV_PATH}" -type d -name "__pycache__" -exec rm -rf {} + 2>/dev/null || true \
     && find "${ENV_PATH}" -type f -name "*.pyc" -delete \
     && find "${ENV_PATH}" -type f -name "*.pyo" -delete \
-    && find "${ENV_PATH}" -type d -name "*.dist-info" -exec rm -rf {}/RECORD {} + 2>/dev/null || true \ 
-    && find "${ENV_PATH}" -type d -name "*.egg-info" -exec rm -rf {} + 2>/dev/null || true \
     && find "${ENV_PATH}" -type d -name "docs" -exec rm -rf {} + 2>/dev/null || true \
     && find "${ENV_PATH}" -type d -name "examples" -exec rm -rf {} + 2>/dev/null || true \
-    && find "${ENV_PATH}" -type d -name "benchmarks" -exec rm -rf {} + 2>/dev/null || true \
-    && find "${ENV_PATH}" -name "*.so" -exec strip --strip-unneeded {} \; 2>/dev/null || true
+    && find "${ENV_PATH}" -type d -name "benchmarks" -exec rm -rf {} + 2>/dev/null || true
 
 # ===== Runtime stage =====
 FROM python:3.13-slim-bookworm AS runtime
