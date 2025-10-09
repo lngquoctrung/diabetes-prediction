@@ -37,7 +37,8 @@ RUN find "${ENV_PATH}" -type d -name "tests" -exec rm -rf {} + 2>/dev/null || tr
     && find "${ENV_PATH}" -type d -name "*.egg-info" -exec rm -rf {} + 2>/dev/null || true \
     && find "${ENV_PATH}" -type d -name "docs" -exec rm -rf {} + 2>/dev/null || true \
     && find "${ENV_PATH}" -type d -name "examples" -exec rm -rf {} + 2>/dev/null || true \
-    && find "${ENV_PATH}" -type d -name "benchmarks" -exec rm -rf {} + 2>/dev/null || true
+    && find "${ENV_PATH}" -type d -name "benchmarks" -exec rm -rf {} + 2>/dev/null || true \
+    && find "${ENV_PATH}" -name "*.so" -exec strip --strip-unneeded {} \; 2>/dev/null || true
 
 # ===== Runtime stage =====
 FROM python:3.13-slim-bookworm AS runtime
@@ -49,7 +50,9 @@ ENV ENV_PATH="/opt/.venv"
 RUN apt-get update && apt-get install -y --no-install-recommends \
     libgomp1 \
     && apt-get clean \
-    && rm -rf /var/lib/apt/lists/*
+    && rm -rf /var/lib/apt/lists/* \
+    && rm -rf /tmp/* \
+    && rm -rf /var/tmp/*
 
 # Cleanup
 RUN rm -rf ~/.local ~/.cache
