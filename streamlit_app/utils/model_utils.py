@@ -18,7 +18,7 @@ import os
 import pickle
 from xgboost import XGBClassifier
 
-from src.config import BEST_F1_MODEL_FILE_PATH, BEST_F1_MODEL_SCALER_FILE_PATH, RANDOM_STATE, LOG_FORMAT
+from src.config import RANDOM_STATE, LOG_FORMAT
 from src.utils import load_data, make_dirs, sanitize_path, get_configured_logger
 
 class DiabetesXGBoostClassifier:
@@ -247,10 +247,10 @@ def load_trained_model_and_scaler():
     try:
         # Load pretrained model
         model = DiabetesXGBoostClassifier()
-        model.load_model(model_path=BEST_F1_MODEL_FILE_PATH)
+        model.load_model(model_path="~/service/public/diabetes-prediction-app/xgboost_model_checkpoint.pkl")
 
         # Load scaler
-        scaler = load_data(path=BEST_F1_MODEL_SCALER_FILE_PATH)
+        scaler = load_data(path="~/services/public/diabetes-prediction-app/xgb_min_max_scaler.pkl")
         return model, scaler
     except FileNotFoundError as e:
         st.error(f"Model or scaler file not found: {e}")

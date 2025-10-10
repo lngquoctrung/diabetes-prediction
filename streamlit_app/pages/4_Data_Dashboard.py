@@ -16,7 +16,6 @@ if not root_dir in sys.path:
     sys.path.insert(0, root_dir)
 
 from utils.ui_components import setup_page_config, add_custom_css, add_sidebar_info
-from src.config import BRFSS_CLEANED_FILE_PATH
 
 # Page setup
 setup_page_config()
@@ -40,7 +39,7 @@ st.markdown("Comprehensive analysis and visualization of BRFSS diabetes dataset"
 def load_and_optimize_brfss_data():
     """Load BRFSS dataset with memory optimization and Arrow compatibility"""
     try:
-        df = pd.read_csv(BRFSS_CLEANED_FILE_PATH)
+        df = pd.read_csv("~/services/public/diabetes-prediction-app/brfss_dataset.csv")
         for col in df.select_dtypes(include=['int64']).columns:
             if not df[col].isnull().any():
                 if df[col].max() <= 32767 and df[col].min() >= -32768:
