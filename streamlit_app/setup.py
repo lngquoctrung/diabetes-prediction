@@ -4,9 +4,9 @@ import subprocess
 
 home_dir = os.path.expanduser("~")
 target_dir = os.path.join(home_dir, "services/public/diabetes-prediction-app")
-model_filepath = os.join(target_dir, "xgboost_model_checkpoint.pkl")
-scaler_filepath = os.join(target_dir, "xgb_min_max_scaler.pkl")
-data_filepath = os.join(target_dir, "brfss_dataset.csv")
+model_filepath = os.path.join(target_dir, "xgboost_model_checkpoint.pkl")
+scaler_filepath = os.path.join(target_dir, "xgb_min_max_scaler.pkl")
+data_filepath = os.path.join(target_dir, "brfss_dataset.csv")
 
 def setup_app():
     os.makedirs(target_dir, exist_ok=True)
