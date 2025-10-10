@@ -63,6 +63,7 @@ ENV PATH="${ENV_PATH}/bin:$PATH"
 
 WORKDIR /app
 COPY . .
+VOLUME [ "/data" ]
 
 ## ==== Streamlit application ====
 # EXPOSE 8080
