@@ -1,3 +1,29 @@
+# Setup before running app
+import subprocess
+subprocess.run(
+    ["mkdir", "-p", "~/services/public/diabetes-prediction-app"]
+    , check=True)
+subprocess.run(
+    ["curl", 
+     "https://github.com/lngquoctrung/diabetes-prediction/releases/download/v1.0.0/xgboost_model_checkpoint.pkl", 
+     "-o", 
+     "~/services/public/diabetes-prediction-app/xgboost_model_checkpoint.pkl"
+    ], 
+    check=True)
+subprocess.run(
+    ["curl", 
+     "https://github.com/lngquoctrung/diabetes-prediction/releases/download/v1.0.0/xgb_min_max_scaler.pkl", 
+     "-o", 
+     "~/services/public/diabetes-prediction-app/xgb_min_max_scaler.pkl"
+    ], 
+    check=True)
+subprocess.run(
+    ["curl", 
+     "https://github.com/lngquoctrung/diabetes-prediction/releases/download/v1.0.0/brfss_dataset.csv", "-o", 
+     "~/services/public/diabetes-prediction-app/brfss_dataset.csv"
+    ], 
+     check=True)
+
 import streamlit as st
 import sys
 import os
