@@ -13,7 +13,7 @@ def load_and_optimize_brfss_data():
         return _cached_df
     
     try:
-        df = pd.read_csv("https://media.githubusercontent.com/media/lngquoctrung/diabetes-prediction/refs/heads/main/data/processed/brfss_dataset.csv", low_memory=False)
+        df = pd.read_csv("https://github.com/lngquoctrung/diabetes-prediction/releases/download/v1.0.0/brfss_dataset.csv", low_memory=False)
         
         # Optimize memory usage
         for col in df.columns:

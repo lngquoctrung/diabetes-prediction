@@ -25,6 +25,13 @@ jobs:
           # Redirect to service folder
           cd ~/services
 
+          # Create public project folder if not exist
+          mkdir -p public/diabetes-prediction-app
+
+          # Download model checkpoint, scaler
+          curl "https://github.com/lngquoctrung/diabetes-prediction/releases/download/v1.0.0/xgboost_model_checkpoint.pkl" -o "./public/diabetes-prediction-app/xgboost_model_checkpoint.pkl"
+          curl "https://github.com/lngquoctrung/diabetes-prediction/releases/download/v1.0.0/xgb_min_max_scaler.pkl" -o "./public/diabetes-prediction-app/xgb_min_max_scaler.pkl"
+
           # Clone project if project folder does not exist
           if [ ! -d "diabetes-prediction-system" ]; then
             git clone -b production git@github.com:lngquoctrung/diabetes-prediction.git ~/services/diabetes-prediction-system
@@ -32,9 +39,6 @@ jobs:
 
           # Redirect to project folder
           cd diabetes-prediction-system
-
-          # Download model checkpoint, scaler and dataset
-          curl "https://github.com/lngquoctrung/diabetes-prediction/releases/download/v1.0.0/brfss_dataset.csv" -o "./brfss_dataset.csv"
 
           # Remove old version
           docker stop diabetes-prediction-system 2>/dev/null || true

@@ -13,15 +13,20 @@ from xgboost import XGBClassifier
 from src.config import RANDOM_STATE, LOG_FORMAT
 from src.utils import load_data, make_dirs, sanitize_path, get_configured_logger
 
+home_dir = os.path.expanduser("~")
+target_dir = os.path.join(home_dir, "services/public/diabetes-prediction-app")
+model_filepath = os.path.join(target_dir, "xgboost_model_checkpoint.pkl")
+scaler_filepath = os.path.join(target_dir, "xgb_min_max_scaler.pkl")
+
 def load_trained_model_and_scaler():
     """Load trained XGBoost model and scaler"""
     try:
         # Load pretrained model
         model = DiabetesXGBoostClassifier()
-        model.load_model(model_path="")
+        model.load_model(model_path=model_filepath)
         
         # Load scaler
-        scaler = load_data(path="")
+        scaler = load_data(path=scaler_filepath)
         
         return model, scaler
     
