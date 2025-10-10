@@ -13,6 +13,8 @@ if not dashboard_dir in sys.path:
 if not root_dir in sys.path:
     sys.path.insert(0, root_dir)
 
+from setup import setup_app, model_filepath, scaler_filepath
+setup_app()
 
 import os
 import pickle
@@ -20,6 +22,75 @@ from xgboost import XGBClassifier
 
 from src.config import RANDOM_STATE, LOG_FORMAT
 from src.utils import load_data, make_dirs, sanitize_path, get_configured_logger
+
+@st.cache_resource
+def load_trained_model_and_scaler():
+    """Load trained XGBoost model and scaler"""
+    try:
+        # Load pretrained model
+        model = DiabetesXGBoostClassifier()
+        model.load_model(model_path=model_filepath)
+
+        # Load scaler
+        scaler = load_data(path=scaler_filepath)
+        return model, scaler
+    except FileNotFoundError as e:
+        st.error(f"Model or scaler file not found: {e}")
+        st.error("Please ensure model files are in the correct directory.")
+        return None, None
+    except Exception as e:
+        st.error(f"Error loading model or scaler: {e}")
+        return None, None
+
+def make_prediction(model, scaler, feature_df):
+    """Make diabetes prediction using trained model"""
+    try:
+        # Apply scaling
+        feature_df_scaled = scaler.transform(feature_df)
+        if isinstance(feature_df_scaled, np.ndarray):
+            feature_df_scaled = pd.DataFrame(feature_df_scaled, columns=feature_df.columns)
+        
+        # Make prediction
+        probabilities = model.predict_proba(feature_df_scaled)
+        prob_no_diabetes, prob_prediabetes, prob_diabetes = probabilities[0]
+        
+        predictions = {
+            'No Diabetes': prob_no_diabetes,
+            'Pre-diabetes': prob_prediabetes,
+            'Diabetes': prob_diabetes
+        }
+        
+        return predictions
+    except Exception as e:
+        st.error(f"Error during prediction: {e}")
+        return None
+
+def assess_risk_level(predictions):
+    """Assess risk level based on prediction probabilities"""
+    max_pred = max(predictions.values())
+    max_class = max(predictions, key=predictions.get)
+    
+    if max_class == "No Diabetes":
+        risk_level = "LOW"
+        recommendation = "Excellent! Continue maintaining a healthy lifestyle."
+    elif max_class == "Pre-diabetes":
+        risk_level = "MODERATE"
+        recommendation = "Attention needed! Lifestyle changes can reduce risk."
+    else:
+        risk_level = "HIGH"
+        recommendation = "Consider consulting a doctor for advice and timely treatment."
+    
+    return risk_level, max_class, max_pred, recommendation
+
+def get_model_info():
+    """Return model information for display"""
+    return {
+        'model_name': 'XGBoost with Random Oversampling',
+        'accuracy': '89.55%',
+        'f1_score': '69.92%',
+        'training_samples': '450,445',
+        'data_source': 'BRFSS 2017-2023'
+    }
 
 class DiabetesXGBoostClassifier:
     """
@@ -240,72 +311,3 @@ class DiabetesXGBoostClassifier:
         except Exception as e:
             self.logger.error(f"Error during cross-validation: {str(e)}")
             raise
-
-@st.cache_resource
-def load_trained_model_and_scaler():
-    """Load trained XGBoost model and scaler"""
-    try:
-        # Load pretrained model
-        model = DiabetesXGBoostClassifier()
-        model.load_model(model_path="~/service/public/diabetes-prediction-app/xgboost_model_checkpoint.pkl")
-
-        # Load scaler
-        scaler = load_data(path="~/services/public/diabetes-prediction-app/xgb_min_max_scaler.pkl")
-        return model, scaler
-    except FileNotFoundError as e:
-        st.error(f"Model or scaler file not found: {e}")
-        st.error("Please ensure model files are in the correct directory.")
-        return None, None
-    except Exception as e:
-        st.error(f"Error loading model or scaler: {e}")
-        return None, None
-
-def make_prediction(model, scaler, feature_df):
-    """Make diabetes prediction using trained model"""
-    try:
-        # Apply scaling
-        feature_df_scaled = scaler.transform(feature_df)
-        if isinstance(feature_df_scaled, np.ndarray):
-            feature_df_scaled = pd.DataFrame(feature_df_scaled, columns=feature_df.columns)
-        
-        # Make prediction
-        probabilities = model.predict_proba(feature_df_scaled)
-        prob_no_diabetes, prob_prediabetes, prob_diabetes = probabilities[0]
-        
-        predictions = {
-            'No Diabetes': prob_no_diabetes,
-            'Pre-diabetes': prob_prediabetes,
-            'Diabetes': prob_diabetes
-        }
-        
-        return predictions
-    except Exception as e:
-        st.error(f"Error during prediction: {e}")
-        return None
-
-def assess_risk_level(predictions):
-    """Assess risk level based on prediction probabilities"""
-    max_pred = max(predictions.values())
-    max_class = max(predictions, key=predictions.get)
-    
-    if max_class == "No Diabetes":
-        risk_level = "LOW"
-        recommendation = "Excellent! Continue maintaining a healthy lifestyle."
-    elif max_class == "Pre-diabetes":
-        risk_level = "MODERATE"
-        recommendation = "Attention needed! Lifestyle changes can reduce risk."
-    else:
-        risk_level = "HIGH"
-        recommendation = "Consider consulting a doctor for advice and timely treatment."
-    
-    return risk_level, max_class, max_pred, recommendation
-
-def get_model_info():
-    """Return model information for display"""
-    return {
-        'model_name': 'XGBoost with Random Oversampling',
-        'accuracy': '89.55%',
-        'f1_score': '69.92%',
-        'training_samples': '450,445',
-        'data_source': 'BRFSS 2017-2023'
-    }

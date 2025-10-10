@@ -1,31 +1,6 @@
-# Setup before running app
-import os
-import subprocess
-
-home_dir = os.path.expanduser("~")
-target_dir = os.path.join(home_dir, "services/public/diabetes-prediction-app")
-
-os.makedirs(target_dir, exist_ok=True)
-
-files_to_download = {
-    "xgboost_model_checkpoint.pkl": "https://github.com/lngquoctrung/diabetes-prediction/releases/download/v1.0.0/xgboost_model_checkpoint.pkl",
-    "xgb_min_max_scaler.pkl": "https://github.com/lngquoctrung/diabetes-prediction/releases/download/v1.0.0/xgb_min_max_scaler.pkl",
-    "brfss_dataset.csv": "https://github.com/lngquoctrung/diabetes-prediction/releases/download/v1.0.0/brfss_dataset.csv"
-}
-
-for filename, url in files_to_download.items():
-    dest_path = os.path.join(target_dir, filename)
-    if not os.path.exists(dest_path):
-        try:
-            subprocess.run(["curl", "-L", url, "-o", dest_path], check=True)
-            print(f"Downloaded {filename}")
-        except subprocess.CalledProcessError as e:
-            print(f"Failed to download {filename}: {e}")
-    else:
-        print(f"{filename} already exists. Skipping download.")
-
 # Home page
 import streamlit as st
+import os
 import sys
 
 from pathlib import Path
