@@ -1,9 +1,10 @@
-data/raw
-data/processed/*
+data/
+artifacts/
 **/__pycache__
 **/.ipynb_checkpoints
+.gradio
 .idea
 .pytest_cache
 .venv
+
 .env
-!data/processed/brfss_dataset.csv
