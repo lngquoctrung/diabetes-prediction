@@ -13,8 +13,8 @@ from xgboost import XGBClassifier
 from src.config import RANDOM_STATE, LOG_FORMAT
 from src.utils import load_data, make_dirs, sanitize_path, get_configured_logger
 
-model_filepath = os.path.join("/app/data", "xgboost_model_checkpoint.pkl")
-scaler_filepath = os.path.join("/app/data", "xgb_min_max_scaler.pkl")
+model_filepath = os.path.join("/app/artifacts", "xgboost_model_checkpoint.pkl")
+scaler_filepath = os.path.join("/app/artifacts", "xgb_min_max_scaler.pkl")
 
 def load_trained_model_and_scaler():
     """Load trained XGBoost model and scaler"""
