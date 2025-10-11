@@ -49,9 +49,9 @@ jobs:
           docker rm diabetes-prediction-system 2>/dev/null || true
           docker rmi diabetes-prediction:latest 2>/dev/null || true
           
-          # Create new image and run container
+          # Create new image and run container with ABSOLUTE path
           docker build --no-cache -t diabetes-prediction:latest .
-          docker run -d --name diabetes-prediction-system -v ~/services/public/diabetes-prediction-app:/app/artifacts -p 7000:7000 diabetes-prediction:latest
+          docker run -d --name diabetes-prediction-system -v $HOME/services/public/diabetes-prediction-app:/app/artifacts -p 7000:7000 diabetes-prediction:latest
 
           # Clean cache builder
           docker builder prune -f
