@@ -51,7 +51,7 @@ jobs:
           
           # Create new image and run container
           docker build --no-cache -t diabetes-prediction:latest .
-          docker run -d --name diabetes-prediction-system -v ~/services/public/diabetes-prediction-app:/app/data -p 7000:7000 diabetes-prediction:latest
+          docker run -d --name diabetes-prediction-system -v ~/services/public/diabetes-prediction-app:/app/artifacts -p 7000:7000 diabetes-prediction:latest
 
           # Clean cache builder
           docker builder prune -f
