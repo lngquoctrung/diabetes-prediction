@@ -88,6 +88,6 @@ jobs:
                             -d \
                             --name diabetes-prediction-system \
                             -v "${{ secrets.PROJECT_PATH }}:/app/artifacts" \
-                            -p 7000:7000 \
+                            -p 127.0.0.1:${{ secrets.APP_PORT }}:${{ secrets.APP_PORT }} \
                             --restart unless-stopped \
                             "${{ secrets.DOCKERHUB_USERNAME }}/diabetes-prediction-system:latest"
