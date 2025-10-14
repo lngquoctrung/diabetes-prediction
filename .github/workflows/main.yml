@@ -1,62 +1,93 @@
 name: Deploy to EC2
 
 on:
-  push:
-    branches: [production]
+    push:
+      branches: 
+          - production
 
 jobs:
-  deploy:
-    runs-on: ubuntu-latest
+    setup:
+        name: Setup project
+        runs-on: ubuntu-latest
+        steps:
+            -
+                name: Create project folder, download pretrained model and scaler
+                uses: appleboy/ssh-action@master
+                with:
+                    host: ${{ secrets.VPS_HOST }}
+                    username: ${{ secrets.VPS_USERNAME }}
+                    key: ${{ secrets.VPS_PRIVATE_KEY }}
+                    script: |
+                        # Create project folder if not exist
+                        mkdir -p "${{ secrets.PROJECT_PATH }}"
 
-    steps:
-    - name: Checkout code
-      uses: actions/checkout@v3
-
-    - name: Set up SSH key
-      run: |
-        mkdir -p ~/.ssh
-        echo "${{ secrets.SSH_KEY }}" > ~/.ssh/id_rsa
-        chmod 600 ~/.ssh/id_rsa
-        ssh-keyscan -H ${{ secrets.HOST }} >> ~/.ssh/known_hosts
+                        # Download pretrained model and scaler
+                        if [ ! -e "${{ secrets.PROJECT_PATH }}/xgboost_model_checkpoint.pkl" ]; then
+                            curl \
+                                -L "https://github.com/lngquoctrung/diabetes-prediction/releases/download/v1.0.0/xgboost_model_checkpoint.pkl" \
+                                -o "${{ secrets.PROJECT_PATH }}/xgboost_model_checkpoint.pkl"
+                        fi
+                        if [ ! -e "${{ secrets.PROJECT_PATH }}/xgb_min_max_scaler.pkl" ]; then
+                            curl \
+                                -L "https://github.com/lngquoctrung/diabetes-prediction/releases/download/v1.0.0/xgb_min_max_scaler.pkl" \
+                                -o "${{ secrets.PROJECT_PATH }}/xgb_min_max_scaler.pkl"
+                        fi
     
-    - name: Deploy to EC2
-      run: |
-        ssh ${{ secrets.USERNAME }}@${{ secrets.HOST }} << 'EOF'
-          # Redirect to service folder
-          cd ~/services
+    build-and-push:
+        name: Build and push image to Docker Hub
+        runs-on: ubuntu-latest
+        needs: setup
+        steps:
+            -
+                name: Checkout code
+                uses: actions/checkout@v3
+            -
+                name: Login to Docker Hub
+                uses: docker/login-action@v3
+                with:
+                    username: ${{ secrets.DOCKERHUB_USERNAME }}
+                    password: ${{ secrets.DOCKERHUB_PASSWORD }}
+            -
+                name: Set up QEMU
+                uses: docker/setup-qemu-action@v3
+            -
+                name: Set up Docker Buildx
+                uses: docker/setup-buildx-action@v3
+            -
+                name: Build and push
+                uses: docker/build-push-action@v6
+                with:
+                    push: true
+                    tags: ${{ secrets.DOCKERHUB_USERNAME }}/diabetes-prediction-system:latest
 
-          # Create public project folder if not exist
-          mkdir -p public/diabetes-prediction-app
+    deploy:
+        name: Deploy to VPS
+        runs-on: ubuntu-latest
+        needs: build-and-push
+        steps:
+            - 
+                name: Pull image and run container on VPS
+                uses: appleboy/ssh-action@master
+                with:
+                    host: ${{ secrets.VPS_HOST }}
+                    username: ${{ secrets.VPS_USERNAME }}
+                    key: ${{ secrets.VPS_PRIVATE_KEY }}
+                    script: |
+                        # Stop and remove old container
+                        docker stop diabetes-prediction-system 2>/dev/null || true
+                        docker rm diabetes-prediction-system 2>/dev/null || true
 
-          # Download model checkpoint, scaler if not exist
-          if [ ! -f "./public/diabetes-prediction-app/xgboost_model_checkpoint.pkl" ]; then
-            curl -L "https://github.com/lngquoctrung/diabetes-prediction/releases/download/v1.0.0/xgboost_model_checkpoint.pkl" -o "./public/diabetes-prediction-app/xgboost_model_checkpoint.pkl"
-          fi
-          if [ ! -f "./public/diabetes-prediction-app/xgb_min_max_scaler.pkl" ]; then
-            curl -L "https://github.com/lngquoctrung/diabetes-prediction/releases/download/v1.0.0/xgb_min_max_scaler.pkl" -o "./public/diabetes-prediction-app/xgb_min_max_scaler.pkl"
-          fi
+                        # Remove old image
+                        docker rmi "${{ secrets.DOCKERHUB_USERNAME }}/diabetes-prediction-system:latest" 2>/dev/null || true
 
-          # Clone project if project folder does not exist
-          if [ ! -d "diabetes-prediction-system" ]; then
-            git clone -b production git@github.com:lngquoctrung/diabetes-prediction.git ~/services/diabetes-prediction-system
-          fi
-
-          # Redirect to project folder
-          cd diabetes-prediction-system
-
-          # Remove old version
-          docker stop diabetes-prediction-system 2>/dev/null || true
-          docker rm diabetes-prediction-system 2>/dev/null || true
-          docker rmi diabetes-prediction:latest 2>/dev/null || true
-          
-          # Create new image and run container with ABSOLUTE path
-          docker build --no-cache -t diabetes-prediction:latest .
-          docker run -d --name diabetes-prediction-system -v $HOME/services/public/diabetes-prediction-app:/app/artifacts -p 7000:7000 diabetes-prediction:latest
-
-          # Clean cache builder
-          docker builder prune -f
-
-          # Remove root folder release memory of server
-          cd ..
-          rm -rf diabetes-prediction-system
-        EOF
+                        # Pull latest image
+                        docker pull "${{ secrets.DOCKERHUB_USERNAME }}/diabetes-prediction-system:latest"
+                        
+                        # Run container
+                        docker run \
+                            -d \
+                            --name diabetes-prediction-system \
+                            -v "${{ secrets.PROJECT_PATH }}:/app/artifacts" \
+                            -p 7000:7000 \
+                            --restart unless-stopped \
+                            "${{ secrets.DOCKERHUB_USERNAME }}/diabetes-prediction-system:latest"
